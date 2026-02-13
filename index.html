@@ -94,15 +94,18 @@ header h1{
   display:flex;
   justify-content:space-around;
   padding:10px;
+  flex-wrap:wrap;
+  gap:5px;
 }
 
 .btn{
   background:#0044cc;
   color:white;
   text-decoration:none;
-  padding:8px 10px;
+  padding:6px 10px;
   border-radius:8px;
   font-size:14px;
+  cursor:pointer;
 }
 .btn:hover{background:#0066ff;}
 </style>
@@ -122,9 +125,11 @@ header h1{
 // ================================
 // GÉRER TOUT PAR CATÉGORIE ET MÉDIAS
 // ================================
+const SITE_URL = "https://business-tv.vercel.app/";
+
 const CATEGORIES = [
-{
- title: "business tv la kass",
+  {
+    title: "business tv la kass",
     phone: "237656050097",
     whatsapp: "237670035609",
     medias: [
@@ -133,7 +138,6 @@ const CATEGORIES = [
       { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 3" }
     ]
   },
-  
   {
     title: "lesfacilitatzurs middleman",
     phone: "237656050097",
@@ -142,26 +146,6 @@ const CATEGORIES = [
       { url: "https://youtu.be/fC_l0ON4Ebc?si=Q-NJgGYvuKfOiLGb", title: "Film 1" },
       { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 2" },
       { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 3" }
-    ]
-  },
-  
-    {
-    title: "🎬 Films & Séries",
-    phone: "237699111111",
-    whatsapp: "237699111111",
-    medias: [
-      { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "Film 1" },
-      { url: "https://www.tiktok.com/@tiktok/video/7252255174637815045", title: "Film 2" },
-      { url: "https://archive.org/embed/in-shot-20250618-050312535", title: "Film 3" }
-    ]
-  },
-  {
-    title: "🎵 Musiques",
-    phone: "237655222222",
-    whatsapp: "237655222222",
-    medias: [
-      { url: "https://www.youtube.com/watch?v=5qap5aO4i9A", title: "Musique 1" },
-      { url: "https://www.tiktok.com/@tiktok/video/7252255174637815046", title: "Musique 2" }
     ]
   }
 ];
@@ -180,13 +164,15 @@ CATEGORIES.forEach((cat, cIndex)=>{
   row.className = "media-row";
 
   cat.medias.forEach((media, mIndex)=>{
-    const mediaId = `cat${cIndex}_media${mIndex}`;
-
+    // Générer un lien unique sur le site pour le trafic
+    const siteLink = SITE_URL + `?category=${encodeURIComponent(cat.title)}&media=${encodeURIComponent(media.title)}`;
+    
     row.innerHTML += `
       <div class="media-card">
         <img src="https://via.placeholder.com/400x250?text=${encodeURIComponent(media.title)}">
         <div class="media-actions">
           <a class="btn" target="_blank" href="${media.url}">▶ Vidéo</a>
+          <button class="btn copy-link" data-link="${siteLink}">🔗 Copier</button>
           <a class="btn" href="tel:${cat.phone}">📞</a>
           <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent(media.title)}">💬</a>
         </div>
@@ -196,6 +182,18 @@ CATEGORIES.forEach((cat, cIndex)=>{
 
   section.appendChild(row);
   container.appendChild(section);
+});
+
+// ================================
+// COPIER LE LIEN DANS LE PRESSE-PAPIER
+// ================================
+document.addEventListener("click", function(e){
+  if(e.target.classList.contains("copy-link")){
+    const link = e.target.dataset.link;
+    navigator.clipboard.writeText(link).then(()=>{
+      alert("Lien copié : " + link);
+    }).catch(()=>alert("Impossible de copier le lien"));
+  }
 });
 </script>
 
