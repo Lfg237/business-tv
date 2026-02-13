@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Business TV – Catégories</title>
-
 <style>
 body{
   margin:0;
@@ -81,6 +80,8 @@ header h1{
   background:#121b2c;
   border-radius:14px;
   box-shadow:0 4px 10px rgba(0,0,0,0.5);
+  display:flex;
+  flex-direction:column;
 }
 
 .media-card img{
@@ -88,6 +89,7 @@ header h1{
   height:140px;
   object-fit:cover;
   border-radius:14px 14px 0 0;
+  cursor:pointer;
 }
 
 .media-actions{
@@ -110,10 +112,8 @@ header h1{
 .btn:hover{background:#0066ff;}
 </style>
 </head>
-
 <body>
 
-<!-- ===== HEADER ===== -->
 <header>
   <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png" alt="Logo Business TV">
   <h1>Business TV</h1>
@@ -122,9 +122,7 @@ header h1{
 <div id="content"></div>
 
 <script>
-// ================================
-// GÉRER TOUT PAR CATÉGORIE ET MÉDIAS
-// ================================
+// ===== CONFIG =====
 const SITE_URL = "https://business-tv.vercel.app/";
 
 const CATEGORIES = [
@@ -133,9 +131,9 @@ const CATEGORIES = [
     phone: "237656050097",
     whatsapp: "237670035609",
     medias: [
-      { url: "", title: "Film 1" },
-      { url: "", title: "Film 2" },
-      { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 3" }
+      { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "Film 1" },
+      { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 2" },
+      { url: "https://archive.org/embed/in-shot-20250618-050312535", title: "Film 3" }
     ]
   },
   {
@@ -143,16 +141,35 @@ const CATEGORIES = [
     phone: "237656050097",
     whatsapp: "237670035609",
     medias: [
-      { url: "https://youtu.be/fC_l0ON4Ebc?si=Q-NJgGYvuKfOiLGb", title: "Film 1" },
+      { url: "https://www.youtube.com/watch?v=fC_l0ON4Ebc", title: "Film 1" },
       { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 2" },
-      { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 3" }
+      { url: "https://archive.org/embed/vid-20260201-wa-0027", title: "Film 3" }
     ]
   }
 ];
 
-// ================================
-// GÉNÉRATION AUTOMATIQUE
-// ================================
+// ===== UTILITAIRE POUR YOUTUBE =====
+function getYouTubeThumbnail(url){
+  try{
+    const videoId = url.split("v=")[1].split("&")[0];
+    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  }catch{
+    return "https://via.placeholder.com/400x250?text=Vidéo";
+  }
+}
+
+// ===== UTILITAIRE POUR TIKTOK =====
+function getTikTokThumbnail(url){
+  // placeholder car extraction fiable nécessite API
+  return "https://via.placeholder.com/400x250?text=TikTok";
+}
+
+// ===== UTILITAIRE POUR AUTRES =====
+function getDefaultThumbnail(){
+  return "https://via.placeholder.com/400x250?text=Vidéo";
+}
+
+// ===== GENERATION DES CATEGORIES =====
 const container = document.getElementById("content");
 
 CATEGORIES.forEach((cat, cIndex)=>{
@@ -164,12 +181,16 @@ CATEGORIES.forEach((cat, cIndex)=>{
   row.className = "media-row";
 
   cat.medias.forEach((media, mIndex)=>{
-    // Générer un lien unique sur le site pour le trafic
     const siteLink = SITE_URL + `?category=${encodeURIComponent(cat.title)}&media=${encodeURIComponent(media.title)}`;
-    
+
+    // Choisir la miniature
+    let thumb = getDefaultThumbnail();
+    if(media.url.includes("youtube.com")) thumb = getYouTubeThumbnail(media.url);
+    else if(media.url.includes("tiktok.com")) thumb = getTikTokThumbnail(media.url);
+
     row.innerHTML += `
       <div class="media-card">
-        <img src="https://via.placeholder.com/400x250?text=${encodeURIComponent(media.title)}">
+        <img src="${thumb}" alt="${media.title}" data-video="${media.url}" data-site="${siteLink}">
         <div class="media-actions">
           <a class="btn" target="_blank" href="${media.url}">▶ Vidéo</a>
           <button class="btn copy-link" data-link="${siteLink}">🔗 Copier</button>
@@ -184,9 +205,7 @@ CATEGORIES.forEach((cat, cIndex)=>{
   container.appendChild(section);
 });
 
-// ================================
-// COPIER LE LIEN DANS LE PRESSE-PAPIER
-// ================================
+// ===== COPIER LE LIEN =====
 document.addEventListener("click", function(e){
   if(e.target.classList.contains("copy-link")){
     const link = e.target.dataset.link;
