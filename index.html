@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Business TV – Catégories</title>
+<title>Business TV</title>
+
 <style>
 body{
   margin:0;
   background:#0b0f1a;
   color:#fff;
-  font-family:Arial, sans-serif;
+  font-family:Arial,sans-serif;
 }
 
 /* ===== HEADER ===== */
@@ -19,46 +20,33 @@ header{
   background:#121b2c;
   display:flex;
   align-items:center;
-  padding:10px 20px;
+  padding:12px 18px;
   z-index:1000;
-  box-shadow:0 3px 8px rgba(0,0,0,0.5);
 }
-
 header img{
   width:50px;
   height:50px;
-  object-fit:cover;
-  border-radius:8px;
-  margin-right:15px;
+  border-radius:10px;
+  margin-right:12px;
 }
-
-/* ===== TEXTE ANIMÉ ===== */
 header h1{
   font-size:28px;
   font-weight:bold;
-  background: linear-gradient(270deg, #4ea1ff, #ff4ea1, #4effa1, #ffb64e);
-  background-size: 800% 800%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientMove 8s ease infinite;
-  margin:0;
+  background:linear-gradient(270deg,#4ea1ff,#ff4ea1,#4effa1);
+  background-size:600% 600%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:anim 6s ease infinite;
 }
-
-@keyframes gradientMove {
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
+@keyframes anim{
+  0%{background-position:0%}
+  50%{background-position:100%}
+  100%{background-position:0%}
 }
 
 /* ===== CATEGORIES ===== */
-.category{
-  margin:20px 0;
-}
-
-.category h2{
-  margin:10px;
-  color:#4ea1ff;
-}
+.category{margin:20px 0;}
+.category h2{margin:10px;color:#4ea1ff;}
 
 .media-row{
   display:flex;
@@ -67,154 +55,202 @@ header h1{
   padding:10px;
 }
 
-.media-row::-webkit-scrollbar{
-  height:6px;
-}
-.media-row::-webkit-scrollbar-thumb{
-  background:#333;
-  border-radius:10px;
-}
-
 .media-card{
-  min-width:240px;
+  min-width:260px;
   background:#121b2c;
   border-radius:14px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.5);
-  display:flex;
-  flex-direction:column;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(0,0,0,.6);
 }
 
-.media-card img{
+.thumb{
   width:100%;
-  height:140px;
+  height:150px;
   object-fit:cover;
-  border-radius:14px 14px 0 0;
   cursor:pointer;
 }
 
-.media-actions{
+.player iframe,
+.player video{
+  width:100%;
+  height:150px;
+  border:none;
+}
+
+.info{
+  padding:6px 10px;
+  font-size:13px;
+  color:#ccc;
+  display:flex;
+  justify-content:space-between;
+}
+
+.actions{
   display:flex;
   justify-content:space-around;
   padding:10px;
   flex-wrap:wrap;
-  gap:5px;
 }
 
 .btn{
   background:#0044cc;
   color:white;
-  text-decoration:none;
   padding:6px 10px;
   border-radius:8px;
-  font-size:14px;
+  font-size:13px;
+  text-decoration:none;
   cursor:pointer;
 }
 .btn:hover{background:#0066ff;}
 </style>
 </head>
+
 <body>
 
 <header>
-  <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png" alt="Logo Business TV">
+  <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png">
   <h1>Business TV</h1>
 </header>
 
 <div id="content"></div>
 
 <script>
-// ===== CONFIG =====
 const SITE_URL = "https://business-tv.vercel.app/";
 
+/* ===== TU MODIFIES ICI SEULEMENT ===== */
 const CATEGORIES = [
   {
-    title: "business tv la kass",
-    phone: "237656050097",
-    whatsapp: "237670035609",
-    medias: [
-      { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "Film 1" },
-      { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 2" },
-      { url: "https://archive.org/embed/in-shot-20250618-050312535", title: "Film 3" }
+    title:"Business TV La Kass",
+    phone:"237656050097",
+    whatsapp:"237670035609",
+    medias:[
+      { title:"YouTube 1", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+      { title:"TikTok 1", url:"https://www.tiktok.com/@scout2015/video/6718335390845095173" }
     ]
   },
   {
-    title: "lesfacilitateurs middleman",
-    phone: "237656050097",
-    whatsapp: "237670035609",
-    medias: [
-      { url: "https://www.youtube.com/watch?v=fC_l0ON4Ebc", title: "Film 1" },
-      { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 2" },
-   { url: "https://vm.tiktok.com/ZS9J4ELutEWUC-trVZ3/", title: "Film 2" },
-
-      { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 3" }
+    title:"Facilitateurs Middleman",
+    phone:"237699000111",
+    whatsapp:"237688999222",
+    medias:[
+      { title:"YouTube 2", url:"https://www.youtube.com/watch?v=fC_l0ON4Ebc" },
+      { title:"Vidéo MP4", url:"https://www.w3schools.com/html/mov_bbb.mp4" }
     ]
   }
 ];
 
-// ===== UTILITAIRE POUR YOUTUBE =====
-function getYouTubeThumbnail(url){
-  try{
-    const videoId = url.split("v=")[1].split("&")[0];
-    return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-  }catch{
-    return "https://via.placeholder.com/400x250?text=Vidéo";
-  }
+/* ===== OUTILS ===== */
+function ytID(url){
+  return url.split("v=")[1]?.split("&")[0];
+}
+function ytThumb(id){
+  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+}
+function tiktokEmbed(url){
+  return `https://www.tiktok.com/embed/${url.split("/video/")[1]}`;
+}
+function getViews(id){
+  return parseInt(localStorage.getItem(id) || 0);
+}
+function addView(id){
+  const v = getViews(id) + 1;
+  localStorage.setItem(id, v);
+  return v;
 }
 
-// ===== UTILITAIRE POUR TIKTOK =====
-function getTikTokThumbnail(url){
-  // placeholder car extraction fiable nécessite API
-  return "https://via.placeholder.com/400x250?text=TikTok";
-}
+/* ===== GENERATION ===== */
+const box=document.getElementById("content");
 
-// ===== UTILITAIRE POUR AUTRES =====
-function getDefaultThumbnail(){
-  return "https://via.placeholder.com/400x250?text=Vidéo";
-}
+CATEGORIES.forEach((cat,cIndex)=>{
+  const sec=document.createElement("section");
+  sec.className="category";
+  sec.innerHTML=`<h2>${cat.title}</h2>`;
 
-// ===== GENERATION DES CATEGORIES =====
-const container = document.getElementById("content");
+  const row=document.createElement("div");
+  row.className="media-row";
 
-CATEGORIES.forEach((cat, cIndex)=>{
-  const section = document.createElement("section");
-  section.className = "category";
-  section.innerHTML = `<h2>${cat.title}</h2>`;
+  cat.medias.forEach((m,mIndex)=>{
+    const shareLink = `${SITE_URL}?cat=${cIndex}&media=${mIndex}`;
+    const viewKey = `views_cat${cIndex}_media${mIndex}`;
 
-  const row = document.createElement("div");
-  row.className = "media-row";
+    let thumb="https://via.placeholder.com/400x250?text=Vidéo";
+    let type="video";
 
-  cat.medias.forEach((media, mIndex)=>{
-    const siteLink = SITE_URL + `?category=${encodeURIComponent(cat.title)}&media=${encodeURIComponent(media.title)}`;
+    if(m.url.includes("youtube")){
+      thumb=ytThumb(ytID(m.url));
+      type="youtube";
+    }else if(m.url.includes("tiktok")){
+      thumb="https://via.placeholder.com/400x250?text=TikTok";
+      type="tiktok";
+    }else if(m.url.endsWith(".mp4")){
+      type="mp4";
+    }
 
-    // Choisir la miniature
-    let thumb = getDefaultThumbnail();
-    if(media.url.includes("youtube.com")) thumb = getYouTubeThumbnail(media.url);
-    else if(media.url.includes("tiktok.com")) thumb = getTikTokThumbnail(media.url);
+    const card=document.createElement("div");
+    card.className="media-card";
 
-    row.innerHTML += `
-      <div class="media-card">
-        <img src="${thumb}" alt="${media.title}" data-video="${media.url}" data-site="${siteLink}">
-        <div class="media-actions">
-          <a class="btn" target="_blank" href="${media.url}">▶ Vidéo</a>
-          <button class="btn copy-link" data-link="${siteLink}">🔗 Copier</button>
-          <a class="btn" href="tel:${cat.phone}">📞</a>
-          <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent(media.title)}">💬</a>
-        </div>
+    card.innerHTML=`
+      <div class="player"
+           data-type="${type}"
+           data-url="${m.url}"
+           data-viewkey="${viewKey}"
+           data-share="${shareLink}">
+        <img class="thumb" src="${thumb}">
+      </div>
+
+      <div class="info">
+        <span>👁 <span class="views">${getViews(viewKey)}</span></span>
+        <span>🔗 Partage</span>
+      </div>
+
+      <div class="actions">
+        <button class="btn play">▶ Lire</button>
+        <button class="btn copy">📋 Copier</button>
+        <a class="btn" href="tel:${cat.phone}">📞</a>
+        <a class="btn" target="_blank"
+           href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent(shareLink)}">💬</a>
       </div>
     `;
+
+    row.appendChild(card);
   });
 
-  section.appendChild(row);
-  container.appendChild(section);
+  sec.appendChild(row);
+  box.appendChild(sec);
 });
 
-// ===== COPIER LE LIEN =====
-document.addEventListener("click", function(e){
-  if(e.target.classList.contains("copy-link")){
-    const link = e.target.dataset.link;
-    navigator.clipboard.writeText(link).then(()=>{
-      alert("Lien copié : " + link);
-    }).catch(()=>alert("Impossible de copier le lien"));
+/* ===== ACTIONS ===== */
+document.addEventListener("click",e=>{
+
+  /* LECTURE + COMPTEUR */
+  if(e.target.classList.contains("play")){
+    const card = e.target.closest(".media-card");
+    const player = card.querySelector(".player");
+    const type = player.dataset.type;
+    const url = player.dataset.url;
+    const key = player.dataset.viewkey;
+
+    const views = addView(key);
+    card.querySelector(".views").textContent = views;
+
+    if(type==="youtube"){
+      player.innerHTML=`<iframe src="https://www.youtube.com/embed/${ytID(url)}?autoplay=1"></iframe>`;
+    }else if(type==="tiktok"){
+      player.innerHTML=`<iframe src="${tiktokEmbed(url)}"></iframe>`;
+    }else{
+      player.innerHTML=`<video controls autoplay src="${url}"></video>`;
+    }
   }
+
+  /* COPIE DU LIEN */
+  if(e.target.classList.contains("copy")){
+    const link = e.target.closest(".media-card")
+                 .querySelector(".player").dataset.share;
+    navigator.clipboard.writeText(link);
+    e.target.textContent="✅ Copié";
+    setTimeout(()=>e.target.textContent="📋 Copier",1500);
+  }
+
 });
 </script>
 
