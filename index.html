@@ -2,377 +2,190 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Business TV – Vidéos Directes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business TV – Catégories</title>
+
 <style>
 body{
   margin:0;
-  font-family:'Segoe UI', sans-serif;
-  background:#121212;
+  background:#0b0f1a;
   color:#fff;
-  overflow-x:hidden;
+  font-family:Arial, sans-serif;
 }
+
+/* ===== HEADER ===== */
 header{
   position:sticky;
   top:0;
-  background:#1f1f1f;
-  padding:15px 20px;
+  background:#121b2c;
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  padding:10px 20px;
   z-index:1000;
-  box-shadow:0 2px 5px rgba(0,0,0,0.5);
+  box-shadow:0 3px 8px rgba(0,0,0,0.5);
 }
-.header-title{
-  font-size:22px;
+
+header img{
+  width:50px;
+  height:50px;
+  object-fit:cover;
+  border-radius:8px;
+  margin-right:15px;
+}
+
+/* ===== TEXTE ANIMÉ ===== */
+header h1{
+  font-size:28px;
   font-weight:bold;
-  color:#4ea1ff;
+  background: linear-gradient(270deg, #4ea1ff, #ff4ea1, #4effa1, #ffb64e);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 8s ease infinite;
+  margin:0;
 }
-.header-icon{
-  width:40px;
-  height:40px;
-  cursor:pointer;
+
+@keyframes gradientMove {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
 }
+
+/* ===== CATEGORIES ===== */
 .category{
-  margin:25px 0;
+  margin:20px 0;
 }
+
 .category h2{
-  margin:0 0 10px 20px;
-  font-size:20px;
+  margin:10px;
   color:#4ea1ff;
 }
-.row{
+
+.media-row{
   display:flex;
-  gap:15px;
+  gap:12px;
   overflow-x:auto;
-  padding:0 20px 20px 20px;
-  scroll-behavior:smooth;
-}
-.video-card{
-  min-width:300px;
-  background:#1a1a1a;
-  border-radius:12px;
-  overflow:hidden;
-  flex-shrink:0;
-  position:relative;
-  box-shadow:0 2px 8px rgba(0,0,0,0.6);
-  display:flex;
-  flex-direction:column;
-}
-.video-wrapper{
-  position:relative;
-  width:100%;
-  padding-top:56.25%; /* ratio 16:9 */
-}
-.video-wrapper iframe{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  border-radius:12px 12px 0 0;
-}
-.video-title{
-  position:absolute;
-  bottom:10px;
-  left:10px;
-  color:#4ea1ff;
-  font-size:16px;
-  font-weight:bold;
-  text-shadow:1px 1px 5px rgba(0,0,0,0.7);
-  z-index:10;
-}
-.comments{
   padding:10px;
-  background:#1f1f1f;
-  font-size:14px;
 }
-.comment{
-  background:#2a2a2a;
-  padding:6px;
-  border-radius:5px;
-  margin-bottom:5px;
+
+.media-row::-webkit-scrollbar{
+  height:6px;
 }
-.actions{
+.media-row::-webkit-scrollbar-thumb{
+  background:#333;
+  border-radius:10px;
+}
+
+.media-card{
+  min-width:240px;
+  background:#121b2c;
+  border-radius:14px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.5);
+}
+
+.media-card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+  border-radius:14px 14px 0 0;
+}
+
+.media-actions{
   display:flex;
   justify-content:space-around;
-  align-items:center;
   padding:10px;
-  background:#1b1b1b;
 }
-.actions button,
-.actions a{
-  background:none;
-  border:none;
-  color:#4ea1ff;
-  font-size:20px;
-  cursor:pointer;
+
+.btn{
+  background:#0044cc;
+  color:white;
   text-decoration:none;
-}
-footer{
-  background:#1f1f1f;
-  color:#777;
-  text-align:center;
-  padding:15px;
+  padding:8px 10px;
+  border-radius:8px;
   font-size:14px;
-  position:sticky;
-  bottom:0;
 }
+.btn:hover{background:#0066ff;}
 </style>
 </head>
+
 <body>
 
+<!-- ===== HEADER ===== -->
 <header>
-  <div class="header-title">Business TV</div>
-  <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png" class="header-icon" alt="Icône site">
+  <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png" alt="Logo Business TV">
+  <h1>Business TV</h1>
 </header>
 
-<div id="categories-container">
-
-<!-- ===== Catégorie 1 : Marketing ===== -->
-<div class="category">
-<h2>Marketing</h2>
-<div class="row">
-  <div class="video-card" data-id="marketing1">
-    <div class="video-wrapper">
-      <iframe src="https://archive.org/embed/in-shot-20250618-050312535" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Astuce Marketing 1</div>
-    </div>
-    <div class="comments">
-      <div class="comment">📈 Astuce marketing 1</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-
-  <div class="video-card" data-id="promotion des talents Envoi ta vidéo a WhatsAp 670035609 c'est gratuit ">
-    <div class="video-wrapper">
-      <iframe src="https://streamable.com/s85vtc" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Astuce Marketing 2</div>
-    </div>
-    <div class="comments">
-      <div class="comment">📈 Envoi ta vidéo à WhatsAp 670035609 c'est gratuit</div>
-</div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-</div>
-</div>
-
-
-
-<!-- ===== Catégorie 1 : Lesfacilitateurs Middleman===== -->
-<div class="category">
-<h2>Marketing</h2>
-<div class="row">
-  <div class="video-card" data-id="bâtiment travaux publics">
-    <div class="video-wrapper">
-      <iframe src="https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Astuce Marketing 1</div>
-    </div>
-    <div class="comments">
-      <div class="comment">📈 Astuce marketing 1</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-
-  <div class="video-card" data-id="promotion des talents Envoi ta vidéo a WhatsAp 670035609 c'est gratuit ">
-    <div class="video-wrapper">
-      <iframe src="https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Astuce Marketing 2</div>
-    </div>
-    <div class="comments">
-      <div class="comment">📈 Envoi ta vidéo à WhatsAp 670035609 c'est gratuit</div>
-</div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-</div>
-</div>
-
-
-<!-- ===== Catégorie 2 : Commerce ===== -->
-<div class="category">
-<h2>Commerce</h2>
-<div class="row">
-  <div class="video-card" data-id="commerce1">
-    <div class="video-wrapper">
-      <iframe src="https://archive.org/embed/in-shot-20250618-050312535" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Astuce Commerce 1</div>
-    </div>
-    <div class="comments">
-      <div class="comment">🛒 Astuce commerce 1</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-
-  <div class="video-card" data-id="commerce2">
-    <div class="video-wrapper">
-      <iframe src="https://archive.org/embed/vid-20260201-wa-0027" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Astuce Commerce 2</div>
-    </div>
-    <div class="comments">
-      <div class="comment">🛒 Astuce commerce 2</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ===== Catégorie 3 : Emploi ===== -->
-<div class="category">
-<h2>Recherche d'emploi</h2>
-<div class="row">
-  <div class="video-card" data-id="emploi1">
-    <div class="video-wrapper">
-      <iframe src="https://archive.org/embed/in-shot-20250618-050312535" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">CV & Entretien 1</div>
-    </div>
-    <div class="comments">
-      <div class="comment">💼 CV et entretien 1</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-
-  <div class="video-card" data-id="emploi2">
-    <div class="video-wrapper">
-      <iframe src="https://archive.org/embed/vid-20260201-wa-0027" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">CV & Entretien 2</div>
-    </div>
-    <div class="comments">
-      <div class="comment">💼 CV et entretien 2</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ===== Catégorie 4 : Brocante ===== -->
-<div class="category">
-<h2>Brocante</h2>
-<div class="row">
-  <div class="video-card" data-id="brocante1">
-    <div class="video-wrapper">
-      <iframe src="https://archive.org/embed/in-shot-20250618-050312535" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Brocante 1</div>
-    </div>
-    <div class="comments">
-      <div class="comment">🪙 Astuce brocante 1</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-
-  <div class="video-card" data-id="brocante2">
-    <div class="video-wrapper">
-      <iframe src="https://archive.org/embed/vid-20260201-wa-0027" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Brocante 2</div>
-    </div>
-    <div class="comments">
-      <div class="comment">🪙 Astuce brocante 2</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- ===== Catégorie 5 : Voyage ===== -->
-<div class="category">
-<h2>Voyage</h2>
-<div class="row">
-  <div class="video-card" data-id="voyage1">
-    <div class="video-wrapper">
-      <iframe src="https://archive.org/embed/in-shot-20250618-050312535" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Voyage 1</div>
-    </div>
-    <div class="comments">
-      <div class="comment">✈️ Destination 1</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-
-  <div class="video-card" data-id="voyage2">
-    <div class="video-wrapper">
-      <iframe src="https://archive.org/embed/vid-20260201-wa-0027" allowfullscreen frameborder="0"></iframe>
-      <div class="video-title">Voyage 2</div>
-    </div>
-    <div class="comments">
-      <div class="comment">✈️ Destination 2</div>
-    </div>
-    <div class="actions">
-      <a href="https://wa.me/670035609">💬</a>
-      <a href="tel:656050097">📞</a>
-      <button class="copy-link">🔗</button>
-    </div>
-  </div>
-</div>
-</div>
-
-</div> <!-- Fin categories-container -->
-
-<footer>Business TV – Lecture directe et liens uniques par vidéo</footer>
+<div id="content"></div>
 
 <script>
-// ===== COPIER LIEN UNIQUE =====
-document.querySelectorAll(".copy-link").forEach(button=>{
-  button.addEventListener("click", function(){
-    const videoCard = this.closest(".video-card");
-    const videoId = videoCard.dataset.id;
-    const url = `${window.location.origin}?video=${videoId}`;
-    navigator.clipboard.writeText(url);
-    alert("Lien copié : " + url);
-  });
-});
-
-// ===== LIRE VIDEO SPECIFIQUE AU DEMARRAGE =====
-const params = new URLSearchParams(window.location.search);
-const videoId = params.get("video");
-if(videoId){
-  const targetCard = document.querySelector(`.video-card[data-id="${videoId}"]`);
-  if(targetCard){
-    targetCard.scrollIntoView({behavior:"smooth", block:"center"});
+// ================================
+// GÉRER TOUT PAR CATÉGORIE ET MÉDIAS
+// ================================
+const CATEGORIES = [
+  {
+    title: "lesfacilitatzurs middleman",
+    phone: "237656050097",
+    whatsapp: "237670035609",
+    medias: [
+      { url: "https://youtu.be/fC_l0ON4Ebc?si=Q-NJgGYvuKfOiLGb", title: "Film 1" },
+      { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 2" },
+      { url: "https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/", title: "Film 3" }
+    ]
+  },
+  
+    {
+    title: "🎬 Films & Séries",
+    phone: "237699111111",
+    whatsapp: "237699111111",
+    medias: [
+      { url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", title: "Film 1" },
+      { url: "https://www.tiktok.com/@tiktok/video/7252255174637815045", title: "Film 2" },
+      { url: "https://archive.org/embed/in-shot-20250618-050312535", title: "Film 3" }
+    ]
+  },
+  {
+    title: "🎵 Musiques",
+    phone: "237655222222",
+    whatsapp: "237655222222",
+    medias: [
+      { url: "https://www.youtube.com/watch?v=5qap5aO4i9A", title: "Musique 1" },
+      { url: "https://www.tiktok.com/@tiktok/video/7252255174637815046", title: "Musique 2" }
+    ]
   }
-}
+];
+
+// ================================
+// GÉNÉRATION AUTOMATIQUE
+// ================================
+const container = document.getElementById("content");
+
+CATEGORIES.forEach((cat, cIndex)=>{
+  const section = document.createElement("section");
+  section.className = "category";
+  section.innerHTML = `<h2>${cat.title}</h2>`;
+
+  const row = document.createElement("div");
+  row.className = "media-row";
+
+  cat.medias.forEach((media, mIndex)=>{
+    const mediaId = `cat${cIndex}_media${mIndex}`;
+
+    row.innerHTML += `
+      <div class="media-card">
+        <img src="https://via.placeholder.com/400x250?text=${encodeURIComponent(media.title)}">
+        <div class="media-actions">
+          <a class="btn" target="_blank" href="${media.url}">▶ Vidéo</a>
+          <a class="btn" href="tel:${cat.phone}">📞</a>
+          <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent(media.title)}">💬</a>
+        </div>
+      </div>
+    `;
+  });
+
+  section.appendChild(row);
+  container.appendChild(section);
+});
 </script>
 
 </body>
