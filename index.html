@@ -125,22 +125,17 @@ const CATEGORIES = [
     whatsapp:"237670035609",
     medias:[
       { title:"YouTube 1", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-      { title:"TikTok 1", url:"https://www.tiktok.com/@scout2015/video/6718335390845095173" }
+      { title:"TikTok OK", url:"https://www.tiktok.com/@scout2015/video/6718335390845095173" }
     ]
   },
   {
     title:"Facilitateurs Middleman",
-    phone:"23765605097",
+    phone:"237656050097",
     whatsapp:"237670035609",
     medias:[
+      { title:"TikTok lien court", url:"https://vm.tiktok.com/ZS9J4ELutEWUC-trVZ3/" },
       { title:"YouTube 2", url:"https://www.youtube.com/watch?v=fC_l0ON4Ebc" },
-{ title:"YouTube ", url:"https://vm.tiktok.com/ZS9J4ELutEWUC-trVZ3/" },
-{ title:"YouTube ", url:"https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/" },
-{ title:"YouTube ", url:"https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/" },
-      
-      
-      
-      { title:"Vidéo MP4", url:"https://www.w3schools.com/html/mov_bbb.mp4" }
+      { title:"MP4", url:"https://www.w3schools.com/html/mov_bbb.mp4" }
     ]
   }
 ];
@@ -152,9 +147,21 @@ function ytID(url){
 function ytThumb(id){
   return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 }
-function tiktokEmbed(url){
-  return `https://www.tiktok.com/embed/${url.split("/video/")[1]}`;
+
+/* TikTok */
+function getTikTokId(url){
+  if(url.includes("/video/")){
+    return url.split("/video/")[1].split("?")[0];
+  }
+  return null;
 }
+function tiktokEmbed(url){
+  const id = getTikTokId(url);
+  if(!id) return null;
+  return `https://www.tiktok.com/embed/${id}`;
+}
+
+/* Vues */
 function getViews(id){
   return parseInt(localStorage.getItem(id) || 0);
 }
@@ -228,7 +235,6 @@ CATEGORIES.forEach((cat,cIndex)=>{
 /* ===== ACTIONS ===== */
 document.addEventListener("click",e=>{
 
-  /* LECTURE + COMPTEUR */
   if(e.target.classList.contains("play")){
     const card = e.target.closest(".media-card");
     const player = card.querySelector(".player");
@@ -242,16 +248,20 @@ document.addEventListener("click",e=>{
     if(type==="youtube"){
       player.innerHTML=`<iframe src="https://www.youtube.com/embed/${ytID(url)}?autoplay=1"></iframe>`;
     }else if(type==="tiktok"){
-      player.innerHTML=`<iframe src="${tiktokEmbed(url)}"></iframe>`;
+      const embed = tiktokEmbed(url);
+      if(embed){
+        player.innerHTML=`<iframe src="${embed}" allowfullscreen></iframe>`;
+      }else{
+        window.open(url,"_blank");
+      }
     }else{
       player.innerHTML=`<video controls autoplay src="${url}"></video>`;
     }
   }
 
-  /* COPIE DU LIEN */
   if(e.target.classList.contains("copy")){
     const link = e.target.closest(".media-card")
-                 .querySelector(".player").dataset.share;
+      .querySelector(".player").dataset.share;
     navigator.clipboard.writeText(link);
     e.target.textContent="✅ Copié";
     setTimeout(()=>e.target.textContent="📋 Copier",1500);
