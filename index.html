@@ -25,9 +25,19 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .btn:hover{background:#0066ff}
 
 /* ===== BARRE ANNONCES ===== */
-.annonce-bar{overflow:hidden;background:#0e1524;margin-top:10px}
-.annonce-track{display:flex;gap:10px;padding:8px;width:max-content;animation:defile 25s linear infinite}
-@keyframes defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.annonce-bar {
+  overflow-x: auto;   /* scroll horizontal activé */
+  overflow-y: hidden; /* pas de scroll vertical */
+  background:#0e1524;
+  margin-top:10px;
+  padding:8px 0;
+  white-space: nowrap; /* garde les boutons sur une ligne */
+}
+.annonce-track {
+  display: inline-flex; /* boutons sur une ligne horizontale */
+  gap:10px;
+}
+/* on retire l'animation pour scroll automatique */
 .annonce-btn{background:#ff4ea1;color:#fff;border:none;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;white-space:nowrap}
 
 /* ===== POPUP ===== */
@@ -46,19 +56,13 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
     <h1>Business TV</h1>
   </div>
 
-  <!-- BOUTONS DEFILANTS -->
+  <!-- BOUTONS SCROLLABLES -->
   <div class="annonce-bar">
     <div class="annonce-track">
-      <button class="annonce-btn" data-text="📢 Promo Business TV – Diffusion gratuite">📢 Promo</button>
-      <button class="annonce-btn" data-text="🎬 Envoie ta vidéo pour diffusion">🎬 Vidéo</button>
-      <button class="annonce-btn" data-text="🎧 Publicité audio & podcast">🎧 Audio</button>
-      <button class="annonce-btn" data-text="💼 Promotion entreprise">💼 Business</button>
-
-      <!-- duplication pour effet infini -->
-      <button class="annonce-btn" data-text="📢 Promo Business TV – Diffusion gratuite">📢 Promo</button>
-      <button class="annonce-btn" data-text="🎬 Envoie ta vidéo pour diffusion">🎬 Vidéo</button>
-      <button class="annonce-btn" data-text="🎧 Publicité audio & podcast">🎧 Audio</button>
-      <button class="annonce-btn" data-text="💼 Promotion entreprise">💼 Business</button>
+      <button class="annonce-btn" data-text="📢 Promo Business TV – Diffusion gratuite" data-phone="23770035609" data-whatsapp="237656050097">📢 Promo</button>
+      <button class="annonce-btn" data-text="🎬 Envoie ta vidéo pour diffusion" data-phone="237655000001" data-whatsapp="237670000001">🎬 Vidéo</button>
+      <button class="annonce-btn" data-text="🎧 Publicité audio & podcast" data-phone="237655000002" data-whatsapp="237670000002">🎧 Audio</button>
+      <button class="annonce-btn" data-text="💼 Promotion entreprise" data-phone="237655000003" data-whatsapp="237670000003">💼 Business</button>
     </div>
   </div>
 </header>
@@ -70,8 +74,8 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
   <div class="popup-content">
     <p id="popupText"></p>
     <div class="popup-actions">
-      <a href="tel:656050097">📞 Appeler</a>
-      <a target="_blank" href="https://wa.me/237670035609">💬 WhatsApp</a>
+      <a id="popupCall" href="">📞 Appeler</a>
+      <a id="popupWA" target="_blank" href="">💬 WhatsApp</a>
       <button onclick="popup.style.display='none'">❌ Fermer</button>
     </div>
   </div>
@@ -80,15 +84,14 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 <script>
 const SITE_URL="https://business-tv.vercel.app/";
 
-/* ===== MODIFIER ICI ===== */
+/* ===== CATEGORIES ===== */
 const CATEGORIES = [
   {
     title:"B.TV La Kass",
     phone:"237656050097",
     whatsapp:"237670035609",
     medias:[
-{title:"Facebook", url:"https://www.facebook.com/reel/903995929017243/?app=fbl"},
-    
+      {title:"Facebook", url:"https://www.facebook.com/reel/903995929017243/?app=fbl"},
       {title:"YouTube 1", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
       {title:"TikTok 1", url:"https://www.tiktok.com/@scout2015/video/6718335390845095173"},
       {title:"Image 1", url:"https://via.placeholder.com/400x250.png?text=Image+1"},
@@ -97,7 +100,6 @@ const CATEGORIES = [
       {title:"Facebook", url:"https://www.facebook.com/61587537976582/posts/122104193205251265/?app=fbl"}
     ]
   },
-  
   {
     title:"B.TV album",
     phone:"237656050097",
@@ -107,70 +109,67 @@ const CATEGORIES = [
       {title:"Facebook", url:"https://www.facebook.com/61587537976582/posts/122104193205251265/?app=fbl"}
     ]
   },
-
   {
     title:"B.TV MP3 podcast FM ",
     phone:"237656050097",
     whatsapp:"237670035609",
     medias:[
       {title:"mp3 1", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"},
-{title:"mp3 2", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"},
-{title:"MP3 3", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/AUD-20250723-WA0001.mp3"},
+      {title:"mp3 2", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"},
+      {title:"MP3 3", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/AUD-20250723-WA0001.mp3"}
     ]
   },
-{
+  {
     title:"B.TV religion bible audio Mp3 ",
     phone:"237656050097",
     whatsapp:"237670035609",
     medias:[
-      
-{title:"MP3 1", url:"https://emcitv.com/bible/audio/?utm_source=chatgpt.com"},
+      {title:"MP3 1", url:"https://emcitv.com/bible/audio/?utm_source=chatgpt.com"}
     ]
   },
-{
+  {
     title:"B.TV religion coran audio MP3 ",
     phone:"237656050097",
     whatsapp:"237670035609",
     medias:[
-      
-{title:"MP3 3", url:"https://mp3quran.net/fr?utm_source=chatgpt.com"},
+      {title:"MP3 3", url:"https://mp3quran.net/fr?utm_source=chatgpt.com"}
     ]
   },
-
-
-
   {
     title:"B.TV promo entreprise",
     phone:"237656050097",
     whatsapp:"237670035609",
     medias:[
       {title:"YouTube 1", url:"https://www.youtube.com/watch?v=fC_l0ON4Ebc"},
-{title:"YouTube 1", url:"https://youtu.be/6OX7skYfPNE?si=-PXDFNUwQLnpHz44"},
+      {title:"YouTube 2", url:"https://youtu.be/6OX7skYfPNE?si=-PXDFNUwQLnpHz44"},
       {title:"TikTok 1", url:"https://www.tiktok.com/@tiktok/video/7252255174637815045"},
       {title:"TikTok 2", url:"https://www.tiktok.com/@tiktok/video/7252255174637815045"},
-       {title:"TikTok 3", url:"https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/"},
+      {title:"TikTok 3", url:"https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/"},
       {title:"MP4 2", url:"https://www.w3schools.com/html/mov_bbb.mp4"}
     ]
   },
-{
+  {
     title:"B.TV rencontre célibataire 🍒",
     phone:"237656050097",
     whatsapp:"237670035609",
     medias:[
-      
-{title:"site web", url:"https://lovestring.vercel.app/"},
+      {title:"site web", url:"https://lovestring.vercel.app/"}
     ]
-  },
-
+  }
 ];
 
 /* ===== OUTILS ===== */
-function ytID(u){try{return new URL(u).searchParams.get("v")}catch(e){return null}}
-function ytThumb(id){return `https://img.youtube.com/vi/${id}/hqdefault.jpg`}
+function ytID(u){
+  try{
+    const url=new URL(u);
+    if(url.hostname.includes("youtu.be")) return url.pathname.slice(1);
+    return url.searchParams.get("v");
+  }catch(e){return null}
+}
+function ytThumb(id){return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : "https://via.placeholder.com/400x250?text=YouTube";}
 
-/* ===== GENERATION CATEGORIES ===== */
+/* ===== GENERATION DES CATEGORIES ===== */
 const box=document.getElementById("content");
-
 CATEGORIES.forEach(cat=>{
   const sec=document.createElement("section");
   sec.className="category";
@@ -179,13 +178,14 @@ CATEGORIES.forEach(cat=>{
   row.className="media-row";
 
   cat.medias.forEach(m=>{
-    let thumb="https://via.placeholder.com/400x250?text=Media";
-    if(m.url.includes("youtube")) thumb=ytThumb(ytID(m.url));
-    if(m.url.match(/\.(png|jpg|jpeg|gif)$/)) thumb=m.url;
-
+    let content=`<img class="thumb" src="https://via.placeholder.com/400x250?text=Media">`;
+    if(m.url.includes("youtube") || m.url.includes("youtu.be")){
+      const id=ytID(m.url);
+      content=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
+    }
     row.innerHTML+=`
     <div class="media-card">
-      <div class="player"><img class="thumb" src="${thumb}"></div>
+      <div class="player">${content}</div>
       <div class="actions">
         <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
         <a class="btn" href="tel:${cat.phone}">📞</a>
@@ -193,7 +193,6 @@ CATEGORIES.forEach(cat=>{
       </div>
     </div>`;
   });
-
   sec.appendChild(row);
   box.appendChild(sec);
 });
@@ -201,10 +200,14 @@ CATEGORIES.forEach(cat=>{
 /* ===== POPUP ===== */
 const popup=document.getElementById("popup");
 const popupText=document.getElementById("popupText");
+const popupCall=document.getElementById("popupCall");
+const popupWA=document.getElementById("popupWA");
 
 document.addEventListener("click",e=>{
   if(e.target.classList.contains("annonce-btn")){
     popupText.textContent=e.target.dataset.text;
+    popupCall.href=`tel:${e.target.dataset.phone}`;
+    popupWA.href=`https://wa.me/${e.target.dataset.whatsapp}`;
     popup.style.display="flex";
   }
 });
