@@ -4,35 +4,81 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Business TV</title>
+
 <style>
 body{margin:0;background:#0b0f1a;color:#fff;font-family:Arial,sans-serif;}
-header{position:sticky;top:0;background:#121b2c;display:flex;align-items:center;padding:12px 18px;z-index:1000;}
-header img{width:50px;height:50px;border-radius:10px;margin-right:12px;}
-header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea1ff,#ff4ea1,#4effa1);background-size:600% 600%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:anim 6s ease infinite;}
+header{position:sticky;top:0;background:#121b2c;padding:12px 18px;z-index:1000}
+.header-top{display:flex;align-items:center;gap:10px}
+header img{width:50px;height:50px;border-radius:10px}
+header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea1ff,#ff4ea1,#4effa1);background-size:600% 600%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:anim 6s ease infinite}
 @keyframes anim{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
-.category{margin:20px 0;}
-.category h2{margin:10px;color:#4ea1ff;}
-.media-row{display:flex;gap:12px;overflow-x:auto;padding:10px;}
-.media-card{min-width:260px;background:#121b2c;border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.6);}
-.thumb{width:100%;height:150px;object-fit:cover;cursor:pointer;}
-.player iframe,.player video,.player img,.player audio{width:100%;height:150px;border:none;}
-.info{padding:6px 10px;font-size:13px;color:#ccc;display:flex;justify-content:space-between;}
-.actions{display:flex;justify-content:space-around;padding:10px;flex-wrap:wrap;}
-.btn{background:#0044cc;color:white;padding:6px 10px;border-radius:8px;font-size:13px;text-decoration:none;cursor:pointer;}
-.btn:hover{background:#0066ff;}
+
+.category{margin:20px 0}
+.category h2{margin:10px;color:#4ea1ff}
+.media-row{display:flex;gap:12px;overflow-x:auto;padding:10px}
+.media-card{min-width:260px;background:#121b2c;border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.6)}
+.thumb{width:100%;height:150px;object-fit:cover;cursor:pointer}
+.player iframe,.player video,.player img,.player audio{width:100%;height:150px;border:none}
+.info{padding:6px 10px;font-size:13px;color:#ccc;display:flex;justify-content:space-between}
+.actions{display:flex;justify-content:space-around;padding:10px;flex-wrap:wrap}
+.btn{background:#0044cc;color:white;padding:6px 10px;border-radius:8px;font-size:13px;text-decoration:none;cursor:pointer}
+.btn:hover{background:#0066ff}
+
+/* ===== BARRE ANNONCES ===== */
+.annonce-bar{overflow:hidden;background:#0e1524;margin-top:10px}
+.annonce-track{display:flex;gap:10px;padding:8px;width:max-content;animation:defile 25s linear infinite}
+@keyframes defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.annonce-btn{background:#ff4ea1;color:#fff;border:none;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;white-space:nowrap}
+
+/* ===== POPUP ===== */
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9999}
+.popup-content{background:#121b2c;padding:20px;border-radius:16px;width:90%;max-width:320px;text-align:center}
+.popup-actions{display:flex;gap:10px;justify-content:center;margin-top:15px}
+.popup-actions a,.popup-actions button{background:#0066ff;color:#fff;padding:8px 12px;border-radius:10px;border:none;text-decoration:none;font-size:13px;cursor:pointer}
 </style>
 </head>
+
 <body>
 
 <header>
-  <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png">
-  <h1>Business TV</h1>
+  <div class="header-top">
+    <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png">
+    <h1>Business TV</h1>
+  </div>
+
+  <!-- BOUTONS DEFILANTS -->
+  <div class="annonce-bar">
+    <div class="annonce-track">
+      <button class="annonce-btn" data-text="📢 Promo Business TV – Diffusion gratuite">📢 Promo</button>
+      <button class="annonce-btn" data-text="🎬 Envoie ta vidéo pour diffusion">🎬 Vidéo</button>
+      <button class="annonce-btn" data-text="🎧 Publicité audio & podcast">🎧 Audio</button>
+      <button class="annonce-btn" data-text="💼 Promotion entreprise">💼 Business</button>
+
+      <!-- duplication pour effet infini -->
+      <button class="annonce-btn" data-text="📢 Promo Business TV – Diffusion gratuite">📢 Promo</button>
+      <button class="annonce-btn" data-text="🎬 Envoie ta vidéo pour diffusion">🎬 Vidéo</button>
+      <button class="annonce-btn" data-text="🎧 Publicité audio & podcast">🎧 Audio</button>
+      <button class="annonce-btn" data-text="💼 Promotion entreprise">💼 Business</button>
+    </div>
+  </div>
 </header>
 
 <div id="content"></div>
 
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <p id="popupText"></p>
+    <div class="popup-actions">
+      <a href="tel:656050097">📞 Appeler</a>
+      <a target="_blank" href="https://wa.me/237670035609">💬 WhatsApp</a>
+      <button onclick="popup.style.display='none'">❌ Fermer</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const SITE_URL = "https://business-tv.vercel.app/";
+const SITE_URL="https://business-tv.vercel.app/";
 
 /* ===== MODIFIER ICI ===== */
 const CATEGORIES = [
@@ -119,80 +165,47 @@ const CATEGORIES = [
 ];
 
 /* ===== OUTILS ===== */
-function ytID(url){try{return new URL(url).searchParams.get("v");}catch(e){return null;}}
-function ytThumb(id){return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;}
-function getTikTokId(url){if(url.includes("/video/")) return url.split("/video/")[1].split("?")[0]; return null;}
-function tiktokEmbed(url){const id=getTikTokId(url); if(!id)return null; return `https://www.tiktok.com/embed/${id}`;}
-function getViews(id){return parseInt(localStorage.getItem(id)||0);}
-function addView(id){const v=getViews(id)+1; localStorage.setItem(id,v); return v;}
+function ytID(u){try{return new URL(u).searchParams.get("v")}catch(e){return null}}
+function ytThumb(id){return `https://img.youtube.com/vi/${id}/hqdefault.jpg`}
 
-/* ===== GENERATION ===== */
+/* ===== GENERATION CATEGORIES ===== */
 const box=document.getElementById("content");
 
-CATEGORIES.forEach((cat,cIndex)=>{
-  const sec=document.createElement("section"); sec.className="category";
+CATEGORIES.forEach(cat=>{
+  const sec=document.createElement("section");
+  sec.className="category";
   sec.innerHTML=`<h2>${cat.title}</h2>`;
-  const row=document.createElement("div"); row.className="media-row";
+  const row=document.createElement("div");
+  row.className="media-row";
 
-  cat.medias.forEach((m,mIndex)=>{
-    const shareLink=`${SITE_URL}?cat=${cIndex}&media=${mIndex}`;
-    const viewKey=`views_cat${cIndex}_media${mIndex}`;
-    let thumb="https://via.placeholder.com/400x250.png?text=Media";
-    let type="other";
+  cat.medias.forEach(m=>{
+    let thumb="https://via.placeholder.com/400x250?text=Media";
+    if(m.url.includes("youtube")) thumb=ytThumb(ytID(m.url));
+    if(m.url.match(/\.(png|jpg|jpeg|gif)$/)) thumb=m.url;
 
-    if(m.url.includes("youtube")){thumb=ytThumb(ytID(m.url)); type="youtube";}
-    else if(m.url.includes("tiktok")){thumb="https://via.placeholder.com/400x250.png?text=TikTok"; type="tiktok";}
-    else if(m.url.endsWith(".mp4")){thumb="https://via.placeholder.com/400x250.png?text=MP4"; type="mp4";}
-    else if(m.url.match(/\.(jpg|jpeg|png|gif)$/i)){thumb=m.url; type="image";}
-    else if(m.url.match(/\.(mp3|wav|ogg)$/i)){thumb="https://via.placeholder.com/400x250.png?text=Audio"; type="audio";}
-    else if(m.url.includes("facebook.com")){thumb="https://via.placeholder.com/400x250.png?text=Facebook"; type="facebook";}
-
-    const card=document.createElement("div"); card.className="media-card";
-    card.innerHTML=`
-      <div class="player" data-type="${type}" data-url="${m.url}" data-viewkey="${viewKey}" data-share="${shareLink}">
-        <img class="thumb" src="${thumb}">
-      </div>
-      <div class="info">
-        <span>👁 <span class="views">${getViews(viewKey)}</span></span>
-        <span>🔗 Partage</span>
-      </div>
+    row.innerHTML+=`
+    <div class="media-card">
+      <div class="player"><img class="thumb" src="${thumb}"></div>
       <div class="actions">
-        <button class="btn play">▶ Lire</button>
-        <button class="btn copy">📋 Copier</button>
+        <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
         <a class="btn" href="tel:${cat.phone}">📞</a>
-        <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent(shareLink)}">💬</a>
+        <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
       </div>
-    `;
-    row.appendChild(card);
+    </div>`;
   });
 
-  sec.appendChild(row); box.appendChild(sec);
+  sec.appendChild(row);
+  box.appendChild(sec);
 });
 
-/* ===== ACTIONS ===== */
-document.addEventListener("click", e=>{
-  if(e.target.classList.contains("play")){
-    const card = e.target.closest(".media-card");
-    const player = card.querySelector(".player");
-    const type = player.dataset.type;
-    const url = player.dataset.url;
-    const key = player.dataset.viewkey;
+/* ===== POPUP ===== */
+const popup=document.getElementById("popup");
+const popupText=document.getElementById("popupText");
 
-    const views = addView(key);
-    card.querySelector(".views").textContent = views;
-
-    if(type==="youtube"){player.innerHTML=`<iframe src="https://www.youtube.com/embed/${ytID(url)}?autoplay=1" allowfullscreen></iframe>`;}
-    else if(type==="tiktok"){const embed=tiktokEmbed(url); if(embed) player.innerHTML=`<iframe src="${embed}" allowfullscreen></iframe>`; else window.open(url,"_blank");}
-    else if(type==="mp4"){player.innerHTML=`<video controls autoplay src="${url}"></video>`;}
-    else if(type==="image"){player.innerHTML=`<img src="${url}">`;}
-    else if(type==="audio"){player.innerHTML=`<audio controls autoplay src="${url}"></audio>`;}
-    else{window.open(url,"_blank");}
-  }
-
-  if(e.target.classList.contains("copy")){
-    const link=e.target.closest(".media-card").querySelector(".player").dataset.share;
-    navigator.clipboard.writeText(link);
-    e.target.textContent="✅ Copié"; setTimeout(()=>e.target.textContent="📋 Copier",1500);
+document.addEventListener("click",e=>{
+  if(e.target.classList.contains("annonce-btn")){
+    popupText.textContent=e.target.dataset.text;
+    popup.style.display="flex";
   }
 });
 </script>
