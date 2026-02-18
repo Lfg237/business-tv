@@ -11,7 +11,6 @@ header{position:sticky;top:0;background:#121b2c;padding:12px 18px;z-index:1000}
 header img{width:50px;height:50px;border-radius:10px}
 header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea1ff,#ff4ea1,#4effa1);background-size:600% 600%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:anim 6s ease infinite}
 @keyframes anim{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
-
 .category{margin:15px 0}
 .category h2{margin:8px;color:#4ea1ff;font-size:18px}
 .media-row{display:flex;gap:10px;overflow-x:auto;padding:8px}
@@ -21,13 +20,9 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .actions{display:flex;justify-content:space-around;padding:6px 0;flex-wrap:wrap}
 .btn{background:#0044cc;color:white;padding:5px 8px;border-radius:8px;font-size:12px;text-decoration:none;cursor:pointer}
 .btn:hover{background:#0066ff}
-
-/* BARRE ANNONCES */
 .annonce-bar{overflow-x:auto;overflow-y:hidden;background:#0e1524;margin-top:8px;padding:6px 0;white-space:nowrap}
 .annonce-track{display:inline-flex;gap:6px}
 .annonce-btn{background:#ff4ea1;color:#fff;border:none;padding:5px 10px;border-radius:18px;font-size:12px;cursor:pointer;white-space:nowrap}
-
-/* POPUP */
 .popup{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9999}
 .popup-content{background:#121b2c;padding:18px;border-radius:14px;width:90%;max-width:300px;text-align:center}
 .popup-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
@@ -41,16 +36,13 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
     <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png">
     <h1>Business TV</h1>
   </div>
-
   <div class="annonce-bar">
     <div class="annonce-track">
       <button class="annonce-btn" data-text="📢 Promo Business TV – Diffusion gratuite de spots publicitaires" data-phone="237656050097" data-whatsapp="237670035609">📢 contact admin</button>
       <button class="annonce-btn" data-text="🎬 Community manager & création site web" data-phone="237656050097" data-whatsapp="237670035609">🎬 community manager</button>
       <button class="annonce-btn" data-text="🎧 Vente rapide – bientôt dispo" data-phone="237656050097" data-whatsapp="237670035609">🎧 Express market</button>
       <button class="annonce-btn" data-text="💼 Liste chercheurs d’emploi – inscription gratuite" data-phone="237656050097" data-whatsapp="237670035609">💼 liste des chercheurs d'emploi</button>
-
-  <button class="annonce-btn" data-text="💼 objets retrouvés CNI etc 1(CNI: wirnkar loveline kinyuy exp:09/01/2029   contact Admin pour récupérer" data-phone="237656050097" data-whatsapp="237670035609">💼 objets égaré CNI +</button>
-    
+      <button class="annonce-btn" data-text="💼 objets retrouvés CNI etc contact Admin" data-phone="237656050097" data-whatsapp="237670035609">💼 objets égaré CNI +</button>
       <button class="annonce-btn" data-text="💼 Espace promotionnel à louer" data-phone="237655000003" data-whatsapp="237670000003">💼 espace à louer</button>
     </div>
   </div>
@@ -58,7 +50,6 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 
 <div id="content"></div>
 
-<!-- POPUP -->
 <div class="popup" id="popup">
   <div class="popup-content">
     <p id="popupText"></p>
@@ -84,7 +75,6 @@ const CATEGORIES=[
 ];
 
 const box=document.getElementById("content");
-
 function ytID(u){try{const url=new URL(u);return url.searchParams.get("v")||url.pathname.slice(1)}catch(e){return null}}
 
 CATEGORIES.forEach(cat=>{
@@ -96,7 +86,6 @@ CATEGORIES.forEach(cat=>{
 
  cat.medias.forEach(m=>{
   let player = `<img class="thumb" src="https://via.placeholder.com/400x250?text=Media">`;
-
   if(m.url.includes("youtube")){
     const id = ytID(m.url);
     player = `<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
@@ -107,18 +96,13 @@ CATEGORIES.forEach(cat=>{
   else if(m.url.endsWith(".mp3")){
     player = `<audio controls style="width:100%"><source src="${m.url}" type="audio/mpeg"></audio>`;
   }
-
-  row.innerHTML += `
-    <div class="media-card">
-      <div class="player">${player}</div>
-      <div class="actions">
-        <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
-        <a class="btn" href="tel:${cat.phone}">📞</a>
-        <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
-      </div>
-    </div>`;
+  row.innerHTML += `<div class="media-card"><div class="player">${player}</div>
+  <div class="actions">
+    <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
+    <a class="btn" href="tel:${cat.phone}">📞</a>
+    <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
+  </div></div>`;
  });
-
  sec.appendChild(row);
  box.appendChild(sec);
 });
@@ -134,14 +118,12 @@ document.addEventListener("click",e=>{
 </script>
 
 <script>
-/* ===== LIVE TV FACEBOOK / YOUTUBE / MP4 EN BOUCLE ===== */
+/* ===== LIVE TV FACEBOOK / YOUTUBE / MP4 EN BOUCLE + boutons précédent/suivant ===== */
 const LIVE_PLAYLIST=[
-  // Ajoute tes liens YouTube / Facebook / MP4 ici
- 
-{type:"facebook",url:"https://www.facebook.com/reel/2638210729886383/?app=fbl"},
- {type:"youtube",url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
-   {type:"facebook",url:"https://www.facebook.com/reel/903995929017243/?app=fbl"},
-  {type:"facebook",url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
+  {type:"facebook",url:"https://www.facebook.com/reel/2638210729886383/?app=fbl",duration:300},
+  {type:"youtube",url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
+  {type:"facebook",url:"https://www.facebook.com/reel/903995929017243/?app=fbl",duration:300},
+  {type:"facebook",url:"https://www.facebook.com/reel/936858412242126/?app=fbl",duration:300},
   {type:"mp4",url:"https://www.w3schools.com/html/mov_bbb.mp4"}
 ];
 
@@ -150,6 +132,7 @@ let liveIndex=0,liveTimer;
 function playLive(){
   const zone=document.getElementById("livePlayer");
   zone.innerHTML="";
+  clearTimeout(liveTimer);
   const item=LIVE_PLAYLIST[liveIndex];
   if(!item) return;
 
@@ -165,12 +148,16 @@ function playLive(){
   } 
   else if(item.type==="facebook"){
     zone.innerHTML=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false" style="width:100%;height:100%;border:none"></iframe>`;
-    liveTimer=setTimeout(nextLive,30000);
+    liveTimer=setTimeout(nextLive,(item.duration||300)*1000); // 5min si non défini
   }
 }
 
 function nextLive(){
   liveIndex = (liveIndex + 1) % LIVE_PLAYLIST.length;
+  playLive();
+}
+function prevLive(){
+  liveIndex = (liveIndex - 1 + LIVE_PLAYLIST.length) % LIVE_PLAYLIST.length;
   playLive();
 }
 
@@ -186,16 +173,19 @@ function closeLiveTV(){
 }
 </script>
 
-<!-- LIVE BUTTON -->
 <div onclick="openLiveTV()" style="position:fixed;bottom:18px;right:18px;background:red;color:#fff;padding:12px 18px;border-radius:50px;font-weight:bold;cursor:pointer;z-index:9999;box-shadow:0 0 12px red;">🔴 LIVE TV</div>
 
-<!-- LIVE TV BOX -->
 <div id="liveTV" style="display:none;position:fixed;inset:0;background:#000;z-index:10000;">
   <div style="height:50px;background:#111;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
     <strong style="color:red;font-size:16px;">🔴 BUSINESS TV LIVE</strong>
     <button onclick="closeLiveTV()" style="background:red;border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;">⬅ Accueil</button>
   </div>
   <div id="livePlayer" style="width:100%;height:calc(100% - 50px);background:black;"></div>
+  <div style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:20px;z-index:10001;">
+    <button onclick="prevLive()" style="padding:6px 12px;background:#0044cc;border:none;color:#fff;border-radius:6px;cursor:pointer;">⏮ Précédent</button>
+    <button onclick="nextLive()" style="padding:6px 12px;background:#0044cc;border:none;color:#fff;border-radius:6px;cursor:pointer;">⏭ Suivant</button>
+  </div>
 </div>
+
 </body>
 </html>
