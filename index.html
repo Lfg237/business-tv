@@ -70,6 +70,8 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
   </div>
 </header>
 
+❤️
+
 
 <!-- BOUTON LIVE -->
 <div id="liveBtn" onclick="openLive()" style="
@@ -99,20 +101,44 @@ height:100%;
 background:#000;
 z-index:10000;
 ">
-  <span onclick="closeLive()" style="
-  position:absolute;
-  top:15px;
-  right:20px;
-  color:#fff;
-  font-size:22px;
-  cursor:pointer;
-  ">✖</span>
 
+  <!-- BARRE TOP -->
+  <div style="
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:55px;
+  background:#111;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 15px;
+  box-sizing:border-box;
+  ">
+    <strong style="color:red;">🔴 BUSINESS TV LIVE</strong>
+
+    <!-- BOUTON FERMER -->
+    <button onclick="closeLive()" style="
+    background:#ff0000;
+    color:#fff;
+    border:none;
+    padding:8px 14px;
+    border-radius:6px;
+    font-size:14px;
+    cursor:pointer;
+    ">
+    ⬅ Accueil
+    </button>
+  </div>
+
+  <!-- PLAYER -->
   <video id="tvPlayer" controls autoplay style="
   width:100%;
   height:100%;
   object-fit:contain;
   background:black;
+  padding-top:55px;
   "></video>
 </div>
 
@@ -144,12 +170,11 @@ function openLive(){
 function closeLive(){
   document.getElementById("liveBox").style.display = "none";
   player.pause();
+  player.currentTime = 0;
 }
 </script>
 
-
-
-<div id="content"></div>
+❤️<div id="content"></div>
 
 <!-- POPUP -->
 <div class="popup" id="popup">
