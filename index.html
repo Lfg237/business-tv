@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Business TV</title>
-
 <style>
 body{margin:0;background:#0b0f1a;color:#fff;font-family:Arial,sans-serif;}
 header{position:sticky;top:0;background:#121b2c;padding:12px 18px;z-index:1000}
@@ -23,19 +22,18 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .btn{background:#0044cc;color:white;padding:5px 8px;border-radius:8px;font-size:12px;text-decoration:none;cursor:pointer}
 .btn:hover{background:#0066ff}
 
-/* ===== BARRE ANNONCES ===== */
+/* BARRE ANNONCES */
 .annonce-bar{overflow-x:auto;overflow-y:hidden;background:#0e1524;margin-top:8px;padding:6px 0;white-space:nowrap}
 .annonce-track{display:inline-flex;gap:6px}
 .annonce-btn{background:#ff4ea1;color:#fff;border:none;padding:5px 10px;border-radius:18px;font-size:12px;cursor:pointer;white-space:nowrap}
 
-/* ===== POPUP ===== */
+/* POPUP */
 .popup{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9999}
 .popup-content{background:#121b2c;padding:18px;border-radius:14px;width:90%;max-width:300px;text-align:center}
 .popup-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
 .popup-actions a,.popup-actions button{background:#0066ff;color:#fff;padding:6px 10px;border-radius:8px;border:none;text-decoration:none;font-size:12px;cursor:pointer}
 </style>
 </head>
-
 <body>
 
 <header>
@@ -72,23 +70,19 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 <script>
 const CATEGORIES=[
 {title:"B.TV La Kass",phone:"237656050097",whatsapp:"237670035609",medias:[
-{title:"Facebook",url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
-{title:"YouTube",url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
-{title:"TikTok",url:"https://www.tiktok.com/@scout2015/video/6718335390845095173"},
-{title:"MP3",url:"https://www.w3schools.com/html/horse.mp3"},
-{title:"MP4",url:"https://www.w3schools.com/html/mov_bbb.mp4"}
+  {title:"Facebook",url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
+  {title:"YouTube",url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
+  {title:"MP4",url:"https://www.w3schools.com/html/mov_bbb.mp4"},
+  {title:"MP3",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"}
 ]},
 {title:"B.TV MP3 Podcast FM",phone:"237656050097",whatsapp:"237670035609",medias:[
-{title:"MP3",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"},
-{title:"MP3",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"}
+  {title:"MP3",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"}
 ]}
 ];
 
 const box=document.getElementById("content");
 
-function ytID(u){
- try{const url=new URL(u);return url.searchParams.get("v")||url.pathname.slice(1)}catch(e){return null}
-}
+function ytID(u){try{const url=new URL(u);return url.searchParams.get("v")||url.pathname.slice(1)}catch(e){return null}}
 
 CATEGORIES.forEach(cat=>{
  const sec=document.createElement("section");
@@ -98,20 +92,28 @@ CATEGORIES.forEach(cat=>{
  row.className="media-row";
 
  cat.medias.forEach(m=>{
-  let player=`<img class="thumb" src="https://via.placeholder.com/400x250?text=Media">`;
+  let player = `<img class="thumb" src="https://via.placeholder.com/400x250?text=Media">`;
+
   if(m.url.includes("youtube")){
-   const id=ytID(m.url);
-   player=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
+    const id = ytID(m.url);
+    player = `<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
+  } 
+  else if(m.url.endsWith(".mp4")){
+    player = `<video controls style="width:100%;height:120px;object-fit:cover"><source src="${m.url}" type="video/mp4"></video>`;
+  } 
+  else if(m.url.endsWith(".mp3")){
+    player = `<audio controls style="width:100%"><source src="${m.url}" type="audio/mpeg"></audio>`;
   }
-  row.innerHTML+=`
-  <div class="media-card">
-   <div class="player">${player}</div>
-   <div class="actions">
-    <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
-    <a class="btn" href="tel:${cat.phone}">📞</a>
-    <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
-   </div>
-  </div>`;
+
+  row.innerHTML += `
+    <div class="media-card">
+      <div class="player">${player}</div>
+      <div class="actions">
+        <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
+        <a class="btn" href="tel:${cat.phone}">📞</a>
+        <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
+      </div>
+    </div>`;
  });
 
  sec.appendChild(row);
@@ -129,55 +131,57 @@ document.addEventListener("click",e=>{
 </script>
 
 <script>
-/* ===== LIVE TV MOBILE FRIENDLY ===== */
-const LIVE_ADS = [{type:"audio", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"}];
-let livePlaylist=[], liveIndex=0, liveTimer, liveCount=0;
+/* ===== LIVE TV FACEBOOK / YOUTUBE / MP4 EN BOUCLE ===== */
+const LIVE_PLAYLIST=[
+  // Ajoute tes liens YouTube / Facebook / MP4 ici
+  {type:"youtube",url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
+   {type:"facebook",url:"https://www.facebook.com/reel/903995929017243/?app=fbl"},
+  {type:"facebook",url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
+  {type:"mp4",url:"https://www.w3schools.com/html/mov_bbb.mp4"}
+];
 
-function buildLivePlaylist(){
-  const h = new Date().getHours();
-  let cats = (h>=6 && h<14) ? CATEGORIES.slice(0, Math.ceil(CATEGORIES.length/2)) :
-             (h>=18 && h<23) ? CATEGORIES.slice(Math.ceil(CATEGORIES.length/2)) : CATEGORIES;
-  livePlaylist=[];
-  cats.forEach(c=>c.medias.forEach(m=>livePlaylist.push(m)));
-}
+let liveIndex=0,liveTimer;
 
 function playLive(){
   const zone=document.getElementById("livePlayer");
   zone.innerHTML="";
-  let item = (liveCount>0 && liveCount%2===0) ? LIVE_ADS[0] : livePlaylist[liveIndex];
+  const item=LIVE_PLAYLIST[liveIndex];
   if(!item) return;
-  const url=item.url;
 
-  if(url.endsWith(".mp3")){
-    zone.innerHTML=`<audio autoplay controls style="width:100%"><source src="${url}"></audio>`;
-    liveTimer=setTimeout(nextLive,30000);
-  } else if(url.endsWith(".mp4")){
-    zone.innerHTML=`<video autoplay controls style="width:100%;height:100%;object-fit:contain" onended="nextLive()"><source src="${url}"></video>`;
-  } else if(url.includes("youtube") || url.includes("youtu.be")){
-    const id=ytID(url);
+  if(item.type==="mp4"){
+    zone.innerHTML=`<video autoplay controls style="width:100%;height:100%;object-fit:contain" onended="nextLive()">
+      <source src="${item.url}" type="video/mp4">
+    </video>`;
+  } 
+  else if(item.type==="youtube"){
+    const id = ytID(item.url);
     zone.innerHTML=`<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay; fullscreen" style="width:100%;height:100%;border:none"></iframe>`;
     liveTimer=setTimeout(nextLive,30000);
-  } else if(url.includes("facebook.com")){
-    zone.innerHTML=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false" style="width:100%;height:100%;border:none"></iframe>`;
-    liveTimer=setTimeout(nextLive,30000);
-  } else if(url.includes("tiktok.com")){
-    const id=url.split("/video/")[1]?.split("?")[0];
-    zone.innerHTML=`<iframe src="https://www.tiktok.com/embed/${id}" style="width:100%;height:100%;border:none"></iframe>`;
-    liveTimer=setTimeout(nextLive,30000);
-  } else {
-    zone.innerHTML=`<iframe src="${url}" style="width:100%;height:100%;border:none"></iframe>`;
+  } 
+  else if(item.type==="facebook"){
+    zone.innerHTML=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false" style="width:100%;height:100%;border:none"></iframe>`;
     liveTimer=setTimeout(nextLive,30000);
   }
-
-  liveCount++;
 }
 
-function nextLive(){clearTimeout(liveTimer);liveIndex=(liveIndex+1)%livePlaylist.length;playLive();}
-function openLiveTV(){buildLivePlaylist();liveIndex=0;liveCount=0;document.getElementById("liveTV").style.display="block";playLive();}
-function closeLiveTV(){document.getElementById("liveTV").style.display="none";document.getElementById("livePlayer").innerHTML="";clearTimeout(liveTimer);}
+function nextLive(){
+  liveIndex = (liveIndex + 1) % LIVE_PLAYLIST.length;
+  playLive();
+}
+
+function openLiveTV(){
+  document.getElementById("liveTV").style.display="block";
+  playLive();
+}
+
+function closeLiveTV(){
+  document.getElementById("liveTV").style.display="none";
+  document.getElementById("livePlayer").innerHTML="";
+  clearTimeout(liveTimer);
+}
 </script>
 
-<!-- 🔴 LIVE BUTTON MOBILE -->
+<!-- LIVE BUTTON -->
 <div onclick="openLiveTV()" style="position:fixed;bottom:18px;right:18px;background:red;color:#fff;padding:12px 18px;border-radius:50px;font-weight:bold;cursor:pointer;z-index:9999;box-shadow:0 0 12px red;">🔴 LIVE TV</div>
 
 <!-- LIVE TV BOX -->
@@ -188,6 +192,5 @@ function closeLiveTV(){document.getElementById("liveTV").style.display="none";do
   </div>
   <div id="livePlayer" style="width:100%;height:calc(100% - 50px);background:black;"></div>
 </div>
-
 </body>
 </html>
