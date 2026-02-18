@@ -13,38 +13,26 @@ header img{width:50px;height:50px;border-radius:10px}
 header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea1ff,#ff4ea1,#4effa1);background-size:600% 600%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:anim 6s ease infinite}
 @keyframes anim{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
 
-.category{margin:20px 0}
-.category h2{margin:10px;color:#4ea1ff}
-.media-row{display:flex;gap:12px;overflow-x:auto;padding:10px}
-.media-card{min-width:260px;background:#121b2c;border-radius:14px;overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,.6)}
-.thumb{width:100%;height:150px;object-fit:cover;cursor:pointer}
-.player iframe,.player video,.player img,.player audio{width:100%;height:150px;border:none}
-.info{padding:6px 10px;font-size:13px;color:#ccc;display:flex;justify-content:space-between}
-.actions{display:flex;justify-content:space-around;padding:10px;flex-wrap:wrap}
-.btn{background:#0044cc;color:white;padding:6px 10px;border-radius:8px;font-size:13px;text-decoration:none;cursor:pointer}
+.category{margin:15px 0}
+.category h2{margin:8px;color:#4ea1ff;font-size:18px}
+.media-row{display:flex;gap:10px;overflow-x:auto;padding:8px}
+.media-card{min-width:200px;background:#121b2c;border-radius:12px;overflow:hidden;box-shadow:0 3px 8px rgba(0,0,0,.6)}
+.thumb{width:100%;height:120px;object-fit:cover;cursor:pointer}
+.player iframe,.player video,.player img,.player audio{width:100%;height:120px;border:none}
+.actions{display:flex;justify-content:space-around;padding:6px 0;flex-wrap:wrap}
+.btn{background:#0044cc;color:white;padding:5px 8px;border-radius:8px;font-size:12px;text-decoration:none;cursor:pointer}
 .btn:hover{background:#0066ff}
 
 /* ===== BARRE ANNONCES ===== */
-.annonce-bar {
-  overflow-x: auto;   /* scroll horizontal activé */
-  overflow-y: hidden; /* pas de scroll vertical */
-  background:#0e1524;
-  margin-top:10px;
-  padding:8px 0;
-  white-space: nowrap; /* garde les boutons sur une ligne */
-}
-.annonce-track {
-  display: inline-flex; /* boutons sur une ligne horizontale */
-  gap:10px;
-}
-/* on retire l'animation pour scroll automatique */
-.annonce-btn{background:#ff4ea1;color:#fff;border:none;padding:6px 14px;border-radius:20px;font-size:13px;cursor:pointer;white-space:nowrap}
+.annonce-bar{overflow-x:auto;overflow-y:hidden;background:#0e1524;margin-top:8px;padding:6px 0;white-space:nowrap}
+.annonce-track{display:inline-flex;gap:6px}
+.annonce-btn{background:#ff4ea1;color:#fff;border:none;padding:5px 10px;border-radius:18px;font-size:12px;cursor:pointer;white-space:nowrap}
 
 /* ===== POPUP ===== */
 .popup{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9999}
-.popup-content{background:#121b2c;padding:20px;border-radius:16px;width:90%;max-width:320px;text-align:center}
-.popup-actions{display:flex;gap:10px;justify-content:center;margin-top:15px}
-.popup-actions a,.popup-actions button{background:#0066ff;color:#fff;padding:8px 12px;border-radius:10px;border:none;text-decoration:none;font-size:13px;cursor:pointer}
+.popup-content{background:#121b2c;padding:18px;border-radius:14px;width:90%;max-width:300px;text-align:center}
+.popup-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.popup-actions a,.popup-actions button{background:#0066ff;color:#fff;padding:6px 10px;border-radius:8px;border:none;text-decoration:none;font-size:12px;cursor:pointer}
 </style>
 </head>
 
@@ -56,126 +44,18 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
     <h1>Business TV</h1>
   </div>
 
-  <!-- BOUTONS SCROLLABLES -->
   <div class="annonce-bar">
     <div class="annonce-track">
-      <button class="annonce-btn" data-text="📢 Promo Business TV – Diffusion gratuite de spots publicitaires contact administration " data-phone="237656050097" data-whatsapp="237670035609">📢 contact administration b.tv</button>
-      <button class="annonce-btn" data-text="🎬 contact pour community manager , création de site web  et gestion de page Facebook professionnel " data-phone="237656050097" data-whatsapp="237670035609">🎬 community manager</button>
-      <button class="annonce-btn" data-text="🎧 espace de vente rapide ras pour le moment " data-phone="237656050097" data-whatsapp="237670035609">🎧 Express market</button>
-      <button class="annonce-btn" data-text="💼 liste des chercheurs d'emploi contact l'administration pour l'enregistrement c'est gratuit  " data-phone="237656050097" data-whatsapp="237670035609">💼 liste des chercheurs d'emploi </button>
-
-      <button class="annonce-btn" data-text="💼 espace Promotionnel à louer " data-phone="237655000003" data-whatsapp="237670000003">💼 espace a louer </button>
-
+      <button class="annonce-btn" data-text="📢 Promo Business TV – Diffusion gratuite de spots publicitaires" data-phone="237656050097" data-whatsapp="237670035609">📢 contact admin</button>
+      <button class="annonce-btn" data-text="🎬 Community manager & création site web" data-phone="237656050097" data-whatsapp="237670035609">🎬 community manager</button>
+      <button class="annonce-btn" data-text="🎧 Vente rapide – bientôt dispo" data-phone="237656050097" data-whatsapp="237670035609">🎧 Express market</button>
+      <button class="annonce-btn" data-text="💼 Liste chercheurs d’emploi – inscription gratuite" data-phone="237656050097" data-whatsapp="237670035609">💼 chercheurs d'emploi</button>
+      <button class="annonce-btn" data-text="💼 Espace promotionnel à louer" data-phone="237655000003" data-whatsapp="237670000003">💼 espace à louer</button>
     </div>
   </div>
 </header>
 
-❤️
-
-
-<!-- BOUTON LIVE -->
-<div id="liveBtn" onclick="openLive()" style="
-position:fixed;
-bottom:20px;
-right:20px;
-background:red;
-color:#fff;
-padding:14px 20px;
-border-radius:50px;
-font-weight:bold;
-cursor:pointer;
-z-index:9999;
-box-shadow:0 0 15px red;
-">
-🔴 LIVE
-</div>
-
-<!-- LECTEUR WEB TV -->
-<div id="liveBox" style="
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#000;
-z-index:10000;
-">
-
-  <!-- BARRE TOP -->
-  <div style="
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:55px;
-  background:#111;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 15px;
-  box-sizing:border-box;
-  ">
-    <strong style="color:red;">🔴 BUSINESS TV LIVE</strong>
-
-    <!-- BOUTON FERMER -->
-    <button onclick="closeLive()" style="
-    background:#ff0000;
-    color:#fff;
-    border:none;
-    padding:8px 14px;
-    border-radius:6px;
-    font-size:14px;
-    cursor:pointer;
-    ">
-    ⬅ Accueil
-    </button>
-  </div> 
-
-  <!-- PLAYER -->
-  <video id="tvPlayer" controls autoplay style="
-  width:100%;
-  height:100%;
-  object-fit:contain;
-  background:black;
-  padding-top:55px;
-  "></video>
-</div>
-
-<script>
-const playlist = [
- "https://www.facebook.com/reel/936858412242126/?app=fbl",
- "https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3",
-  "https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3",
-  "https://raw.githubusercontent.com/Lfg237/m-dias/main/AUD-20250723-WA0001.mp3"
-];
-
-let index = 0;
-const player = document.getElementById("tvPlayer");
-
-function playMedia(){
-  player.src = playlist[index];
-  player.play();
-}
-
-player.onended = () => {
-  index = (index + 1) % playlist.length;
-  playMedia();
-};
-
-function openLive(){
-  document.getElementById("liveBox").style.display = "block";
-  playMedia();
-}
-
-function closeLive(){
-  document.getElementById("liveBox").style.display = "none";
-  player.pause();
-  player.currentTime = 0;
-}
-</script>
-
-❤️<div id="content"></div>
+<div id="content"></div>
 
 <!-- POPUP -->
 <div class="popup" id="popup">
@@ -190,137 +70,124 @@ function closeLive(){
 </div>
 
 <script>
-const SITE_URL="https://business-tv.vercel.app/";
-
-/* ===== CATEGORIES ===== */
-const CATEGORIES = [
-  {
-    title:"B.TV La Kass",
-    phone:"237656050097",
-    whatsapp:"237670035609",
-    medias:[
-      {title:"Facebook", url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
- {title:"Facebook", url:"https://www.facebook.com/reel/903995929017243/?app=fbl"},
-      {title:"YouTube 1", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
-      {title:"TikTok 1", url:"https://www.tiktok.com/@scout2015/video/6718335390845095173"},
-      {title:"Image 1", url:"https://via.placeholder.com/400x250.png?text=Image+1"},
-      {title:"Audio 1", url:"https://www.w3schools.com/html/horse.mp3"},
-      {title:"MP4 1", url:"https://www.w3schools.com/html/mov_bbb.mp4"},
-      {title:"Facebook", url:"https://www.facebook.com/61587537976582/posts/122104193205251265/?app=fbl"}
-    ]
-  },
-  {
-    title:"B.TV album",
-    phone:"237656050097",
-    whatsapp:"237670035609",
-    medias:[
-      {title:"Image 2", url:"https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png"},
-      {title:"Facebook", url:"https://www.facebook.com/61587537976582/posts/122104193205251265/?app=fbl"}
-    ]
-  },
-  {
-    title:"B.TV MP3 podcast FM ",
-    phone:"237656050097",
-    whatsapp:"237670035609",
-    medias:[
-      {title:"mp3 1", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"},
-      {title:"mp3 2", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"},
-      {title:"MP3 3", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/AUD-20250723-WA0001.mp3"}
-    ]
-  },
-  {
-    title:"B.TV religion bible audio Mp3 ",
-    phone:"237656050097",
-    whatsapp:"237670035609",
-    medias:[
-      {title:"MP3 1", url:"https://emcitv.com/bible/audio/?utm_source=chatgpt.com"}
-    ]
-  },
-  {
-    title:"B.TV religion coran audio MP3 ",
-    phone:"237656050097",
-    whatsapp:"237670035609",
-    medias:[
-      {title:"MP3 3", url:"https://mp3quran.net/fr?utm_source=chatgpt.com"}
-    ]
-  },
-  {
-    title:"B.TV promo entreprise",
-    phone:"237656050097",
-    whatsapp:"237670035609",
-    medias:[
-      {title:"YouTube 1", url:"https://www.youtube.com/watch?v=fC_l0ON4Ebc"},
-      {title:"YouTube 2", url:"https://youtu.be/6OX7skYfPNE?si=-PXDFNUwQLnpHz44"},
-      {title:"TikTok 1", url:"https://www.tiktok.com/@tiktok/video/7252255174637815045"},
-      {title:"TikTok 2", url:"https://www.tiktok.com/@tiktok/video/7252255174637815045"},
-      {title:"TikTok 3", url:"https://vm.tiktok.com/ZS9Ja9q81ysnF-cfKpm/"},
-      {title:"MP4 2", url:"https://www.w3schools.com/html/mov_bbb.mp4"}
-    ]
-  },
-  {
-    title:"B.TV express market 🍒",
-    phone:"237656050097",
-    whatsapp:"237670035609",
-    medias:[
-      {title:"site web", url:""}
-    ]
-  }
+const CATEGORIES=[
+{title:"B.TV La Kass",phone:"237656050097",whatsapp:"237670035609",medias:[
+{title:"Facebook",url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
+{title:"YouTube",url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
+{title:"TikTok",url:"https://www.tiktok.com/@scout2015/video/6718335390845095173"},
+{title:"MP3",url:"https://www.w3schools.com/html/horse.mp3"},
+{title:"MP4",url:"https://www.w3schools.com/html/mov_bbb.mp4"}
+]},
+{title:"B.TV MP3 Podcast FM",phone:"237656050097",whatsapp:"237670035609",medias:[
+{title:"MP3",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"},
+{title:"MP3",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"}
+]}
 ];
 
-/* ===== OUTILS ===== */
-function ytID(u){
-  try{
-    const url=new URL(u);
-    if(url.hostname.includes("youtu.be")) return url.pathname.slice(1);
-    return url.searchParams.get("v");
-  }catch(e){return null}
-}
-function ytThumb(id){return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : "https://via.placeholder.com/400x250?text=YouTube";}
-
-/* ===== GENERATION DES CATEGORIES ===== */
 const box=document.getElementById("content");
+
+function ytID(u){
+ try{const url=new URL(u);return url.searchParams.get("v")||url.pathname.slice(1)}catch(e){return null}
+}
+
 CATEGORIES.forEach(cat=>{
-  const sec=document.createElement("section");
-  sec.className="category";
-  sec.innerHTML=`<h2>${cat.title}</h2>`;
-  const row=document.createElement("div");
-  row.className="media-row";
+ const sec=document.createElement("section");
+ sec.className="category";
+ sec.innerHTML=`<h2>${cat.title}</h2>`;
+ const row=document.createElement("div");
+ row.className="media-row";
 
-  cat.medias.forEach(m=>{
-    let content=`<img class="thumb" src="https://via.placeholder.com/400x250?text=Media">`;
-    if(m.url.includes("youtube") || m.url.includes("youtu.be")){
-      const id=ytID(m.url);
-      content=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
-    }
-    row.innerHTML+=`
-    <div class="media-card">
-      <div class="player">${content}</div>
-      <div class="actions">
-        <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
-        <a class="btn" href="tel:${cat.phone}">📞</a>
-        <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
-      </div>
-    </div>`;
-  });
-  sec.appendChild(row);
-  box.appendChild(sec);
+ cat.medias.forEach(m=>{
+  let player=`<img class="thumb" src="https://via.placeholder.com/400x250?text=Media">`;
+  if(m.url.includes("youtube")){
+   const id=ytID(m.url);
+   player=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
+  }
+  row.innerHTML+=`
+  <div class="media-card">
+   <div class="player">${player}</div>
+   <div class="actions">
+    <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
+    <a class="btn" href="tel:${cat.phone}">📞</a>
+    <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
+   </div>
+  </div>`;
+ });
+
+ sec.appendChild(row);
+ box.appendChild(sec);
 });
-
-/* ===== POPUP ===== */
-const popup=document.getElementById("popup");
-const popupText=document.getElementById("popupText");
-const popupCall=document.getElementById("popupCall");
-const popupWA=document.getElementById("popupWA");
 
 document.addEventListener("click",e=>{
-  if(e.target.classList.contains("annonce-btn")){
-    popupText.textContent=e.target.dataset.text;
-    popupCall.href=`tel:${e.target.dataset.phone}`;
-    popupWA.href=`https://wa.me/${e.target.dataset.whatsapp}`;
-    popup.style.display="flex";
-  }
+ if(e.target.classList.contains("annonce-btn")){
+  document.getElementById("popupText").textContent=e.target.dataset.text;
+  document.getElementById("popupCall").href=`tel:${e.target.dataset.phone}`;
+  document.getElementById("popupWA").href=`https://wa.me/${e.target.dataset.whatsapp}`;
+  document.getElementById("popup").style.display="flex";
+ }
 });
 </script>
+
+<script>
+/* ===== LIVE TV MOBILE FRIENDLY ===== */
+const LIVE_ADS = [{type:"audio", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"}];
+let livePlaylist=[], liveIndex=0, liveTimer, liveCount=0;
+
+function buildLivePlaylist(){
+  const h = new Date().getHours();
+  let cats = (h>=6 && h<14) ? CATEGORIES.slice(0, Math.ceil(CATEGORIES.length/2)) :
+             (h>=18 && h<23) ? CATEGORIES.slice(Math.ceil(CATEGORIES.length/2)) : CATEGORIES;
+  livePlaylist=[];
+  cats.forEach(c=>c.medias.forEach(m=>livePlaylist.push(m)));
+}
+
+function playLive(){
+  const zone=document.getElementById("livePlayer");
+  zone.innerHTML="";
+  let item = (liveCount>0 && liveCount%2===0) ? LIVE_ADS[0] : livePlaylist[liveIndex];
+  if(!item) return;
+  const url=item.url;
+
+  if(url.endsWith(".mp3")){
+    zone.innerHTML=`<audio autoplay controls style="width:100%"><source src="${url}"></audio>`;
+    liveTimer=setTimeout(nextLive,30000);
+  } else if(url.endsWith(".mp4")){
+    zone.innerHTML=`<video autoplay controls style="width:100%;height:100%;object-fit:contain" onended="nextLive()"><source src="${url}"></video>`;
+  } else if(url.includes("youtube") || url.includes("youtu.be")){
+    const id=ytID(url);
+    zone.innerHTML=`<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay; fullscreen" style="width:100%;height:100%;border:none"></iframe>`;
+    liveTimer=setTimeout(nextLive,30000);
+  } else if(url.includes("facebook.com")){
+    zone.innerHTML=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false" style="width:100%;height:100%;border:none"></iframe>`;
+    liveTimer=setTimeout(nextLive,30000);
+  } else if(url.includes("tiktok.com")){
+    const id=url.split("/video/")[1]?.split("?")[0];
+    zone.innerHTML=`<iframe src="https://www.tiktok.com/embed/${id}" style="width:100%;height:100%;border:none"></iframe>`;
+    liveTimer=setTimeout(nextLive,30000);
+  } else {
+    zone.innerHTML=`<iframe src="${url}" style="width:100%;height:100%;border:none"></iframe>`;
+    liveTimer=setTimeout(nextLive,30000);
+  }
+
+  liveCount++;
+}
+
+function nextLive(){clearTimeout(liveTimer);liveIndex=(liveIndex+1)%livePlaylist.length;playLive();}
+function openLiveTV(){buildLivePlaylist();liveIndex=0;liveCount=0;document.getElementById("liveTV").style.display="block";playLive();}
+function closeLiveTV(){document.getElementById("liveTV").style.display="none";document.getElementById("livePlayer").innerHTML="";clearTimeout(liveTimer);}
+</script>
+
+<!-- 🔴 LIVE BUTTON MOBILE -->
+<div onclick="openLiveTV()" style="position:fixed;bottom:18px;right:18px;background:red;color:#fff;padding:12px 18px;border-radius:50px;font-weight:bold;cursor:pointer;z-index:9999;box-shadow:0 0 12px red;">🔴 LIVE TV</div>
+
+<!-- LIVE TV BOX -->
+<div id="liveTV" style="display:none;position:fixed;inset:0;background:#000;z-index:10000;">
+  <div style="height:50px;background:#111;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
+    <strong style="color:red;font-size:16px;">🔴 BUSINESS TV LIVE</strong>
+    <button onclick="closeLiveTV()" style="background:red;border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;">⬅ Accueil</button>
+  </div>
+  <div id="livePlayer" style="width:100%;height:calc(100% - 50px);background:black;"></div>
+</div>
 
 </body>
 </html>
