@@ -70,6 +70,85 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
   </div>
 </header>
 
+
+<!-- BOUTON LIVE -->
+<div id="liveBtn" onclick="openLive()" style="
+position:fixed;
+bottom:20px;
+right:20px;
+background:red;
+color:#fff;
+padding:14px 20px;
+border-radius:50px;
+font-weight:bold;
+cursor:pointer;
+z-index:9999;
+box-shadow:0 0 15px red;
+">
+🔴 LIVE
+</div>
+
+<!-- LECTEUR WEB TV -->
+<div id="liveBox" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#000;
+z-index:10000;
+">
+  <span onclick="closeLive()" style="
+  position:absolute;
+  top:15px;
+  right:20px;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+  ">✖</span>
+
+  <video id="tvPlayer" controls autoplay style="
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:black;
+  "></video>
+</div>
+
+<script>
+const playlist = [
+  "https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3",
+  "https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3",
+  "https://raw.githubusercontent.com/Lfg237/m-dias/main/AUD-20250723-WA0001.mp3"
+];
+
+let index = 0;
+const player = document.getElementById("tvPlayer");
+
+function playMedia(){
+  player.src = playlist[index];
+  player.play();
+}
+
+player.onended = () => {
+  index = (index + 1) % playlist.length;
+  playMedia();
+};
+
+function openLive(){
+  document.getElementById("liveBox").style.display = "block";
+  playMedia();
+}
+
+function closeLive(){
+  document.getElementById("liveBox").style.display = "none";
+  player.pause();
+}
+</script>
+
+
+
 <div id="content"></div>
 
 <!-- POPUP -->
