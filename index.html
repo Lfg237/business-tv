@@ -27,11 +27,46 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .popup-content{background:#121b2c;padding:18px;border-radius:14px;width:90%;max-width:300px;text-align:center}
 .popup-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
 .popup-actions a,.popup-actions button{background:#0066ff;color:#fff;padding:6px 10px;border-radius:8px;border:none;text-decoration:none;font-size:12px;cursor:pointer}
+/* ===== BANDEAU GLOBAL BUSINESS TV ===== */
+.ticker-wrapper{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#111;
+  color:#fff;
+  overflow:hidden;
+  z-index:999999; /* plus fort que tout */
+  border-top:2px solid red;
+}
+
+.ticker{
+  display:inline-block;
+  white-space:nowrap;
+  padding-left:100%;
+  animation:tickerMove 50s linear infinite;
+  font-weight:bold;
+  font-size:14px;
+}
+
+@keyframes tickerMove{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-100%)}
+}
 </style>
 </head>
 <body>
 
 <header>
+	<!-- ===== BANDEAU INFO BUSINESS TV ===== -->
+<div class="ticker-wrapper">
+  <div class="ticker">
+    🔴 BUSINESS TV LIVE LA WEB TV DES COMMERCANTS POUR LES COMMERCANTS•    🔴 faites la Promotion de vos activités et commerces  pendant un mois gratuitement chez nous    pour plus de visibilité • 
+    📢 💼 Recrutement en cours pour des etudiants en  journalisme benevole •    🔴 vous desirez faire des dedicaces a vos  proche, amis ,êtres chéres  amoureux et autres  contact whatsap 670035609 
+    🎬 Création site web & Community management  • 
+    🔴 BUSINESS TV LIVE • LA WEB TV DES COMMERCANTS • Contact WhatsApp 670035609 •  ❤️💋 ESPACE DEDICACE❤️💋 michel de bastos dit coucou à nicole d'oyomabang     🔴 murielle d'akonolinga dit bsr à thomas ❤️💋
+  </div>
+</div>
   <div class="header-top">
     <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png">
     <h1>Business TV</h1>
