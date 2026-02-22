@@ -41,7 +41,10 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 </style>
 </head>
 <body>
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous"
+src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0">
+</script>
 <header>
 <div class="ticker-wrapper">
 <div class="ticker">
@@ -160,15 +163,29 @@ CATEGORIES.forEach(cat=>{
     row.innerHTML+=`
 <div class="media-card">
 <div class="player">${player}</div>
+
 <div class="actions">
 <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
 <a class="btn" href="tel:${cat.phone}">📞</a>
 <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
-</div></div>`;
+</div>
+
+${m.url.includes("facebook") ? `
+<div class="fb-comments"
+data-href="${m.url}"
+data-width="100%"
+data-numposts="5"
+style="background:#fff;border-radius:10px;margin-top:8px;">
+</div>` : ``}
+
+</div>`;
   });
   sec.appendChild(row);
   box.appendChild(sec);
 });
+if (typeof FB !== "undefined") {
+  FB.XFBML.parse();
+}
 </script>
 
 <!-- ===== BOUTON LIVE FLOTTANT ===== -->
