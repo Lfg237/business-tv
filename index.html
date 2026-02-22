@@ -38,6 +38,20 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .ticker-wrapper{position:fixed;bottom:0;left:0;width:100%;background:#111;color:#fff;overflow:hidden;z-index:999999;border-top:2px solid red;}
 .ticker{display:inline-block;white-space:nowrap;padding-left:100%;animation:tickerMove 10s linear infinite;font-weight:bold;font-size:14px;}
 @keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+/* ===== FB COMMENTS SCROLL ===== */
+.fb-comments-wrapper {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 8px;
+  border-top: 1px solid #333;
+  padding-top: 6px;
+}
+.fb-comments-wrapper small {
+  display: block;
+  color: #aaa;
+  margin-bottom: 4px;
+}
 </style>
 </head>
 <body>
@@ -83,13 +97,13 @@ src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0">
 </div>
 
 <script>
-document.addEventListener("click", e => {
-  if(e.target.classList.contains("annonce-btn")){
-    popupText.textContent = e.target.dataset.text;
-    popupCall.href = "tel:" + e.target.dataset.phone;
-    popupWA.href = "https://wa.me/" + e.target.dataset.whatsapp;
-    popup.style.display = "flex";
-  }
+document.addEventListener("click",e=>{
+if(e.target.classList.contains("annonce-btn")){
+popupText.textContent=e.target.dataset.text;
+popupCall.href="tel:"+e.target.dataset.phone;
+popupWA.href="https://wa.me/"+e.target.dataset.whatsapp;
+popup.style.display="flex";
+}
 });
 </script>
 
@@ -107,24 +121,15 @@ const CATEGORIES=[
 ]},
 {title:"B.TV vente achat et location de voiture camion bus", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+237 6 56050097", whatsapp:"+237 6 70035609", medias:[
   {title:"Facebook",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"},
-  {title:"Facebook",url:"https://www.facebook.com/reel/4139476122976157/?app=fbl"},
-  {title:"YouTube",url:""},
-  {title:"MP4",url:""},
-  {title:"MP3",url:""}
+  {title:"Facebook",url:"https://www.facebook.com/reel/4139476122976157/?app=fbl"}
 ]},
 {title:"B.TV shopping", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+237 6 56050097", whatsapp:"+237 6 70035609", medias:[
   {title:"Facebook",url:"https://www.facebook.com/reel/307450755064294/?app=fbl"},
-  {title:"Facebook",url:"https://www.facebook.com/reel/1287631179816193/?app=fbl"},
-  {title:"YouTube",url:""},
-  {title:"MP4",url:""},
-  {title:"MP3",url:""}
+  {title:"Facebook",url:"https://www.facebook.com/reel/1287631179816193/?app=fbl"}
 ]},
 {title:"B.TV lingerie nyanga", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+237 6 56 70 62 41", whatsapp:"+237 6 56 70 62 41", medias:[
   {title:"Facebook",url:"https://www.facebook.com/reel/1533470091048945/?app=fbl"},
-  {title:"Facebook",url:"https://www.facebook.com/reel/1471607300989024/?app=fbl"},
-  {title:"YouTube",url:""},
-  {title:"MP4",url:""},
-  {title:"MP3",url:""}
+  {title:"Facebook",url:"https://www.facebook.com/reel/1471607300989024/?app=fbl"}
 ]},
 {title:"B.TV MP3 Podcast FM", profile:"https://raw.githubusercontent.com/Lfg237/d-p-t-image-Lesfacilitateurs-/main/InShot_20250612_144937066.jpg", phone:"237656050097", whatsapp:"237670035609", medias:[
   {title:"MP3",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"}
@@ -142,10 +147,11 @@ CATEGORIES.forEach(cat=>{
 <h2>${cat.title}</h2></div>`;
   const row=document.createElement("div");
   row.className="media-row";
-
+  
   cat.medias.forEach(m=>{
     if(!m.url) return;
-    let player="";
+    let player="", comments="";
+    
     if(m.url.includes("youtube")){
       const id=ytID(m.url);
       player=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
@@ -154,7 +160,11 @@ CATEGORIES.forEach(cat=>{
     }else if(m.url.endsWith(".mp3")){
       player=`<audio controls><source src="${m.url}" type="audio/mpeg"></audio>`;
     }else if(m.url.includes("facebook")){
-      player=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(m.url)}&show_text=false"></iframe>`;
+      player=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(m.url)}&show_text=false" allowfullscreen></iframe>`;
+      comments=`<div class="fb-comments-wrapper">
+        <small>Commentaires via Business TV</small>
+        <div class="fb-comments" data-href="${m.url}" data-width="100%" data-numposts="5" data-colorscheme="dark"></div>
+      </div>`;
     }
 
     row.innerHTML+=`
@@ -165,25 +175,15 @@ CATEGORIES.forEach(cat=>{
     <a class="btn" href="tel:${cat.phone}">📞</a>
     <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
   </div>
-
-  ${m.url.includes("facebook") ? `
-  <div style="margin-top:8px;padding:6px;background:#0e1524;color:#fff;border-radius:8px;font-size:12px;text-align:center;">
-    💬 Commentaires via <strong>Business TV</strong>
-  </div>
-  <div class="fb-comments"
-       data-href="${m.url}"
-       data-width="100%"
-       data-numposts="5"
-       style="margin-top:6px;">
-  </div>` : ``}
+  ${comments}
 </div>`;
   });
-
+  
   sec.appendChild(row);
   box.appendChild(sec);
 });
 
-// Parse Facebook comments
+// Parse FB plugin après création des éléments
 if(typeof FB !== "undefined"){ FB.XFBML.parse(); }
 </script>
 
@@ -204,27 +204,17 @@ if(typeof FB !== "undefined"){ FB.XFBML.parse(); }
 
 <script>
 const LIVE_PLAYLIST=[
-  {type:"facebook", url:"https://www.facebook.com/reel/2520847921643359/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1284173133530746/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/659085228484377/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1425640202366262/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/2998925860299551/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/2060828334765604/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/3269632186530529/", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1533470091048945/", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/894118913370636/", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1438039977792436/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/700473472422540/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1484362339932172/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/928243842998026/", duration:400},
+  {type:"facebook", url:"https://www.facebook.com/reel/2520847921643359/?app=fbl"},
+  {type:"facebook", url:"https://www.facebook.com/reel/1284173133530746/?app=fbl"},
+  {type:"facebook", url:"https://www.facebook.com/reel/659085228484377/?app=fbl"},
+  {type:"facebook", url:"https://www.facebook.com/reel/1425640202366262/?app=fbl"},
+  {type:"facebook", url:"https://www.facebook.com/reel/2998925860299551/?app=fbl"},
+  {type:"facebook", url:"https://www.facebook.com/reel/2060828334765604/?app=fbl"},
   {type:"youtube", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
-  {type:"youtube", url:"https://youtu.be/CCUkViVw85g?si=fR5SR9SU_3mk2T6Q"},
-  {type:"youtube", url:"https://youtu.be/R0dO2c4ygug?si=Sz501IxCWaMXzNXk"},
   {type:"mp4", url:"https://www.w3schools.com/html/mov_bbb.mp4"}
 ];
 
 let liveIndex=0;
-
 function getYouTubeID(url){
   try{
     if(url.includes("youtu.be")) return url.split("youtu.be/")[1].split("?")[0];
