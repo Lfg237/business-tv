@@ -38,13 +38,19 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .ticker-wrapper{position:fixed;bottom:0;left:0;width:100%;background:#111;color:#fff;overflow:hidden;z-index:999999;border-top:2px solid red;}
 .ticker{display:inline-block;white-space:nowrap;padding-left:100%;animation:tickerMove 10s linear infinite;font-weight:bold;font-size:14px;}
 @keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+.local-comments{margin-top:6px;padding:6px;background:#1a1f33;border-radius:8px;}
+.local-comments textarea{width:100%;border-radius:6px;padding:4px;background:#0b0f1a;color:white;border:1px solid #4ea1ff;}
+.local-comments button{margin-top:4px;padding:4px 8px;background:#4ea1ff;color:#000;border:none;border-radius:6px;cursor:pointer;}
+.local-comments .comments-list div{margin-top:4px;padding:4px;background:#0e1524;border-radius:4px;}
 </style>
+
 </head>
 <body>
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous"
-src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0">
-</script>
+<script async defer crossorigin="anonymous" 
+src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0"></script>
+
 <header>
 <div class="ticker-wrapper">
 <div class="ticker">
@@ -81,56 +87,39 @@ src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0">
 </div>
 
 <script>
-document.addEventListener("click",e=>{
-if(e.target.classList.contains("annonce-btn")){
-popupText.textContent=e.target.dataset.text;
-popupCall.href="tel:"+e.target.dataset.phone;
-popupWA.href="https://wa.me/"+e.target.dataset.whatsapp;
-popup.style.display="flex";
-}
+document.addEventListener("click", e=>{
+  if(e.target.classList.contains("annonce-btn")){
+    popupText.textContent=e.target.dataset.text;
+    popupCall.href="tel:"+e.target.dataset.phone;
+    popupWA.href="https://wa.me/"+e.target.dataset.whatsapp;
+    popup.style.display="flex";
+  }
 });
 </script>
 
-<!-- ===== CATEGORIES AVEC PROFIL PERSONNALISABLE ===== -->
+<!-- ===== CATEGORIES AVEC PROFIL ===== -->
 <script>
 const DEFAULT_PROFILE="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png";
 
 const CATEGORIES=[
-{title:"B.TV La Kass", profile:"https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png", phone:"237656050097", whatsapp:"237670035609", medias:[
+{title:"B.TV La Kass", profile:DEFAULT_PROFILE, phone:"237656050097", whatsapp:"237670035609", medias:[
   {title:"Facebook",url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
-
-{title:"Facebook",url:"https://www.facebook.com/reel/659085228484377/?app=fbl"},
- 
+  {title:"Facebook",url:"https://www.facebook.com/reel/659085228484377/?app=fbl"},
   {title:"YouTube",url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
   {title:"MP4",url:"https://www.w3schools.com/html/mov_bbb.mp4"},
   {title:"MP3",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"}
 ]},
-
-{title:"B.TV vente achat et location de voiture camion bus", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+237 6 56050097", whatsapp:"+237 6 70035609", medias:[
+{title:"B.TV vente achat et location de voiture", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+23765605097", whatsapp:"+237670035609", medias:[
   {title:"Facebook",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"},
-  {title:"Facebook",url:"https://www.facebook.com/reel/4139476122976157/?app=fbl"},
-  {title:"YouTube",url:""},
-  {title:"MP4",url:""},
-  {title:"MP3",url:""},
-
+  {title:"Facebook",url:"https://www.facebook.com/reel/4139476122976157/?app=fbl"}
 ]},
-{title:"B.TV shopping", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+237 6 56050097", whatsapp:"+237 6 70035609", medias:[
+{title:"B.TV shopping", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+23765605097", whatsapp:"+237670035609", medias:[
   {title:"Facebook",url:"https://www.facebook.com/reel/307450755064294/?app=fbl"},
-  {title:"Facebook",url:"https://www.facebook.com/reel/1287631179816193/?app=fbl"},
-  {title:"YouTube",url:""},
-  {title:"MP4",url:""},
-  {title:"MP3",url:""},
-
+  {title:"Facebook",url:"https://www.facebook.com/reel/1287631179816193/?app=fbl"}
 ]},
-
-{title:"B.TV lingerie nyanga", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+237 6 56 70 62 41", whatsapp:"+237 6 56 70 62 41", medias:[
+{title:"B.TV lingerie nyanga", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+237656706241", whatsapp:"+237656706241", medias:[
   {title:"Facebook",url:"https://www.facebook.com/reel/1533470091048945/?app=fbl"},
-  {title:"Facebook",url:"https://www.facebook.com/reel/1471607300989024/?app=fbl"},
-  {title:"YouTube",url:""},
-  {title:"MP4",url:""},
-  {title:"MP3",url:""}
-
-
+  {title:"Facebook",url:"https://www.facebook.com/reel/1471607300989024/?app=fbl"}
 ]},
 {title:"B.TV MP3 Podcast FM", profile:"https://raw.githubusercontent.com/Lfg237/d-p-t-image-Lesfacilitateurs-/main/InShot_20250612_144937066.jpg", phone:"237656050097", whatsapp:"237670035609", medias:[
   {title:"MP3",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"}
@@ -138,6 +127,7 @@ const CATEGORIES=[
 
 const box=document.getElementById("content");
 function ytID(u){try{const url=new URL(u);return url.searchParams.get("v")||url.pathname.slice(1)}catch(e){return null}}
+
 CATEGORIES.forEach(cat=>{
   const sec=document.createElement("section");
   sec.className="category";
@@ -147,45 +137,79 @@ CATEGORIES.forEach(cat=>{
 <h2>${cat.title}</h2></div>`;
   const row=document.createElement("div");
   row.className="media-row";
+  
   cat.medias.forEach(m=>{
     if(!m.url) return;
     let player="";
+    let commentsHTML="";
+    
     if(m.url.includes("youtube")){
       const id=ytID(m.url);
-      player=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
-    }else if(m.url.endsWith(".mp4")){
+      player=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen="false"></iframe>`;
+    } else if(m.url.endsWith(".mp4")){
       player=`<video controls><source src="${m.url}" type="video/mp4"></video>`;
-    }else if(m.url.endsWith(".mp3")){
+    } else if(m.url.endsWith(".mp3")){
       player=`<audio controls><source src="${m.url}" type="audio/mpeg"></audio>`;
-    }else if(m.url.includes("facebook")){
-      player=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(m.url)}&show_text=false"></iframe>`;
+      commentsHTML=`<div class="local-comments">
+<textarea placeholder="Commentez cette piste…"></textarea>
+<button onclick="submitComment(this)">Envoyer</button>
+<div class="comments-list"></div>
+</div>`;
+    } else if(m.url.includes("facebook")){
+      player=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(m.url)}&show_text=false" allowfullscreen></iframe>`;
+      commentsHTML=`<div class="fb-comments" data-href="${m.url}" data-width="100%" data-numposts="5" style="margin-top:8px;"></div>`;
     }
+    
     row.innerHTML+=`
 <div class="media-card">
 <div class="player">${player}</div>
-
 <div class="actions">
 <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
 <a class="btn" href="tel:${cat.phone}">📞</a>
 <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
 </div>
-
-${m.url.includes("facebook") ? `
-<div class="fb-comments"
-data-href="${m.url}"
-data-width="100%"
-data-numposts="5"
-style="background:#fff;border-radius:10px;margin-top:8px;">
-</div>` : ``}
-
+${commentsHTML}
 </div>`;
   });
+  
   sec.appendChild(row);
   box.appendChild(sec);
 });
-if (typeof FB !== "undefined") {
-  FB.XFBML.parse();
+
+// Local comments script
+function submitComment(btn, mediaId){
+  const area = btn.previousElementSibling;
+  const list = btn.nextElementSibling;
+
+  if(area.value.trim()!==""){
+    const div = document.createElement("div");
+    div.textContent = area.value;
+    list.appendChild(div);
+
+    // Sauvegarde dans localStorage
+    const saved = JSON.parse(localStorage.getItem(mediaId) || "[]");
+    saved.push(area.value);
+    localStorage.setItem(mediaId, JSON.stringify(saved));
+
+    area.value="";
+  }
 }
+
+// Charger les commentaires persistants au chargement
+document.querySelectorAll('.local-comments').forEach((lc, index)=>{
+  const list = lc.querySelector('.comments-list');
+  const mediaId = 'media_'+index;
+  const saved = JSON.parse(localStorage.getItem(mediaId) || "[]");
+  saved.forEach(text=>{
+    const div = document.createElement("div");
+    div.textContent = text;
+    list.appendChild(div);
+  });
+  lc.querySelector('button').setAttribute('onclick', `submitComment(this,'${mediaId}')`);
+});
+
+// Render Facebook plugins after DOM updates
+if(typeof FB !== "undefined"){FB.XFBML.parse();}
 </script>
 
 <!-- ===== BOUTON LIVE FLOTTANT ===== -->
@@ -205,22 +229,10 @@ if (typeof FB !== "undefined") {
 
 <script>
 const LIVE_PLAYLIST=[
-  {type:"facebook", url:"https://www.facebook.com/reel/2520847921643359/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1284173133530746/?app=fbl", duration:400},
-{type:"facebook", url:"https://www.facebook.com/reel/659085228484377/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1425640202366262/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/2998925860299551/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/2060828334765604/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/3269632186530529/", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1533470091048945/", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/894118913370636/", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1438039977792436/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/700473472422540/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1484362339932172/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/928243842998026/", duration:400},
+  {type:"facebook", url:"https://www.facebook.com/reel/2520847921643359/?app=fbl"},
+  {type:"facebook", url:"https://www.facebook.com/reel/1284173133530746/?app=fbl"},
+  {type:"facebook", url:"https://www.facebook.com/reel/659085228484377/?app=fbl"},
   {type:"youtube", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
-  {type:"youtube", url:"https://youtu.be/CCUkViVw85g?si=fR5SR9SU_3mk2T6Q"},
-  {type:"youtube", url:"https://youtu.be/R0dO2c4ygug?si=Sz501IxCWaMXzNXk"},
   {type:"mp4", url:"https://www.w3schools.com/html/mov_bbb.mp4"}
 ];
 
@@ -243,7 +255,7 @@ function playLive(){
   }
   if(item.type==="youtube"){
     const id=getYouTubeID(item.url);
-    zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen="false"></iframe>`;
   }else if(item.type==="facebook"){
     zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;
   }else if(item.type==="mp4"){
