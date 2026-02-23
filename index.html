@@ -167,14 +167,21 @@ CATEGORIES.forEach(cat=>{
 
     card.innerHTML=`<div class="player">${player}</div>
       <div class="actions">
-        <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
-        <a class="btn" href="tel:${cat.phone}">📞</a>
-        <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
+      ${(() => {
+  // Encode le lien du média pour qu'il soit unique
+  const mediaId = btoa(m.url).replace(/=/g,"");
+  return `
+  <a class="share-btn" target="_blank"
+     href="https://wa.me/?text=${encodeURIComponent('🔴 Regarde sur Business TV : https://business-tv.vercel.app/?media=' + mediaId)}">
+     📤 WhatsApp
+  </a>
 
-        <a class="share-btn" target="_blank"
-        href="https://wa.me/?text=${encodeURIComponent('🔴 Regarde Business TV en direct ' + SITE_LINK)}">
-        📤 WhatsApp
-        </a>
+  <a class="share-btn facebook" target="_blank"
+     href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://business-tv.vercel.app/?media=' + mediaId)}">
+     📤 Facebook
+  </a>
+  `;
+})()}
 
         <a class="share-btn facebook" target="_blank"
         href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_LINK)}">
@@ -228,7 +235,7 @@ function playLive(){
     src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;
 
     // Facebook = 5 minutes automatique
-    liveTimer=setTimeout(nextLive,300000);
+    liveTimer=setTimeout(nextLive,3000);
   }
 
   else if(item.type==="mp4"){
@@ -277,6 +284,35 @@ document.getElementById("listBtn").onclick=function(){
     livePopup.appendChild(btn);
   });
 };
+// OUVERTURE MEDIA VIA URL
+window.addEventListener("load", function(){
+  const params = new URLSearchParams(window.location.search);
+  const mediaParam = params.get("media");
+
+  if(mediaParam){
+    CATEGORIES.forEach((cat,catIndex)=>{
+      cat.medias.forEach((m,mediaIndex)=>{
+        const id = btoa(m.url).replace(/=/g,"");
+        if(id === mediaParam){
+          
+          // Ouvrir Live directement
+          const type = m.url.includes("youtube")?"youtube":
+                       m.url.includes("facebook")?"facebook":
+                       m.url.endsWith(".mp4")?"mp4":"other";
+
+          if(type==="youtube"||type==="facebook"||type==="mp4"){
+            liveIndex = LIVE_PLAYLIST.findIndex(item=>item.url===m.url);
+            openLiveTV();
+          }
+
+          // Scroll vers la catégorie
+          document.querySelectorAll(".category")[catIndex]
+          .scrollIntoView({behavior:"smooth"});
+        }
+      });
+    });
+  }
+});
 </script>
 
 
