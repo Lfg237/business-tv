@@ -192,6 +192,80 @@ document.getElementById("listBtn").onclick=function(){
   });
 };
 </script>
+<!-- POPUP ANNONCES -->
+<div id="annoncePopup" style="
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.7);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:100000;
+">
+  <div style="
+  background:#121b2c;
+  padding:20px;
+  border-radius:15px;
+  width:90%;
+  max-width:320px;
+  text-align:center;
+  ">
+    <p id="annonceText" style="margin-bottom:15px;"></p>
+
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <a id="annonceCall" style="
+      background:#0066ff;
+      padding:8px 12px;
+      border-radius:8px;
+      text-decoration:none;
+      color:white;
+      ">📞 Appeler</a>
+
+      <a id="annonceWA" target="_blank" style="
+      background:green;
+      padding:8px 12px;
+      border-radius:8px;
+      text-decoration:none;
+      color:white;
+      ">💬 WhatsApp</a>
+    </div>
+
+    <div style="margin-top:12px;">
+      <button onclick="closeAnnonce()" style="
+      background:red;
+      color:white;
+      border:none;
+      padding:6px 12px;
+      border-radius:6px;
+      cursor:pointer;
+      ">❌ Fermer</button>
+    </div>
+  </div>
+</div>
+<script>
+const annoncePopup = document.getElementById("annoncePopup");
+const annonceText = document.getElementById("annonceText");
+const annonceCall = document.getElementById("annonceCall");
+const annonceWA = document.getElementById("annonceWA");
+
+document.querySelectorAll(".annonce-btn").forEach(btn=>{
+  btn.addEventListener("click", function(){
+    const text = this.dataset.text;
+    const phone = this.dataset.phone;
+    const whatsapp = this.dataset.whatsapp;
+
+    annonceText.innerText = text;
+    annonceCall.href = "tel:" + phone;
+    annonceWA.href = "https://wa.me/" + whatsapp;
+
+    annoncePopup.style.display = "flex";
+  });
+});
+
+function closeAnnonce(){
+  annoncePopup.style.display = "none";
+}
+</script>
 
 </body>
 </html>
