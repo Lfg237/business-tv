@@ -19,11 +19,14 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 
 .media-row{display:flex;gap:10px;overflow-x:auto;padding:8px}
 .media-card{min-width:200px;background:#121b2c;border-radius:12px;overflow:hidden;box-shadow:0 3px 8px rgba(0,0,0,.6)}
-.player iframe,.player video,.player img,.player audio{width:100%;height:120px;border:none}
+.player iframe,.player video,.player img,.player audio{width:100%;height:120px;border:none;object-fit:cover}
 
 .actions{display:flex;justify-content:space-around;padding:6px 0;flex-wrap:wrap}
 .btn{background:#0044cc;color:white;padding:5px 8px;border-radius:8px;font-size:12px;text-decoration:none;cursor:pointer}
 .btn:hover{background:#0066ff}
+
+.share-btn{background:#25D366;color:#fff;padding:5px 8px;border-radius:8px;font-size:12px;text-decoration:none;cursor:pointer;margin-top:4px;display:inline-block;}
+.share-btn.facebook{background:#3b5998}
 
 .annonce-bar{overflow-x:auto;background:#0e1524;margin-top:8px;padding:6px 0;white-space:nowrap}
 .annonce-track{display:inline-flex;gap:6px}
@@ -103,24 +106,27 @@ subBtn.onclick = () => {
 // CATEGORIES ET MEDIAS
 const DEFAULT_PROFILE="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png";
 const CATEGORIES=[
-	{title:"B.TV Vente flash ", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png", phone:"+23765605097097", whatsapp:"+237670035609", medias:[
-    {title:" vente rapide le flash du jour Reel 3",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"}
+  {title:"B.TV Vente flash ", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png", phone:"+23765605097097", whatsapp:"+237670035609", medias:[
+    {title:"vente rapide le flash du jour Reel 3",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"},
+    {title:"Image promo flash", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png"}
   ]},
   {title:"B.TV La Kass", profile:DEFAULT_PROFILE, phone:"237656050097", whatsapp:"237670035609", medias:[
     {title:"Facebook Reel 1",url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
     {title:"Facebook Reel 2",url:"https://www.facebook.com/reel/659085228484377/?app=fbl"},
     {title:"YouTube Vidéo",url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
     {title:"MP4 Vidéo",url:"https://www.w3schools.com/html/mov_bbb.mp4"},
-    {title:"MP3 Audio",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"}
+    {title:"MP3 Audio",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/tonton_le_show_ne_touches_pas_mes_lolo(128k).mp3"},
+    {title:"Image La Kass", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png"}
   ]},
   {title:"B.TV Vente Achat location automobile", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+23765605097", whatsapp:"+237670035609", medias:[
-    {title:" automobile et camion Reel 3",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"}
+    {title:"automobile et camion Reel 3",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"}
   ]},
   {title:"B.TV Shopping", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+23765605097", whatsapp:"+237670035609", medias:[
     {title:"Facebook Reel 4",url:"https://www.facebook.com/reel/307450755064294/?app=fbl"}
   ]},
   {title:"B.TV Lingerie Nyanga", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1771868982903.jpg", phone:"+23765606241", whatsapp:"+23765606241", medias:[
-    {title:"lingerie nyanga Reel 5",url:"https://www.facebook.com/reel/1533470091048945/?app=fbl"}
+    {title:"lingerie nyanga Reel 5",url:"https://www.facebook.com/reel/1533470091048945/?app=fbl"},
+    {title:"Image Lingerie", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1771868982903.jpg"}
   ]},
   {title:"B.TV MP3 Podcast FM", profile:"https://raw.githubusercontent.com/Lfg237/d-p-t-image-Lesfacilitateurs-/main/InShot_20250612_144937066.jpg", phone:"237656050097", whatsapp:"237670035609", medias:[
     {title:"MP3 Audio Podcast",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"}
@@ -135,6 +141,7 @@ CATEGORIES.forEach(cat=>{
     <img src="${cat.profile}" class="category-profile">
     <h2>${cat.title}</h2></div>`;
   const row=document.createElement("div"); row.className="media-row";
+
   cat.medias.forEach(m=>{
     const card=document.createElement("div"); card.className="media-card";
     let player="";
@@ -147,35 +154,50 @@ CATEGORIES.forEach(cat=>{
       player=`<video controls><source src="${m.url}" type="video/mp4"></video>`;
     }else if(m.url.endsWith(".mp3")){
       player=`<audio controls><source src="${m.url}" type="audio/mpeg"></audio>`;
+    }else if(m.url.match(/\.(jpg|jpeg|png|gif)$/)){
+      player=`<img src="${m.url}" alt="${m.title}">`;
     }
     card.innerHTML=`<div class="player">${player}</div>
       <div class="actions">
         <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
         <a class="btn" href="tel:${cat.phone}">📞</a>
         <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
+        <a class="share-btn" target="_blank" href="https://wa.me/?text=${encodeURIComponent(m.url)}">📤 WhatsApp</a>
+        <a class="share-btn facebook" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(m.url)}">📤 Facebook</a>
       </div>
       <div style="margin-top:8px;">
         ${m.url.includes("facebook")?`<div class="fb-comments" data-href="${m.url}" data-width="100%" data-numposts="5"></div>`:""}
       </div>`;
     row.appendChild(card);
   });
-  sec.appendChild(row); box.appendChild(sec);
+
+  sec.appendChild(row); 
+  box.appendChild(sec);
 });
 
 // LIVE PLAYLIST
 let LIVE_PLAYLIST=[];
 CATEGORIES.forEach(cat=>{
   cat.medias.forEach(m=>{
-    LIVE_PLAYLIST.push({title:m.title, type:m.url.includes("youtube")?"youtube":m.url.includes("facebook")?"facebook":m.url.endsWith(".mp4")?"mp4":"mp3", url:m.url});
+    const type = m.url.includes("youtube")?"youtube":m.url.includes("facebook")?"facebook":m.url.endsWith(".mp4")?"mp4":m.url.endsWith(".mp3")?"mp3":"image";
+    if(type!=="image") LIVE_PLAYLIST.push({title:m.title, type:type, url:m.url});
   });
 });
 
 // LIVE FUNCTIONS
 let liveIndex=0;
-function playLive(){const zone=document.getElementById("livePlayer");const item=LIVE_PLAYLIST[liveIndex];if(!item||!item.url){zone.innerHTML="<div style='color:white;text-align:center;padding-top:40px;'>⛔ Vidéo non disponible</div>";return;}
-if(item.type==="youtube"){const id=item.url.split("v=")[1]?.split("&")[0]||item.url.split("youtu.be/")[1];zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe>`;}
-else if(item.type==="facebook"){zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;}
-else if(item.type==="mp4"||item.type==="mp3"){zone.innerHTML=`<video width="100%" height="100%" autoplay controls onended="nextLive()"><source src="${item.url}" type="${item.type==='mp4'?'video/mp4':'audio/mpeg'}"></video>`;}
+function playLive(){
+  const zone=document.getElementById("livePlayer");
+  const item=LIVE_PLAYLIST[liveIndex];
+  if(!item || !item.url){zone.innerHTML="<div style='color:white;text-align:center;padding-top:40px;'>⛔ Vidéo non disponible</div>";return;}
+  if(item.type==="youtube"){
+    const id=item.url.split("v=")[1]?.split("&")[0]||item.url.split("youtu.be/")[1];
+    zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe>`;
+  }else if(item.type==="facebook"){
+    zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;
+  }else if(item.type==="mp4"||item.type==="mp3"){
+    zone.innerHTML=`<video width="100%" height="100%" autoplay controls onended="nextLive()"><source src="${item.url}" type="${item.type==='mp4'?'video/mp4':'audio/mpeg'}"></video>`;
+  }
 }
 function nextLive(){liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length;playLive();}
 function prevLive(){liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length;playLive();}
@@ -185,6 +207,7 @@ function closeLiveTV(){document.getElementById("liveTV").style.display="none";}
 // BOUTONS LIVE
 document.getElementById("liveBtn").onclick=openLiveTV;
 document.getElementById("listBtn").onclick=function(){
+  const livePopup=document.getElementById("livePopup");
   livePopup.style.display = livePopup.style.display==="block"?"none":"block";
   livePopup.innerHTML="";
   LIVE_PLAYLIST.forEach((item,i)=>{
@@ -195,6 +218,7 @@ document.getElementById("listBtn").onclick=function(){
   });
 };
 </script>
+
 <!-- POPUP ANNONCES -->
 <div id="annoncePopup" style="
 position:fixed;
