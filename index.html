@@ -19,7 +19,7 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .category h2{margin:8px;color:#4ea1ff;font-size:18px}
 
 .media-row{display:flex;gap:10px;overflow-x:auto;padding:8px}
-.media-card{min-width:200px;background:#121b2c;border-radius:12px;overflow:hidden;box-shadow:0 3px 8px rgba(0,0,0,.6)}
+.media-card{min-width:200px;background:#121b2c;border-radius:12px;overflow:hidden;box-shadow:0 3px 8px rgba(0,0,0,.6);position:relative}
 .player iframe,.player video,.player img,.player audio{width:100%;height:120px;border:none}
 
 .actions{display:flex;justify-content:space-around;padding:6px 0;flex-wrap:wrap}
@@ -31,38 +31,34 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .annonce-btn{background:#ff4ea1;color:#fff;border:none;padding:5px 10px;border-radius:18px;font-size:12px;cursor:pointer}
 
 .popup{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9999}
-.popup-content{background:#121b2c;padding:18px;border-radius:14px;width:90%;max-width:300px;text-align:center}
+.popup-content{background:#121b2c;padding:18px;border-radius:14px;width:90%;max-width:300px;text-align:center;max-height:80vh;overflow-y:auto}
 .popup-actions{display:flex;gap:8px;justify-content:center;margin-top:12px}
 .popup-actions a,.popup-actions button{background:#0066ff;color:#fff;padding:6px 10px;border-radius:8px;border:none;text-decoration:none;font-size:12px;cursor:pointer}
 
 .ticker-wrapper{position:fixed;bottom:0;left:0;width:100%;background:#111;color:#fff;overflow:hidden;z-index:999999;border-top:2px solid red;}
 .ticker{display:inline-block;white-space:nowrap;padding-left:100%;animation:tickerMove 10s linear infinite;font-weight:bold;font-size:14px;}
 @keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+.live-popup{position:fixed;bottom:70px;right:18px;background:#222;padding:12px;border-radius:12px;color:#fff;z-index:9999;max-height:60vh;overflow-y:auto;display:none}
+.live-popup button{display:block;width:100%;margin-bottom:6px;background:#0044cc;color:#fff;border:none;padding:6px 10px;border-radius:8px;cursor:pointer;text-align:left}
 </style>
 </head>
 <body>
 
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
-src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0">
-</script>
+src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0"></script>
 
 <header>
-<div class="ticker-wrapper">
-<div class="ticker">
-🔴 BUSINESS TV LIVE • Promotion gratuite • Contact WhatsApp 670035609 •
-</div>
-</div>
-
+<div class="ticker-wrapper"><div class="ticker">🔴 BUSINESS TV LIVE • Promotion gratuite • Contact WhatsApp 670035609 •</div></div>
 <div class="header-top">
 <img src="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png">
 <h1>Business TV</h1>
 </div>
-
 <div class="annonce-bar">
 <div class="annonce-track">
 <button class="annonce-btn" data-text="📢 Promo Business TV" data-phone="237656050097" data-whatsapp="237670035609">📢 contact admin</button>
-<button class="annonce-btn" data-text="🎬 Community manager & site web creation et gedtion de page facebook" data-phone="237656050097" data-whatsapp="237670035609">🎬 community manager</button>
+<button class="annonce-btn" data-text="🎬 Community manager & site web creation et gestion de page facebook" data-phone="237656050097" data-whatsapp="237670035609">🎬 community manager</button>
 <button class="annonce-btn" data-text="💼 publier votre profil gratuitement pour les chercheurs d’emploi" data-phone="237656050097" data-whatsapp="237670035609">💼liste des  chercheurs emploi</button>
 </div>
 </div>
@@ -121,7 +117,38 @@ const CATEGORIES=[
 ]}];
 
 const box=document.getElementById("content");
+
 function ytID(u){try{const url=new URL(u);return url.searchParams.get("v")||url.pathname.slice(1)}catch(e){return null}}
+function createMediaCard(cat,m,index){
+  let player="";
+  if(m.url.includes("youtube")){
+    const id=ytID(m.url);
+    player=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
+  }else if(m.url.endsWith(".mp4")){
+    player=`<video controls autoplay><source src="${m.url}" type="video/mp4"></video>`;
+  }else if(m.url.endsWith(".mp3")){
+    player=`<audio controls autoplay><source src="${m.url}" type="audio/mpeg"></audio>`;
+  }else if(m.url.includes("facebook")){
+    player=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(m.url)}&show_text=false" allowfullscreen></iframe>`;
+  }
+
+  const card=document.createElement("div");
+  card.className="media-card";
+  card.innerHTML=`
+    <div class="player">${player}</div>
+    <div class="actions">
+      <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
+      <a class="btn" href="tel:${cat.phone}">📞</a>
+      <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
+    </div>
+    <div style="margin-top:8px;">
+      ${m.url.includes("facebook") ? `<div class="fb-comments" data-href="${m.url}" data-width="100%" data-numposts="5"></div>` : ''}
+      ${m.url.includes("youtube") || m.url.endsWith(".mp4") || m.url.endsWith(".mp3") ? `<div id="disqus-${cat.title.replace(/\s/g,'')}-${index}"></div>` : ''}
+    </div>
+  `;
+  return card;
+}
+
 CATEGORIES.forEach(cat=>{
   const sec=document.createElement("section");
   sec.className="category";
@@ -131,54 +158,80 @@ CATEGORIES.forEach(cat=>{
 <h2>${cat.title}</h2></div>`;
   const row=document.createElement("div");
   row.className="media-row";
-  cat.medias.forEach(m=>{
-    if(!m.url) return;
-    let player="";
-    if(m.url.includes("youtube")){
-      const id=ytID(m.url);
-      player=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
-    }else if(m.url.endsWith(".mp4")){
-      player=`<video controls><source src="${m.url}" type="video/mp4"></video>`;
-    }else if(m.url.endsWith(".mp3")){
-      player=`<audio controls><source src="${m.url}" type="audio/mpeg"></audio>`;
-    }else if(m.url.includes("facebook")){
-      player=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(m.url)}&show_text=false"></iframe>`;
-    }
-    row.innerHTML+=`
-<div class="media-card">
-  <div class="player">${player}</div>
-  <div class="actions">
-    <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
-    <a class="btn" href="tel:${cat.phone}">📞</a>
-    <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
-  </div>
-  <!-- Lien vers la politique des commentaires -->
-  <div style="text-align:center;margin-top:8px;">
-    <a href="politique-commentaires.html" target="_blank" style="color:#ff4ea1;font-size:12px;">📄 Politique des commentaires</a>
-  </div>
-  ${m.url.includes("facebook") ? `
-  <div class="fb-comments"
-    data-href="${m.url}"
-    data-width="100%"
-    data-numposts="5"
-    style="background:#fff;border-radius:10px;margin-top:8px;">
-  </div>
-  ` : ``}
-</div>`;
+  cat.medias.forEach((m,index)=>{
+    row.appendChild(createMediaCard(cat,m,index));
   });
   sec.appendChild(row);
   box.appendChild(sec);
 });
 
 // Parse FB XFBML
-if (typeof FB !== "undefined") {
-  FB.XFBML.parse();
+if (typeof FB !== "undefined") { FB.XFBML.parse(); }
+
+// Disqus embed
+CATEGORIES.forEach(cat=>{
+  cat.medias.forEach((m,index)=>{
+    if(m.url.includes("youtube") || m.url.endsWith(".mp4") || m.url.endsWith(".mp3")){
+      var disqus_config = function () {
+        this.page.url = m.url;
+        this.page.identifier = `disqus-${cat.title.replace(/\s/g,'')}-${index}`;
+      };
+      (function() {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://business-tv.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    }
+  });
+});
+
+// ===== LIVE TV =====
+const LIVE_PLAYLIST=[];
+CATEGORIES.forEach(cat=>{
+  cat.medias.forEach(m=>{
+    if(m.url) LIVE_PLAYLIST.push({type:m.url.includes("youtube")?"youtube":m.url.includes("facebook")?"facebook":m.url.endsWith(".mp4")?"mp4":"mp3", url:m.url});
+  });
+});
+
+let liveIndex=0;
+function getYouTubeID(url){try{if(url.includes("youtu.be")) return url.split("youtu.be/")[1].split("?")[0]; if(url.includes("v=")) return url.split("v=")[1].split("&")[0];}catch(e){} return null;}
+function playLive(){
+  const zone=document.getElementById("livePlayer");
+  const item=LIVE_PLAYLIST[liveIndex];
+  if(!item||!item.url){zone.innerHTML="<div style='color:white;text-align:center;padding-top:40px;'>⛔ Vidéo non disponible</div>";return;}
+  if(item.type==="youtube"){const id=getYouTubeID(item.url);zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe>`;}
+  else if(item.type==="facebook"){zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;}
+  else if(item.type==="mp4" || item.type==="mp3"){zone.innerHTML=`<video width="100%" height="100%" autoplay controls onended="nextLive()"><source src="${item.url}" type="${item.type==='mp4'?'video/mp4':'audio/mpeg'}"></video>`;}
 }
+function nextLive(){liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length;playLive();}
+function prevLive(){liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length;playLive();}
+function openLiveTV(){document.getElementById("liveTV").style.display="block";playLive();}
+function closeLiveTV(){document.getElementById("liveTV").style.display="none";}
+
+// ===== BOUTONS FLOTTANTS =====
+const liveBtn=document.createElement("div");
+liveBtn.innerText="🔴 LIVE TV";
+liveBtn.style.cssText="position:fixed;bottom:18px;right:18px;background:red;color:#fff;padding:12px 18px;border-radius:50px;font-weight:bold;cursor:pointer;z-index:9999;box-shadow:0 0 12px red";
+liveBtn.onclick=openLiveTV;
+document.body.appendChild(liveBtn);
+
+const listBtn=document.createElement("div");
+listBtn.innerText="📋 Liste Lives";
+listBtn.style.cssText="position:fixed;bottom:18px;right:120px;background:#222;color:#fff;padding:12px 18px;border-radius:50px;font-weight:bold;cursor:pointer;z-index:9999;box-shadow:0 0 12px #222";
+document.body.appendChild(listBtn);
+
+const livePopup=document.createElement("div");
+livePopup.className="live-popup";
+document.body.appendChild(livePopup);
+
+listBtn.onclick=function(){livePopup.style.display=livePopup.style.display==="block"?"none":"block"; livePopup.innerHTML=""; LIVE_PLAYLIST.forEach((item,i)=>{
+  const btn=document.createElement("button"); btn.innerText=(item.type.toUpperCase())+" - "+item.url; btn.onclick=()=>{liveIndex=i;playLive();};
+  livePopup.appendChild(btn);
+});};
 </script>
 
-<!-- ===== BOUTON LIVE FLOTTANT ===== -->
-<div onclick="openLiveTV()" style="position:fixed;bottom:18px;right:18px;background:red;color:#fff;padding:12px 18px;border-radius:50px;font-weight:bold;cursor:pointer;z-index:9999;box-shadow:0 0 12px red;">🔴 LIVE TV</div>
-
+<!-- LIVE PLAYER -->
 <div id="liveTV" style="display:none;position:fixed;inset:0;background:#000;z-index:10000;">
 <div style="height:50px;background:#111;display:flex;align-items:center;justify-content:space-between;padding:0 12px;">
 <strong style="color:red;">🔴 BUSINESS TV LIVE</strong>
@@ -190,60 +243,6 @@ if (typeof FB !== "undefined") {
 <button onclick="nextLive()">⏭ Suivant</button>
 </div>
 </div>
-
-<script>
-const LIVE_PLAYLIST=[
-  {type:"facebook", url:"https://www.facebook.com/reel/2520847921643359/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1284173133530746/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/659085228484377/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1425640202366262/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/2998925860299551/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/2060828334765604/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/3269632186530529/", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1533470091048945/", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/894118913370636/", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1438039977792436/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/700473472422540/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/1484362339932172/?app=fbl", duration:400},
-  {type:"facebook", url:"https://www.facebook.com/reel/928243842998026/", duration:400},
-  {type:"youtube", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
-  {type:"youtube", url:"https://youtu.be/CCUkViVw85g?si=fR5SR9SU_3mk2T6Q"},
-  {type:"youtube", url:"https://youtu.be/R0dO2c4ygug?si=Sz501IxCWaMXzNXk"},
-  {type:"mp4", url:"https://www.w3schools.com/html/mov_bbb.mp4"}
-];
-
-let liveIndex=0;
-
-function getYouTubeID(url){
-  try{
-    if(url.includes("youtu.be")) return url.split("youtu.be/")[1].split("?")[0];
-    if(url.includes("v=")) return url.split("v=")[1].split("&")[0];
-  }catch(e){}
-  return null;
-}
-
-function playLive(){
-  const zone=document.getElementById("livePlayer");
-  const item=LIVE_PLAYLIST[liveIndex];
-  if(!item || !item.url){
-    zone.innerHTML="<div style='color:white;text-align:center;padding-top:40px;'>⛔ Vidéo non disponible</div>";
-    return;
-  }
-  if(item.type==="youtube"){
-    const id=getYouTubeID(item.url);
-    zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-  }else if(item.type==="facebook"){
-    zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;
-  }else if(item.type==="mp4"){
-    zone.innerHTML=`<video width="100%" height="100%" autoplay controls onended="nextLive()"><source src="${item.url}" type="video/mp4"></video>`;
-  }
-}
-
-function nextLive(){liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length;playLive();}
-function prevLive(){liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length;playLive();}
-function openLiveTV(){document.getElementById("liveTV").style.display="block";playLive();}
-function closeLiveTV(){document.getElementById("liveTV").style.display="none";}
-</script>
 
 </body>
 </html>
