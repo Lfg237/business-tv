@@ -102,10 +102,9 @@ subBtn.onclick = () => {
   }
 };
 
-const SITE_LINK = "https://business-tv.vercel.app/";
 const DEFAULT_PROFILE="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png";
 
-// --- CATEGORIES & MEDIAS ---
+// ===================== CATEGORIES =====================
 const CATEGORIES=[
   {title:"B.TV Vente flash ", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png", phone:"+237656050097", whatsapp:"+237670035609", medias:[
     {title:"vente rapide le flash du jour Reel 3",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"},
@@ -118,10 +117,23 @@ const CATEGORIES=[
     {title:"MP4 Vidéo",url:"https://www.w3schools.com/html/mov_bbb.mp4"},
     {title:"MP3 Audio",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"},
     {title:"Image La Kass", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png"}
+  ]},
+  {title:"B.TV Vente Achat location automobile", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+237656050097", whatsapp:"+237670035609", medias:[
+    {title:"automobile et camion Reel 3",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"}
+  ]},
+  {title:"B.TV Shopping", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"+237656050097", whatsapp:"+237670035609", medias:[
+    {title:"Facebook Reel 4",url:"https://www.facebook.com/reel/307450755064294/?app=fbl"}
+  ]},
+  {title:"B.TV Lingerie Nyanga", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1771868982903.jpg", phone:"+237656706241", whatsapp:"+237656706241", medias:[
+    {title:"lingerie nyanga Reel 5",url:"https://www.facebook.com/reel/1533470091048945/?app=fbl"},
+    {title:"Image Lingerie", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1771868982903.jpg"}
+  ]},
+  {title:"B.TV MP3 Podcast FM", profile:"https://raw.githubusercontent.com/Lfg237/d-p-t-image-Lesfacilitateurs-/main/InShot_20250612_144937066.jpg", phone:"237656050097", whatsapp:"237670035609", medias:[
+    {title:"MP3 Audio Podcast",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"}
   ]}
-  // --- Ajoute ici toutes tes autres catégories complètes ---
 ];
 
+// ===================== AFFICHAGE CATEGORIES =====================
 const box = document.getElementById("content");
 CATEGORIES.forEach(cat=>{
   const sec=document.createElement("section");
@@ -129,6 +141,7 @@ CATEGORIES.forEach(cat=>{
   sec.innerHTML=`<div class="category-header">
     <img src="${cat.profile}" class="category-profile">
     <h2>${cat.title}</h2></div>`;
+
   const row=document.createElement("div"); 
   row.className="media-row";
 
@@ -155,14 +168,16 @@ CATEGORIES.forEach(cat=>{
         <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
         <a class="btn" href="tel:${cat.phone}">📞</a>
         <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}">💬</a>
+
         <a class="share-btn" target="_blank"
-        href="https://wa.me/?text=${encodeURIComponent('🔴 Regarde Business TV en direct: ' + SITE_LINK)}">
+        href="https://wa.me/?text=${encodeURIComponent('🔴 Regarde ce média Business TV: ' + m.url)}">
         📤 WhatsApp
         </a>
       </div>
       <div style="margin-top:8px;">
         ${m.url.includes("facebook")?`<div class="fb-comments" data-href="${m.url}" data-width="100%" data-numposts="5"></div>`:""}
       </div>`;
+
     row.appendChild(card);
   });
 
@@ -170,7 +185,7 @@ CATEGORIES.forEach(cat=>{
   box.appendChild(sec);
 });
 
-// --- LIVE PLAYLIST ---
+// ===================== LIVE PLAYLIST =====================
 let LIVE_PLAYLIST=[];
 CATEGORIES.forEach(cat=>{
   cat.medias.forEach(m=>{
@@ -199,24 +214,45 @@ function playLive(){
     const id=item.url.split("v=")[1]?.split("&")[0]||item.url.split("youtu.be/")[1];
     zone.innerHTML=`<iframe width="100%" height="100%" 
     src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe>`;
-  } else if(item.type==="facebook"){
+  }
+
+  else if(item.type==="facebook"){
     zone.innerHTML=`<iframe width="100%" height="100%" 
     src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;
-    liveTimer=setTimeout(nextLive,300000); // 5 min auto
-  } else if(item.type==="mp4"){
-    zone.innerHTML=`<video width="100%" height="100%" autoplay controls onended="nextLive()">
+    liveTimer=setTimeout(nextLive,300000); // 5 min
+  }
+
+  else if(item.type==="mp4"){
+    zone.innerHTML=`<video width="100%" height="100%" autoplay controls 
+    onended="nextLive()">
     <source src="${item.url}" type="video/mp4">
     </video>`;
   }
 }
 
-function nextLive(){ liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length; playLive(); }
-function prevLive(){ liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length; playLive(); }
-function openLiveTV(){ document.getElementById("liveTV").style.display="block"; playLive(); }
-function closeLiveTV(){ document.getElementById("liveTV").style.display="none"; clearTimeout(liveTimer); }
+function nextLive(){
+  liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length;
+  playLive();
+}
+
+function prevLive(){
+  liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length;
+  playLive();
+}
+
+function openLiveTV(){
+  document.getElementById("liveTV").style.display="block";
+  playLive();
+}
+
+function closeLiveTV(){
+  document.getElementById("liveTV").style.display="none";
+  clearTimeout(liveTimer);
+}
 
 // BOUTONS LIVE
 document.getElementById("liveBtn").onclick=openLiveTV;
+
 document.getElementById("listBtn").onclick=function(){
   const livePopup=document.getElementById("livePopup");
   livePopup.style.display = livePopup.style.display==="block"?"none":"block";
@@ -224,16 +260,21 @@ document.getElementById("listBtn").onclick=function(){
   LIVE_PLAYLIST.forEach((item,i)=>{
     const btn=document.createElement("button");
     btn.innerText=item.title;
-    btn.onclick=()=>{liveIndex=i; playLive(); openLiveTV(); }
+    btn.onclick=()=>{
+      liveIndex=i;
+      playLive();
+      openLiveTV();
+    }
     livePopup.appendChild(btn);
   });
 };
 
-// --- ANNONCES ---
+// ===================== ANNONCES =====================
 const annoncePopup = document.createElement("div");
 annoncePopup.id="annoncePopup";
 annoncePopup.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:100000;";
-annoncePopup.innerHTML=`<div style="background:#121b2c;padding:20px;border-radius:15px;width:90%;max-width:320px;text-align:center;">
+annoncePopup.innerHTML=`
+<div style="background:#121b2c;padding:20px;border-radius:15px;width:90%;max-width:320px;text-align:center;">
   <p id="annonceText" style="margin-bottom:15px;"></p>
   <div style="display:flex;gap:10px;justify-content:center;">
     <a id="annonceCall" style="background:#0066ff;padding:8px 12px;border-radius:8px;text-decoration:none;color:white;">📞 Appeler</a>
@@ -242,7 +283,8 @@ annoncePopup.innerHTML=`<div style="background:#121b2c;padding:20px;border-radiu
   <div style="margin-top:12px;">
     <button onclick="closeAnnonce()" style="background:red;color:white;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;">❌ Fermer</button>
   </div>
-</div>`;
+</div>
+`;
 document.body.appendChild(annoncePopup);
 
 const annonceText = document.getElementById("annonceText");
@@ -263,7 +305,9 @@ document.querySelectorAll(".annonce-btn").forEach(btn=>{
   });
 });
 
-function closeAnnonce(){ annoncePopup.style.display="none"; }
+function closeAnnonce(){
+  annoncePopup.style.display = "none";
+}
 </script>
 
 </body>
