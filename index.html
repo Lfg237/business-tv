@@ -225,10 +225,21 @@ const livePopup=document.createElement("div");
 livePopup.className="live-popup";
 document.body.appendChild(livePopup);
 
-listBtn.onclick=function(){livePopup.style.display=livePopup.style.display==="block"?"none":"block"; livePopup.innerHTML=""; LIVE_PLAYLIST.forEach((item,i)=>{
-  const btn=document.createElement("button"); btn.innerText=(item.type.toUpperCase())+" - "+item.url; btn.onclick=()=>{liveIndex=i;playLive();};
-  livePopup.appendChild(btn);
-});};
+// Liste des lives scrollable avec lecture automatique
+listBtn.onclick = function() {
+  livePopup.style.display = livePopup.style.display === "block" ? "none" : "block";
+  livePopup.innerHTML = "";
+  LIVE_PLAYLIST.forEach((item, i) => {
+    const btn = document.createElement("button");
+    btn.innerText = item.type.toUpperCase() + " - " + item.url;
+    btn.onclick = () => {
+      liveIndex = i;
+      openLiveTV(); // ouvre le lecteur
+      playLive();   // lance le live automatiquement
+    };
+    livePopup.appendChild(btn);
+  });
+};
 </script>
 
 <!-- LIVE PLAYER -->
