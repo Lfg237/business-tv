@@ -118,10 +118,11 @@ subBtn.onclick = () => {
   }
 };
 
-// CATEGORIES (exemple complet avec toutes les catégories réelles)
+// SITE LINK
 const SITE_LINK = "https://business-tv.vercel.app/";
 const DEFAULT_PROFILE="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png";
 
+// CATEGORIES COMPLETES
 const CATEGORIES=[
   {title:"B.TV Vente flash", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png", phone:"237656050097", whatsapp:"237670035609", medias:[
     {title:"vente rapide le flash du jour Reel 3",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"},
@@ -149,7 +150,7 @@ const CATEGORIES=[
   ]}
 ];
 
-// RENDER CATEGORIES & MEDIAS
+// GENERATION DES CATEGORIES
 const box = document.getElementById("content");
 CATEGORIES.forEach(cat=>{
   const sec=document.createElement("section");
@@ -184,7 +185,7 @@ CATEGORIES.forEach(cat=>{
     row.appendChild(card);
   });
 
-  sec.appendChild(row); 
+  sec.appendChild(row);
   box.appendChild(sec);
 });
 
