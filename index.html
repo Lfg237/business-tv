@@ -326,24 +326,41 @@ function startDailyNotifications() {
   sendNotification();
   notificationTimer = setInterval(sendNotification, 24 * 60 * 60 * 1000);
 }
+<script>
 // --- OUVRIR AUTOMATIQUEMENT LE MÉDIA SI HASH DANS L'URL ---
 window.addEventListener("load", () => {
-  const hash = decodeURIComponent(window.location.hash.substring(1)); // enlève le #
-  if(!hash) return;
+  const rawHash = window.location.hash.substring(1);
+  if (!rawHash) return;
+
+  // Fonction pour normaliser le texte : minuscules + supprimer accents + trim
+  function normalize(str) {
+    return str
+      .normalize("NFD")               // Décompose accents
+      .replace(/[\u0300-\u036f]/g, "") // Supprime accents
+      .trim()
+      .toLowerCase();
+  }
+
+  const hash = normalize(decodeURIComponent(rawHash));
 
   // Cherche le média correspondant dans toutes les catégories
   let found = null;
   CATEGORIES.forEach(cat => {
     cat.medias.forEach(m => {
-      if(m.title === hash) found = m;
+      if(m.title && normalize(m.title) === hash) found = m;
     });
   });
 
   if(found && found.url){
-    // Affiche dans le lecteur intégré
-    playMedia(found.url);
+    // Trouve l'index dans la playlist LIVE
+    liveIndex = LIVE_PLAYLIST.findIndex(item => item.title && normalize(item.title) === normalize(found.title));
+    if(liveIndex === -1) liveIndex = 0;
+
+    playLive();
+    openLiveTV();
   }
 });
+</script>
 </script>
 </body>
 </html>
