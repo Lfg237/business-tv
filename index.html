@@ -63,7 +63,7 @@ src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0"></script>
 <div class="annonce-track">
 <button class="annonce-btn" data-text="📢 Promo Business TV" data-phone="237656050097" data-whatsapp="237670035609">📢 contact admin</button>
 <button class="annonce-btn" data-text="🎬 Community manager & site web creation et gestion de page facebook" data-phone="237656050097" data-whatsapp="237670035609">🎬 community manager</button>
-<button class="annonce-btn" data-text="💼 publier votre profil gratuitement pour les chercheurs d’emploi💋 ville de Yaoundé bibiche mveng 19 ans douer dans le service de restauration j'ai fait dans le marketing et aussi dans la vente ambulante habite à Ekounou tel:674 99 76 15" data-phone="237656050097" data-whatsapp="237670035609">💼 liste des chercheurs emploi</button>
+<button class="annonce-btn" data-text="💼 publier votre profil gratuitement pour les chercheurs d’emploi" data-phone="237656050097" data-whatsapp="237670035609">💼 liste des chercheurs emploi</button>
 </div>
 </div>
 </header>
@@ -107,83 +107,77 @@ display:none;align-items:center;justify-content:center;z-index:100000;">
 </div>
 
 <script>
-// ABONNEMENT
-const subBtn = document.getElementById("subBtn");
-let subscribed = false;
-subBtn.onclick = () => {
-  if(!subscribed){
-    subscribed = true;
-    subBtn.classList.add("active");
-    alert("✅ Vous êtes abonné aux notifications Business TV !");
-  }
-};
-
-// SITE LINK
-const SITE_LINK = "https://business-tv.vercel.app/";
+const SITE_LINK="https://business-tv.vercel.app/";
 const DEFAULT_PROFILE="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png";
 
-// CATEGORIES COMPLETES
+// --- CATEGORIES ---
 const CATEGORIES=[
   {title:"B.TV Vente flash", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png", phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"vente rapide le flash du jour Reel 3",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"},
+    {title:"vente rapide le flash du jour Reel 3", url:"https://www.facebook.com/reel/921053893432571/?app=fbl"},
     {title:"Image promo flash", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png"}
   ]},
   {title:"B.TV La Kass", profile:DEFAULT_PROFILE, phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"Facebook Reel 1",url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
-    {title:"Facebook Reel 2",url:"https://www.facebook.com/reel/659085228484377/?app=fbl"},
-    {title:"YouTube Vidéo",url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
-    {title:"MP4 Vidéo",url:"https://www.w3schools.com/html/mov_bbb.mp4"},
+    {title:"Facebook Reel 1", url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
+    {title:"Facebook Reel 2", url:"https://www.facebook.com/reel/659085228484377/?app=fbl"},
+    {title:"YouTube Vidéo", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
+    {title:"TikTok Vidéo", url:"https://vm.tiktok.com/ZS9enxnJruTuP-4A5mh/"},
+    {title:"MP4 Vidéo", url:"https://www.w3schools.com/html/mov_bbb.mp4"},
     {title:"Image La Kass", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260227-WA0001.jpg"}
   ]},
   {title:"B.TV Vente Achat location automobile", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"automobile et camion Reel 3",url:"https://www.facebook.com/reel/921053893432571/?app=fbl"}
+    {title:"automobile et camion Reel 3", url:"https://www.facebook.com/reel/921053893432571/?app=fbl"}
   ]},
   {title:"B.TV Shopping", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"Facebook Reel 4",url:"https://www.facebook.com/reel/307450755064294/?app=fbl"}
-    ]},
-    {title:"B.TV deby shopping", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260227_161925577.jpg", phone:"+237 697001322", whatsapp:"+237 697001322", medias:[
-    {title:"deby shopping 1",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205436015.jpg"},
+    {title:"Facebook Reel 4", url:"https://www.facebook.com/reel/307450755064294/?app=fbl"}
+  ]},
+  {title:"B.TV idéal prêt à porter", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260227_191514022.jpg", phone:"+237697001322", whatsapp:"+237697001322", medias:[
+    {title:"deby shopping 1", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205436015.jpg"},
     {title:"deby shopping 2", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205442040.jpg"},
-{title:"deby shopping 3", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205450191.jpg"},
-{title:"deby shopping 4", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205453130.jpg"},
-{title:"deby shopping 5", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205456829.jpg"},
-{title:"deby shopping 6", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205463371.jpg"}
+    {title:"deby shopping 3", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205450191.jpg"},
+    {title:"deby shopping 4", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205453130.jpg"},
+    {title:"deby shopping 5", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205456829.jpg"},
+    {title:"deby shopping 6", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205463371.jpg"}
   ]},
   {title:"B.TV Lingerie Nyanga", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1771868982903.jpg", phone:"237656706241", whatsapp:"237656706241", medias:[
-    {title:"lingerie nyanga Reel 5",url:"https://www.facebook.com/reel/1533470091048945/?app=fbl"},
-    {title:"Image Lingerie", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173574675.jpg"},
-{title:"Image Lingerie", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173625514.jpg"},
-{title:"Image Lingerie", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173672485.jpg"}
+    {title:"lingerie nyanga Reel 5", url:"https://www.facebook.com/reel/1533470091048945/?app=fbl"},
+    {title:"Image Lingerie 1", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173574675.jpg"},
+    {title:"Image Lingerie 2", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173625514.jpg"},
+    {title:"Image Lingerie 3", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173672485.jpg"}
   ]},
-  {title:"B.TV MP3 Podcast FM", profile:"https://raw.githubusercontent.com/Lfg237/d-p-t-image-Lesfacilitateurs-/main/InShot_20250612_144937066.jpg", phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"MP3 Audio Podcast",url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"}
+  {title:"B.TV MP3 Podcast FM", profile:DEFAULT_PROFILE, phone:"237656050097", whatsapp:"237670035609", medias:[
+    {title:"MP3 Audio Podcast", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"}
   ]}
 ];
 
-// GENERATION DES CATEGORIES
+// --- GENERATION DES CATEGORIES ---
 const box = document.getElementById("content");
-CATEGORIES.forEach(cat=>{
-  const sec=document.createElement("section");
-  sec.className="category";
-  sec.innerHTML=`<div class="category-header">
+CATEGORIES.forEach(cat => {
+  const sec = document.createElement("section");
+  sec.className = "category";
+  sec.innerHTML = `<div class="category-header">
     <img src="${cat.profile}" class="category-profile">
     <h2>${cat.title}</h2></div>`;
-  const row=document.createElement("div"); row.className="media-row";
+  const row = document.createElement("div"); row.className = "media-row";
 
-  cat.medias.forEach(m=>{
-    const card=document.createElement("div"); card.className="media-card";
+  cat.medias.forEach(m => {
+    const card = document.createElement("div");
+    card.className = "media-card";
+    if(!m.url) return;
     let player="";
-    if(m.url.includes("youtube")){
-      const id = m.url.split("v=")[1]?.split("&")[0] || m.url.split("youtu.be/")[1];
-      player=`<iframe src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe>`;
-    }else if(m.url.includes("facebook")){
-      player=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(m.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;
-    }else if(m.url.endsWith(".mp4")){
-      player=`<video controls autoplay><source src="${m.url}" type="video/mp4"></video>`;
-    }else if(m.url.match(/\.(jpg|jpeg|png|gif)$/)){
+
+    if(m.url.includes("youtube.com") || m.url.includes("youtu.be")){
+      let id = m.url.includes("watch?v=") ? m.url.split("watch?v=")[1].split("&")[0] : m.url.split("youtu.be/")[1];
+      player=`<iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>`;
+    } else if(m.url.includes("facebook.com")){
+      player=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(m.url)}&show_text=false" allowfullscreen></iframe>`;
+    } else if(m.url.includes("tiktok.com")){
+      player=`<iframe src="${m.url}" allowfullscreen></iframe>`;
+    } else if(m.url.match(/\.(mp4|webm|ogg)$/i)){
+      player=`<video controls><source src="${m.url}" type="video/mp4"></video>`;
+    } else if(m.url.match(/\.(mp3|wav|ogg)$/i)){
+      player=`<audio controls><source src="${m.url}" type="audio/mpeg"></audio>`;
+    } else if(m.url.match(/\.(jpg|jpeg|png|gif|webp)$/i)){
       player=`<img src="${m.url}" alt="${m.title}">`;
-    }else if(m.url.endsWith(".mp3")){
-      player=`<audio controls autoplay><source src="${m.url}" type="audio/mpeg"></audio>`;
     }
 
     card.innerHTML=`<div class="player">${player}</div>
@@ -199,49 +193,61 @@ CATEGORIES.forEach(cat=>{
   box.appendChild(sec);
 });
 
-// LIVE PLAYLIST
-let LIVE_PLAYLIST=[];
-CATEGORIES.forEach(cat=>{
-  cat.medias.forEach(m=>{
-    const type = m.url.includes("youtube")?"youtube":
-                 m.url.includes("facebook")?"facebook":
-                 m.url.endsWith(".mp4")?"mp4":"other";
-    if(type!=="other") LIVE_PLAYLIST.push({title:m.title,type:type,url:m.url});
+// --- PLAYLIST LIVE ---
+let LIVE_PLAYLIST = [];
+CATEGORIES.forEach(cat => {
+  cat.medias.forEach(m => {
+    if(!m.url) return;
+    let type="other";
+    if(m.url.includes("youtube.com") || m.url.includes("youtu.be")) type="youtube";
+    else if(m.url.includes("facebook.com")) type="facebook";
+    else if(m.url.includes("tiktok.com")) type="tiktok";
+    else if(m.url.match(/\.(mp4|webm|ogg)$/i)) type="mp4";
+    else if(m.url.match(/\.(mp3|wav|ogg)$/i)) type="mp3";
+    else if(m.url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) type="image";
+    LIVE_PLAYLIST.push({title:m.title,type:type,url:m.url});
   });
 });
 
 let liveIndex=0;
 let liveTimer=null;
-function playLive(){
-  const zone=document.getElementById("livePlayer");
-  const item=LIVE_PLAYLIST[liveIndex];
+function playLive() {
+  const zone = document.getElementById("livePlayer");
+  const item = LIVE_PLAYLIST[liveIndex];
   clearTimeout(liveTimer);
-  if(!item){return;}
+  if(!item) return;
+
   if(item.type==="youtube"){
-    const id = item.url.split("v=")[1]?.split("&")[0] || item.url.split("youtu.be/")[1];
+    let id = item.url.includes("watch?v=")?item.url.split("watch?v=")[1].split("&")[0]:item.url.split("youtu.be/")[1];
     zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe>`;
-  }else if(item.type==="facebook"){
+  } else if(item.type==="facebook"){
     zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;
     liveTimer=setTimeout(nextLive,300000);
-  }else if(item.type==="mp4"){
+  } else if(item.type==="tiktok"){
+    zone.innerHTML=`<iframe width="100%" height="100%" src="${item.url}" allowfullscreen></iframe>`;
+  } else if(item.type==="mp4"){
     zone.innerHTML=`<video width="100%" height="100%" autoplay controls onended="nextLive()"><source src="${item.url}" type="video/mp4"></video>`;
+  } else if(item.type==="mp3"){
+    zone.innerHTML=`<audio controls autoplay><source src="${item.url}" type="audio/mpeg"></audio>`;
+  } else if(item.type==="image"){
+    zone.innerHTML=`<img src="${item.url}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover">`;
   }
 }
-function nextLive(){liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length;playLive();}
-function prevLive(){liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length;playLive();}
-function openLiveTV(){document.getElementById("liveTV").style.display="block";playLive();}
-function closeLiveTV(){document.getElementById("liveTV").style.display="none";clearTimeout(liveTimer);}
 
-// BOUTONS LIVE
+function nextLive(){liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length; playLive();}
+function prevLive(){liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length; playLive();}
+function openLiveTV(){document.getElementById("liveTV").style.display="block"; playLive();}
+function closeLiveTV(){document.getElementById("liveTV").style.display="none"; clearTimeout(liveTimer);}
+
 document.getElementById("liveBtn").onclick=openLiveTV;
-document.getElementById("listBtn").onclick=function(){
-  const livePopup=document.getElementById("livePopup");
-  livePopup.style.display = livePopup.style.display==="block"?"none":"block";
-  livePopup.innerHTML="";
-  LIVE_PLAYLIST.forEach((item,i)=>{
-    const btn=document.createElement("button");
-    btn.innerText=item.title;
-    btn.onclick=()=>{liveIndex=i;playLive();openLiveTV();}
+document.getElementById("listBtn").onclick = function() {
+  const livePopup = document.getElementById("livePopup");
+  livePopup.style.display = livePopup.style.display === "block" ? "none" : "block";
+  livePopup.innerHTML = "";
+  LIVE_PLAYLIST.forEach((item, i) => {
+    const btn = document.createElement("button");
+    btn.innerText = item.title;
+    btn.onclick = () => { liveIndex = i; playLive(); openLiveTV(); };
     livePopup.appendChild(btn);
   });
 };
@@ -251,19 +257,55 @@ const annoncePopup = document.getElementById("annoncePopup");
 const annonceText = document.getElementById("annonceText");
 const annonceCall = document.getElementById("annonceCall");
 const annonceWA = document.getElementById("annonceWA");
-document.querySelectorAll(".annonce-btn").forEach(btn=>{
-  btn.addEventListener("click", function(){
-    const text=this.dataset.text;
-    const phone=this.dataset.phone;
-    const whatsapp=this.dataset.whatsapp;
-    annonceText.innerText=text;
-    annonceCall.href="tel:"+phone;
-    annonceWA.href="https://wa.me/"+whatsapp+"?text="+encodeURIComponent(text+" 🔴 Voir sur Business TV: "+SITE_LINK);
-    annoncePopup.style.display="flex";
+document.querySelectorAll(".annonce-btn").forEach(btn => {
+  btn.addEventListener("click", function() {
+    const text = this.dataset.text;
+    const phone = this.dataset.phone;
+    const whatsapp = this.dataset.whatsapp;
+    annonceText.innerText = text;
+    annonceCall.href = "tel:" + phone;
+    annonceWA.href = "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(text + " 🔴 Voir sur Business TV: " + SITE_LINK);
+    annoncePopup.style.display = "flex";
   });
 });
-function closeAnnonce(){annoncePopup.style.display="none";}
-</script>
+function closeAnnonce() { annoncePopup.style.display = "none"; }
 
+// NOTIFICATIONS QUOTIDIENNES
+const subBtn = document.getElementById("subBtn");
+let subscribed = false;
+
+subBtn.onclick = () => {
+  if (!subscribed) {
+    subscribed = true;
+    subBtn.classList.add("active");
+    alert("✅ Vous êtes abonné aux notifications Business TV !");
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") startDailyNotifications();
+      });
+    } else startDailyNotifications();
+  }
+};
+
+function sendNotification() {
+  if (Notification.permission === "granted") {
+    const notif = new Notification("Business TV", {
+      body: "Aujourd'hui nous avons des nouveautés et des offres intéressantes ! Visitez-nous ici.",
+      icon: "https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png",
+      data: { url: SITE_LINK }
+    });
+    notif.onclick = function(e) {
+      e.preventDefault();
+      window.open(this.data.url, "_blank");
+    };
+  }
+}
+
+let notificationTimer;
+function startDailyNotifications() {
+  sendNotification();
+  notificationTimer = setInterval(sendNotification, 24 * 60 * 60 * 1000);
+}
+</script>
 </body>
 </html>
