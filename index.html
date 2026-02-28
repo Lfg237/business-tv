@@ -326,6 +326,24 @@ function startDailyNotifications() {
   sendNotification();
   notificationTimer = setInterval(sendNotification, 24 * 60 * 60 * 1000);
 }
+// --- OUVRIR AUTOMATIQUEMENT LE MÉDIA SI HASH DANS L'URL ---
+window.addEventListener("load", () => {
+  const hash = decodeURIComponent(window.location.hash.substring(1)); // enlève le #
+  if(!hash) return;
+
+  // Cherche le média correspondant dans toutes les catégories
+  let found = null;
+  CATEGORIES.forEach(cat => {
+    cat.medias.forEach(m => {
+      if(m.title === hash) found = m;
+    });
+  });
+
+  if(found && found.url){
+    // Affiche dans le lecteur intégré
+    playMedia(found.url);
+  }
+});
 </script>
 </body>
 </html>
