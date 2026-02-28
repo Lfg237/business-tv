@@ -9,26 +9,26 @@ body{margin:0;background:#0b0f1a;color:#fff;font-family:Arial,sans-serif;}
 header{position:sticky;top:0;background:#121b2c;padding:12px 18px;z-index:1000;display:flex;flex-direction:column;gap:8px;}
 .header-top{display:flex;align-items:center;gap:10px;justify-content:space-between;}
 header img{width:50px;height:50px;border-radius:10px}
-header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea1ff,#ff4ea1,#4effa1);background-size:600% 600%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:anim 6s ease infinite}
+header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea1ff,#ff4ea1,#4effa1);background-size:600% 600%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:anim 6s ease infinite;margin:0}
 @keyframes anim{0%{background-position:0%}50%{background-position:100%}100%{background-position:0%}}
 
-.category{margin:15px 0}
+.category{margin:12px 0}
 .category-header{display:flex;align-items:center;gap:10px;padding:0 10px;justify-content:space-between;}
-.category-profile{width:40px;height:40px;border-radius:50%;object-fit:cover}
-.category h2{margin:8px;color:#4ea1ff;font-size:18px}
+.category-profile{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.category h2{margin:0;color:#4ea1ff;font-size:16px}
 .media-row{display:flex;gap:10px;overflow-x:auto;padding:8px;scroll-behavior: smooth;}
-.media-card{min-width:200px;background:#121b2c;border-radius:12px;overflow:hidden;box-shadow:0 3px 8px rgba(0,0,0,.6)}
-.player iframe,.player video,.player img,.player audio{width:100%;height:350px;border:none;object-fit:cover}
-.actions{display:flex;justify-content:space-around;padding:6px 0;flex-wrap:wrap}
-.btn{background:#0044cc;color:white;padding:5px 8px;border-radius:8px;font-size:12px;text-decoration:none;cursor:pointer}
+.media-card{min-width:180px;background:#121b2c;border-radius:12px;overflow:hidden;box-shadow:0 3px 6px rgba(0,0,0,.5)}
+.player iframe,.player video,.player img,.player audio{width:100%;height:150px;border:none;object-fit:cover}
+.actions{display:flex;justify-content:space-around;padding:4px 0;flex-wrap:wrap}
+.btn{background:#0044cc;color:white;padding:4px 6px;border-radius:6px;font-size:12px;text-decoration:none;cursor:pointer}
 .btn:hover{background:#0066ff}
-.share-btn{background:#25D366;color:#fff;padding:5px 8px;border-radius:8px;font-size:12px;text-decoration:none;margin-top:4px;display:inline-block;}
+.share-btn{background:#25D366;color:#fff;padding:4px 6px;border-radius:6px;font-size:12px;text-decoration:none;margin-top:4px;display:inline-block;}
 .annonce-bar{overflow-x:auto;background:#0e1524;margin-top:8px;padding:6px 0;white-space:nowrap}
 .annonce-track{display:inline-flex;gap:6px}
 .annonce-btn{background:#ff4ea1;color:#fff;border:none;padding:5px 10px;border-radius:18px;font-size:12px;cursor:pointer}
 
 /* TICKER */
-.ticker-wrapper{position:fixed;bottom:0;left:0;width:100%;background:#111;color:#fff;overflow:hidden;z-index:999999;border-top:2px solid red;}
+.ticker-wrapper{position:fixed;bottom:0;left:0;width:100%;background:#111;color:#fff;overflow:hidden;z-index:999;border-top:2px solid red;}
 .ticker{display:inline-block;white-space:nowrap;padding-left:100%;animation:tickerMove 10s linear infinite;font-weight:bold;font-size:14px;}
 @keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
 
@@ -36,7 +36,7 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .live-popup{position:fixed;bottom:100px;right:18px;background:#222;padding:12px;border-radius:12px;color:#fff;z-index:9999;max-height:60vh;overflow-y:auto;display:none}
 .live-popup button{display:block;width:100%;margin-bottom:6px;background:#0044cc;color:#fff;border:none;padding:6px 10px;border-radius:8px;cursor:pointer;text-align:left}
 
-/* BOUTONS FLOTTANTS VERTICAUX */
+/* BOUTONS FLOTTANTS */
 .floating-btn{position:fixed;width:50px;height:50px;border-radius:50%;font-size:20px;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px #222;}
 #liveBtn{bottom:18px;right:18px;background:red;color:#fff;}
 #listBtn{bottom:78px;right:18px;background:#222;color:#fff;}
@@ -44,13 +44,13 @@ header h1{font-size:28px;font-weight:bold;background:linear-gradient(270deg,#4ea
 #subBtn.active{background:green;color:#fff;}
 
 /* OUVERT/FERMÉ */
-.open-btn{padding:4px 10px;border-radius:8px;color:#fff;font-weight:bold;animation:blink 1s infinite;}
+.open-btn{padding:4px 8px;border-radius:6px;color:#fff;font-weight:bold;font-size:12px;animation:blink 1s infinite;}
 .open-btn.open{background:green;}
 .open-btn.closed{background:red;}
 @keyframes blink{0%{opacity:1}50%{opacity:0.7}100%{opacity:1}}
 
 /* HORLOGE ENTETE */
-#clock{color:#fff;font-weight:bold;font-size:16px;}
+#clock{color:#fff;font-weight:bold;font-size:14px;}
 </style>
 </head>
 <body>
@@ -71,8 +71,8 @@ src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0"></script>
 <div class="annonce-bar">
 <div class="annonce-track">
 <button class="annonce-btn" data-text="📢 Promo Business TV" data-phone="237656050097" data-whatsapp="237670035609">📢 contact admin</button>
-<button class="annonce-btn" data-text="🎬 Community manager & site web creation et gestion de page facebook" data-phone="237656050097" data-whatsapp="237670035609">🎬 community manager</button>
-<button class="annonce-btn" data-text="💼 publier votre profil gratuitement pour les chercheurs d’emploi" data-phone="237656050097" data-whatsapp="237670035609">💼 liste des chercheurs emploi</button>
+<button class="annonce-btn" data-text="🎬 Community manager & site web" data-phone="237656050097" data-whatsapp="237670035609">🎬 community manager</button>
+<button class="annonce-btn" data-text="💼 Publier profil gratuit" data-phone="237656050097" data-whatsapp="237670035609">💼 liste chercheurs emploi</button>
 </div>
 </div>
 </header>
@@ -85,7 +85,7 @@ src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v19.0"></script>
 <strong style="color:red;">🔴 BUSINESS TV LIVE</strong>
 <button onclick="closeLiveTV()" style="background:red;border:none;color:#fff;padding:6px 12px;border-radius:6px;">⬅ Accueil</button>
 </div>
-<div id="livePlayer" style="width:100%;height:calc(100% - 50px);"></div>
+<div id="livePlayer" style="width:100%;height:calc(100% - 50px);background-size:cover;background-position:center;"></div>
 <div style="position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:20px;">
 <button onclick="prevLive()">⏮ Précédent</button>
 <button onclick="nextLive()">⏭ Suivant</button>
@@ -115,70 +115,131 @@ display:none;align-items:center;justify-content:center;z-index:100000;">
   </div>
 </div>
 
+<!-- TICKER / BANDE ANNONCE -->
+<div class="ticker-wrapper">
+  <div class="ticker">🔴 BUSINESS TV LIVE • Promotion gratuite • Contact WhatsApp 670035609 •</div>
+</div>
+
 <script>
 // --- CONFIG ---
 const SITE_LINK="https://business-tv.vercel.app/";
-const DEFAULT_PROFILE="https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png";
-const OPEN_HOUR=7, CLOSE_HOUR=19; // horaires modifiables
+const DEFAULT_PROFILE="https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260228_180947307.jpg";
+const OPEN_HOUR=7, CLOSE_HOUR=19;
 
-// --- CATEGORIES EXEMPLE (toutes ajoutées) ---
-const CATEGORIES=[
-  {title:"B.TV Vente flash", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png", phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"vente rapide le flash du jour Reel 3", url:"https://www.facebook.com/reel/921053893432571/?app=fbl"},
-    {title:"Image promo flash", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png"}
-  ]},
-  {title:"B.TV La Kass", profile:DEFAULT_PROFILE, phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"Facebook Reel 1", url:"https://www.facebook.com/reel/936858412242126/?app=fbl"},
-    {title:"Facebook Reel 2", url:"https://www.facebook.com/reel/659085228484377/?app=fbl"},
-    {title:"YouTube Vidéo", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ"},
-    {title:"TikTok Vidéo", url:"https://vm.tiktok.com/ZS9enxnJruTuP-4A5mh/"},
-    {title:"MP4 Vidéo", url:"https://www.w3schools.com/html/mov_bbb.mp4"},
-    {title:"Image La Kass", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260227-WA0001.jpg"}
-  ]},
-  {title:"B.TV Vente Achat location automobile", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"automobile et camion Reel 3", url:"https://www.facebook.com/reel/921053893432571/?app=fbl"}
-  ]},
-  {title:"B.TV Shopping", profile:"https://via.placeholder.com/40x40.png?text=LN", phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"Facebook Reel 4", url:"https://www.facebook.com/reel/307450755064294/?app=fbl"}
-  ]},
-  {title:"B.TV idéal prêt à porter", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260227_191514022.jpg", phone:"+237697001322", whatsapp:"+237697001322", medias:[
-    {title:"deby shopping 1", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205436015.jpg"},
-    {title:"deby shopping 2", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205442040.jpg"},
-    {title:"deby shopping 3", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205450191.jpg"},
-    {title:"deby shopping 4", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205453130.jpg"},
-    {title:"deby shopping 5", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205456829.jpg"},
-    {title:"deby shopping 6", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205463371.jpg"}
-  ]},
-  {title:"B.TV Lingerie Nyanga", profile:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1771868982903.jpg", phone:"237656706241", whatsapp:"237656706241", medias:[
-    {title:"lingerie nyanga Reel 5", url:"https://www.facebook.com/reel/1533470091048945/?app=fbl"},
-    {title:"Image Lingerie 1", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173574675.jpg"},
-    {title:"Image Lingerie 2", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173625514.jpg"},
-    {title:"Image Lingerie 3", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173672485.jpg"}
-  ]},
-  {title:"B.TV ets lesfacilitteurs middleman",profile:"" , phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"Facebook Reel 1", url:""},
-    {title:"Facebook Reel 2", url:""},
-    {title:"YouTube Vidéo", url:"https://youtu.be/6OX7skYfPNE?si=owNWUdXgMBCeC3Vr"},
-    {title:"YouTube Vidéo", url:"https://youtube.com/shorts/L0ldyic1Q6Y?si=9NLzNVEOKFmtrBn4"},
-    {title:"YouTube Vidéo", url:"https://youtu.be/fC_l0ON4Ebc?si=Z23TgfXj0zRhd3I_"},
-    {title:"TikTok Vidéo", url:"https://vm.tiktok.com/ZS9enxnJruTuP-4A5mh/"},
-    {title:"TikTok Vidéo", url:""},
-    {title:"MP4 Vidéo", url:""},
-    {title:"Image La Kass", url:""}
-  ]},
-  {title:"B.TV espace publicitaire à louer contact admin", profile:DEFAULT_PROFILE, phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"Facebook Reel 1", url:""},
-    {title:"Facebook Reel 2", url:""},
-    {title:"YouTube Vidéo", url:""},
-    {title:"TikTok Vidéo", url:""},
-    {title:"MP4 Vidéo", url:""},
-    {title:"Image La Kass", url:""}
-  ]},
-  {title:"B.TV MP3 Podcast FM", profile:DEFAULT_PROFILE, phone:"237656050097", whatsapp:"237670035609", medias:[
-    {title:"MP3 Audio Podcast", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3"},
-{title:"recherche d'une vieille maison à vendre Yaoundé", url:"https://raw.githubusercontent.com/Lfg237/m-dias/main/recherche%20terrain.opus"}
-  
-  ]}
+const CATEGORIES = [
+  {
+    title: "B.TV Vente flash",
+    profile: "https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png",
+    phone: "237656050097",
+    whatsapp: "237670035609",
+    medias: [
+      { title: "Vente rapide le flash du jour Reel 3", url: "https://www.facebook.com/reel/921053893432571/?app=fbl" },
+      { title: "Image promo flash", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png" },
+      { title: "Vente Reel", url: "https://www.facebook.com/reel/921053893432571/?app=fbl" },
+      { title: "Promo Image", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png" }
+    ]
+  },
+  {
+    title: "B.TV La Kass",
+    profile: DEFAULT_PROFILE,
+    phone: "237656050097",
+    whatsapp: "237670035609",
+    medias: [
+      { title: "Facebook Reel 1", url: "https://www.facebook.com/reel/936858412242126/?app=fbl" },
+      { title: "Facebook Reel 2", url: "https://www.facebook.com/reel/659085228484377/?app=fbl" },
+      { title: "YouTube Vidéo", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+      { title: "TikTok Vidéo", url: "https://vm.tiktok.com/ZS9enxnJruTuP-4A5mh/" },
+      { title: "MP4 Vidéo", url: "https://www.w3schools.com/html/mov_bbb.mp4" },
+      { title: "Image La Kass", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260227-WA0001.jpg" }
+    ]
+  },
+  {
+    title: "B.TV Vente Achat location automobile",
+    profile: "https://via.placeholder.com/40x40.png?text=LN",
+    phone: "237656050097",
+    whatsapp: "237670035609",
+    medias: [
+      { title: "Automobile et camion Reel 3", url: "https://www.facebook.com/reel/921053893432571/?app=fbl" }
+    ]
+  },
+  {
+    title: "B.TV Shopping",
+    profile: "https://via.placeholder.com/40x40.png?text=LN",
+    phone: "237656050097",
+    whatsapp: "237670035609",
+    medias: [
+      { title: "Facebook Reel 4", url: "https://www.facebook.com/reel/307450755064294/?app=fbl" }
+    ]
+  },
+  {
+    title: "B.TV idéal prêt à porter",
+    profile: "https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260227_191514022.jpg",
+    phone: "+237697001322",
+    whatsapp: "+237697001322",
+    medias: [
+      { title: "Deby shopping 1", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205436015.jpg" },
+      { title: "Deby shopping 2", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205442040.jpg" },
+      { title: "Deby shopping 3", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205450191.jpg" },
+      { title: "Deby shopping 4", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205453130.jpg" },
+      { title: "Deby shopping 5", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205456829.jpg" },
+      { title: "Deby shopping 6", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1772205463371.jpg" }
+    ]
+  },
+  {
+    title: "B.TV Lingerie Nyanga",
+    profile: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1771868982903.jpg",
+    phone: "237656706241",
+    whatsapp: "237656706241",
+    medias: [
+      { title: "Lingerie Nyanga Reel 5", url: "https://www.facebook.com/reel/1533470091048945/?app=fbl" },
+      { title: "Image Lingerie 1", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173574675.jpg" },
+      { title: "Image Lingerie 2", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173625514.jpg" },
+      { title: "Image Lingerie 3", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/1772173672485.jpg" }
+    ]
+  },
+  {
+    title: "B.TV ets lesfacilitteurs middleman",
+    profile: DEFAULT_PROFILE,
+    phone: "237656050097",
+    whatsapp: "237670035609",
+    medias: [
+      { title: "Facebook Reel 1", url: "" },
+      { title: "Facebook Reel 2", url: "" },
+      { title: "YouTube Vidéo 1", url: "https://youtu.be/6OX7skYfPNE?si=owNWUdXgMBCeC3Vr" },
+      { title: "YouTube Vidéo 2", url: "https://youtube.com/shorts/L0ldyic1Q6Y?si=9NLzNVEOKFmtrBn4" },
+      { title: "YouTube Vidéo 3", url: "https://youtu.be/fC_l0ON4Ebc?si=Z23TgfXj0zRhd3I_" },
+      { title: "TikTok Vidéo 1", url: "https://vm.tiktok.com/ZS9enxnJruTuP-4A5mh/" },
+      { title: "TikTok Vidéo 2", url: "" },
+      { title: "MP4 Vidéo", url: "" },
+      { title: "Image La Kass", url: "" }
+    ]
+  },
+  {
+    title: "B.TV espace publicitaire à louer contact admin",
+    profile: DEFAULT_PROFILE,
+    phone: "237656050097",
+    whatsapp: "237670035609",
+    medias: [
+      { title: "Facebook Reel 1", url: "" },
+      { title: "Facebook Reel 2", url: "" },
+      { title: "YouTube Vidéo", url: "" },
+      { title: "TikTok Vidéo", url: "" },
+      { title: "MP4 Vidéo", url: "" },
+      { title: "Image La Kass", url: "" }
+    ]
+  },
+  {
+    title: "B.TV MP3 Podcast FM",
+    profile: DEFAULT_PROFILE,
+    phone: "237656050097",
+    whatsapp: "237670035609",
+    medias: [
+      { title: "MP3 Audio Podcast", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3" },
+      { title: "Recherche vieille maison à vendre Yaoundé", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/recherche%20terrain.opus" },
+      { title: "Audio MP3", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/Cysoul-Mavini_Clip_Officiel_(256k).mp3" },
+      { title: "Audio Opus", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/recherche%20terrain.opus" }
+    ]
+  }
 ];
 
 // --- GENERATION DES CATEGORIES ---
@@ -223,37 +284,43 @@ CATEGORIES.forEach(cat => {
             let embedUrl = m.url.replace("www.tiktok.com","www.tiktok.com/embed");
             player = `<iframe src="${embedUrl}" frameborder="0" allowfullscreen scrolling="no"></iframe>`;
         } else if(m.url.match(/\.(mp4|webm|ogg)$/i)){
-    player = `<video controls><source src="${m.url}" type="video/mp4"></video>`;
-} else if(m.url.match(/\.(mp3|wav|ogg)$/i)){
-    player = `<audio controls><source src="${m.url}" type="audio/mpeg"></audio>`;
-} else if(m.url.match(/\.(jpg|jpeg|png|gif|webp)$/i)){
-    player = `<img src="${m.url}" alt="${m.title}">`;
-}
+            player = `<video controls><source src="${m.url}" type="video/mp4"></video>`;
+        } else if(m.url.match(/\.(mp3|wav|opus)$/i)){
+            player = `
+            <div style="position:relative;width:100%;height:150px;">
+                <img src="${DEFAULT_PROFILE}" alt="${m.title}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+                <audio controls autoplay style="position:absolute;bottom:12px;left:12px;width:calc(100% - 24px);">
+                    <source src="${m.url}" type="audio/mpeg">
+                </audio>
+            </div>`;
+        } else if(m.url.match(/\.(jpg|jpeg|png|gif|webp)$/i)){
+            player = `<img src="${m.url}" alt="${m.title}" style="height:150px;object-fit:cover;">`;
+        }
 
-card.innerHTML = `<div class="player">${player}</div>
-<div class="actions">
-    <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
-    <a class="btn" href="tel:${cat.phone}">📞</a>
-    <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent('🔴 Regarde ce média sur Business TV: '+SITE_LINK+'#'+encodeURIComponent(m.title))}">💬 WhatsApp</a>
-</div>`;
-row.appendChild(card);
+        card.innerHTML = `<div class="player">${player}</div>
+        <div class="actions">
+            <a class="btn" target="_blank" href="${m.url}">▶ Lire</a>
+            <a class="btn" href="tel:${cat.phone}">📞</a>
+            <a class="btn" target="_blank" href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent('🔴 Regarde ce média: '+m.title+' sur Business TV '+SITE_LINK)}">💬 WhatsApp</a>
+        </div>`;
+        row.appendChild(card);
+    });
+
+    sec.appendChild(row);
+    box.appendChild(sec);
 });
 
-sec.appendChild(row);
-box.appendChild(sec);
-});
-
-// --- PLAYLIST LIVE ---
-let LIVE_PLAYLIST = [];
-CATEGORIES.forEach(cat => {
-    cat.medias.forEach(m => {
+// --- LIVE PLAYLIST ---
+let LIVE_PLAYLIST=[];
+CATEGORIES.forEach(cat=>{
+    cat.medias.forEach(m=>{
         if(!m.url) return;
         let type="other";
         if(m.url.includes("youtube.com") || m.url.includes("youtu.be")) type="youtube";
         else if(m.url.includes("facebook.com")) type="facebook";
         else if(m.url.includes("tiktok.com")) type="tiktok";
         else if(m.url.match(/\.(mp4|webm|ogg)$/i)) type="mp4";
-        else if(m.url.match(/\.(mp3|wav|ogg)$/i)) type="mp3";
+        else if(m.url.match(/\.(mp3|wav|opus)$/i)) type="mp3";
         else if(m.url.match(/\.(jpg|jpeg|png|gif|webp)$/i)) type="image";
         LIVE_PLAYLIST.push({title:m.title,type:type,url:m.url});
     });
@@ -261,55 +328,63 @@ CATEGORIES.forEach(cat => {
 
 let liveIndex=0;
 let liveTimer=null;
-function playLive() {
-    const zone = document.getElementById("livePlayer");
-    const item = LIVE_PLAYLIST[liveIndex];
+function playLive(){
+    const zone=document.getElementById("livePlayer");
+    const item=LIVE_PLAYLIST[liveIndex];
     clearTimeout(liveTimer);
     if(!item) return;
-
-    if(item.type==="youtube"){
-        let id = item.url.includes("watch?v=")?item.url.split("watch?v=")[1].split("&")[0]:item.url.split("youtu.be/")[1];
-        zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe>`;
-    } else if(item.type==="facebook"){
-        zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;
-        liveTimer=setTimeout(nextLive,300000);
-    } else if(item.type==="tiktok"){
-        let embedUrl = item.url.replace("www.tiktok.com","www.tiktok.com/embed");
-        zone.innerHTML=`<iframe width="100%" height="100%" src="${embedUrl}" frameborder="0" allowfullscreen scrolling="no"></iframe>`;
-    } else if(item.type==="mp4"){
-        zone.innerHTML=`<video width="100%" height="100%" autoplay controls onended="nextLive()"><source src="${item.url}" type="video/mp4"></video>`;
-    } else if(item.type==="mp3"){
-        zone.innerHTML=`<audio controls autoplay><source src="${item.url}" type="audio/mpeg"></audio>`;
-    } else if(item.type==="image"){
-        zone.innerHTML=`<img src="${item.url}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover">`;
+    if(item.type==="image"){
+        zone.innerHTML="";
+        zone.style.backgroundImage=`url(${item.url})`;
+        zone.style.backgroundSize="cover";
+        zone.style.backgroundPosition="center";
+    } else {
+        zone.style.backgroundImage="none";
+        if(item.type==="youtube"){
+            let id=item.url.includes("watch?v=")?item.url.split("watch?v=")[1].split("&")[0]:item.url.split("youtu.be/")[1];
+            zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe>`;
+        } else if(item.type==="facebook"){
+            zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(item.url)}&show_text=false&autoplay=true" allowfullscreen></iframe>`;
+            liveTimer=setTimeout(nextLive,300000);
+        } else if(item.type==="tiktok"){
+            let embedUrl=item.url.replace("www.tiktok.com","www.tiktok.com/embed");
+            zone.innerHTML=`<iframe width="100%" height="100%" src="${embedUrl}" frameborder="0" allowfullscreen scrolling="no"></iframe>`;
+        } else if(item.type==="mp4"){
+            zone.innerHTML=`<video width="100%" height="100%" autoplay controls onended="nextLive()"><source src="${item.url}" type="video/mp4"></video>`;
+        } else if(item.type==="mp3" || item.type==="opus"){
+            zone.innerHTML = `
+            <div style="position:relative;width:100%;height:100%;">
+                <img src="${DEFAULT_PROFILE}" alt="${item.title}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+                <audio controls autoplay style="position:absolute;bottom:12px;left:12px;width:calc(100% - 24px);">
+                    <source src="${item.url}" type="audio/mpeg">
+                </audio>
+            </div>
+            `;
+        }
     }
 }
 
-function nextLive(){liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length; playLive();}
-function prevLive(){liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length; playLive();}
-function openLiveTV(){document.getElementById("liveTV").style.display="block"; playLive();}
-function closeLiveTV(){document.getElementById("liveTV").style.display="none"; clearTimeout(liveTimer);}
+function nextLive(){liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length;playLive();}
+function prevLive(){liveIndex=(liveIndex+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length;playLive();}
+function openLiveTV(){document.getElementById("liveTV").style.display="block";playLive();}
+function closeLiveTV(){document.getElementById("liveTV").style.display="none";clearTimeout(liveTimer);}
 
 document.getElementById("liveBtn").onclick=openLiveTV;
-document.getElementById("listBtn").onclick = function() {
-    const livePopup = document.getElementById("livePopup");
-    livePopup.style.display = livePopup.style.display === "block" ? "none" : "block";
-    livePopup.innerHTML = "";
-    LIVE_PLAYLIST.forEach((item, i) => {
-        const btn = document.createElement("button");
-        btn.innerText = item.title;
-        btn.onclick = () => { liveIndex = i; playLive(); openLiveTV(); };
+document.getElementById("listBtn").onclick=function(){
+    const livePopup=document.getElementById("livePopup");
+    livePopup.style.display=livePopup.style.display==="block"?"none":"block";
+    livePopup.innerHTML="";
+    LIVE_PLAYLIST.forEach((item,i)=>{
+        const btn=document.createElement("button");
+        btn.innerText=item.title;
+        btn.onclick=()=>{liveIndex=i;playLive();openLiveTV();}
         livePopup.appendChild(btn);
     });
 };
 
 // --- POPUP ANNONCES ---
-const annoncePopup = document.getElementById("annoncePopup");
-const annonceText = document.getElementById("annonceText");
-const annonceCall = document.getElementById("annonceCall");
-const annonceWA = document.getElementById("annonceWA");
-document.querySelectorAll(".annonce-btn").forEach(btn => {
-    btn.addEventListener("click", function() {
+document.querySelectorAll(".annonce-btn").forEach(btn=>{
+    btn.addEventListener("click", function(){
         const text = this.dataset.text;
         const phone = this.dataset.phone;
         const whatsapp = this.dataset.whatsapp;
@@ -319,7 +394,10 @@ document.querySelectorAll(".annonce-btn").forEach(btn => {
         annoncePopup.style.display = "flex";
     });
 });
-function closeAnnonce(){ annoncePopup.style.display = "none"; }
+
+function closeAnnonce() {
+    annoncePopup.style.display = "none";
+}
 
 // --- HORLOGE ---
 function updateClock(){
@@ -327,74 +405,57 @@ function updateClock(){
     const h = String(now.getHours()).padStart(2,'0');
     const m = String(now.getMinutes()).padStart(2,'0');
     const s = String(now.getSeconds()).padStart(2,'0');
-    document.getElementById("clock").innerText=`🕒 ${h}:${m}:${s}`;
+    document.getElementById("clock").innerText = `🕒 ${h}:${m}:${s}`;
 }
 setInterval(updateClock,1000);
 updateClock();
 
 // --- NOTIFICATIONS PERSISTANTES ---
 const subBtn = document.getElementById("subBtn");
-let subscribed = localStorage.getItem("btvSubscribed")==="true";
+let subscribed = localStorage.getItem("btvSubscribed") === "true";
 if(subscribed) subBtn.classList.add("active");
-subBtn.onclick = ()=>{
+
+subBtn.onclick = () => {
     if(!subscribed){
-        subscribed=true;
+        subscribed = true;
         localStorage.setItem("btvSubscribed","true");
         subBtn.classList.add("active");
         alert("✅ Vous êtes abonné aux notifications Business TV !");
-        if(Notification.permission!=="granted"){
-            Notification.requestPermission().then(p=>{if(p==="granted") startDailyNotifications();});
+        if(Notification.permission !== "granted"){
+            Notification.requestPermission().then(p=>{
+                if(p==="granted") startDailyNotifications();
+            });
         } else startDailyNotifications();
     }
 };
 
 function sendNotification(){
-    if(Notification.permission==="granted"){
-        const notif = new Notification("Business TV",{
-            body:"Aujourd'hui nous avons des nouveautés et des offres intéressantes ! Visitez-nous ici.",
-            icon:"https://raw.githubusercontent.com/Lfg237/business-tv/main/Polish_20260210_113721977.png",
-            data:{url:SITE_LINK}
+    if(Notification.permission === "granted"){
+        const notif = new Notification("Business TV", {
+            body: "Aujourd'hui nous avons des nouveautés et des offres intéressantes ! Visitez-nous ici.",
+            icon: DEFAULT_PROFILE,
+            data: {url: SITE_LINK}
         });
-        notif.onclick=function(e){e.preventDefault();window.open(this.data.url,"_blank");}
+        notif.onclick = function(e){
+            e.preventDefault();
+            window.open(this.data.url,"_blank");
+        }
     }
 }
+
 let notificationTimer;
 function startDailyNotifications(){
     sendNotification();
-    notificationTimer = setInterval(sendNotification,24*60*60*1000);
+    notificationTimer = setInterval(sendNotification, 24*60*60*1000); // toutes les 24h
 }
 if(subscribed && Notification.permission==="granted") startDailyNotifications();
 
-</script>
-<!-- TICKER / BANDE ANNONCE -->
-<div class="ticker-wrapper">
-  <div class="ticker">🔴 BUSINESS TV LIVE • Promotion gratuite • Contact WhatsApp 670035609 •</div>
-</div>
+// --- TICKER / BANDE ANNONCE ---
+const tickerWrapper = document.createElement("div");
+tickerWrapper.className = "ticker-wrapper";
+tickerWrapper.innerHTML = `<div class="ticker">🔴 BUSINESS TV LIVE • Promotion gratuite • Contact WhatsApp 670035609 •</div>`;
+document.body.appendChild(tickerWrapper);
 
-<style>
-.ticker-wrapper {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #111;
-    color: #fff;
-    overflow: hidden;
-    z-index: 999999;
-    border-top: 2px solid red;
-}
-.ticker {
-    display: inline-block;
-    white-space: nowrap;
-    padding-left: 100%;
-    animation: tickerMove 10s linear infinite;
-    font-weight: bold;
-    font-size: 14px;
-}
-@keyframes tickerMove {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-}
-</style>
+</script>
 </body>
 </html>
