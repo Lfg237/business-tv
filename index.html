@@ -37,13 +37,20 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .live-popup button{display:block;width:100%;margin-bottom:6px;background:#0044cc;color:#fff;border:none;padding:6px 10px;border-radius:8px;cursor:pointer;text-align:left}
 
 /* LIVE TV IMAGE REDUCTION */
-#liveTV img {
-    max-width: 90%;
-    max-height: 80vh;  /* tu peux ajuster à 60vh si tu veux encore plus petit */
-    width: auto;
-    height: auto;
+#liveTV .live-img-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100% - 50px); /* garde l'espace pour le header */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#liveTV .live-img-wrapper img {
+    max-width: 80%;   /* limite la largeur de l'image */
+    max-height: 70vh; /* limite la hauteur */
     object-fit: contain;
-    border-radius: 15px;
+    border-radius: 12px;
 }
 
 /* BOUTONS FLOTTANTS */
@@ -423,13 +430,17 @@ function playLive(){
     const item=LIVE_PLAYLIST[liveIndex];
     clearTimeout(liveTimer);
     if(!item) return;
-    if(item.type==="image"){
-        zone.innerHTML="";
-        zone.style.backgroundImage=`url(${item.url})`;
-        zone.style.backgroundSize="cover";
-        zone.style.backgroundPosition="center";
-    } else {
-        zone.style.backgroundImage="none";
+    if(item.type === "image") {
+    zone.innerHTML = `<div class="live-img-wrapper">
+        <img src="${item.url}" alt="${item.title}" style="max-width:100%; max-height:100%; object-fit:contain;">
+    </div>`;
+} else {
+    // code pour les autres types
+}
+ else {
+    
+
+{   zone.style.backgroundImage="none";
         if(item.type==="youtube"){
             let id=item.url.includes("watch?v=")?item.url.split("watch?v=")[1].split("&")[0]:item.url.split("youtu.be/")[1];
             zone.innerHTML=`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}?autoplay=1" allowfullscreen></iframe>`;
