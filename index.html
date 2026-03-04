@@ -36,6 +36,16 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .live-popup{position:fixed;bottom:100px;right:18px;background:#222;padding:12px;border-radius:12px;color:#fff;z-index:9999;max-height:60vh;overflow-y:auto;display:none}
 .live-popup button{display:block;width:100%;margin-bottom:6px;background:#0044cc;color:#fff;border:none;padding:6px 10px;border-radius:8px;cursor:pointer;text-align:left}
 
+/* LIVE TV IMAGE REDUCTION */
+#liveTV img {
+    max-width: 90%;
+    max-height: 80vh;  /* tu peux ajuster à 60vh si tu veux encore plus petit */
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
 /* BOUTONS FLOTTANTS */
 .floating-btn{position:fixed;width:50px;height:50px;border-radius:50%;font-size:20px;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px #222;}
 #liveBtn{bottom:18px;right:18px;background:red;color:#fff;}
