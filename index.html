@@ -361,7 +361,22 @@ const DEFAULT_PROFILE="https://via.placeholder.com/40x40.png?text=LN";
 	
 	
 	
-	
+	// Détection automatique du type de média
+function detectType(url){
+  if(!url) return "image";
+
+  url=url.toLowerCase();
+
+  if(url.endsWith(".mp4")) return "mp4";
+  if(url.endsWith(".mp3") || url.endsWith(".opus")) return "audio";
+  if(url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".png") || url.endsWith(".webp")) return "image";
+
+  if(url.includes("youtube.com") || url.includes("youtu.be")) return "youtube";
+
+  if(url.includes("facebook.com") || url.includes("reel")) return "iframe";
+
+  return "iframe";
+}
 	
 	
 
@@ -404,6 +419,7 @@ function openList(){
     const catDiv=document.createElement('div');catDiv.style.marginBottom='20px';
     catDiv.innerHTML=`<h3 style="color:#4ea1ff;">${cat.title}</h3>`;
     cat.medias.forEach(media=>{
+  media.type = detectType(media.url);
       const line=document.createElement('div');line.style.margin='4px 0';
       line.innerHTML=`<a href="${media.url}" target="_blank" style="color:#fff;text-decoration:underline;">▶ ${media.title}</a>`;
       catDiv.appendChild(line);
