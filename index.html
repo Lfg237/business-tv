@@ -143,15 +143,17 @@ function openAnnonce(text,phone,whatsapp){
 function closeAnnonce(){document.getElementById('annoncePopup').style.display='none';}
 
 // --- LIVE ---
-let LIVE_PLAYLIST=[{type:'mp4',url:'https://www.w3schools.com/html/mov_bbb.mp4'}];
+let LIVE_PLAYLIST=[];
 let liveIndex=0;
 function playLive(){
   const lp=document.getElementById('livePlayer');lp.innerHTML='';
   if(LIVE_PLAYLIST.length===0) return;
   const cur=LIVE_PLAYLIST[liveIndex];
   if(cur.type==='mp4') lp.innerHTML=`<video controls autoplay style="width:100%;height:100%;"><source src="${cur.url}" type="video/mp4"></video>`;
+  else if(cur.type==='audio') lp.innerHTML=`<audio controls autoplay style="width:90%;"><source src="${cur.url}" type="audio/mpeg"></audio>`;
   else if(cur.type==='image') lp.innerHTML=`<img src="${cur.url}" style="max-width:100%;max-height:100%;object-fit:contain;">`;
   else if(cur.type==='youtube'){ const videoId=cur.url.split('v=')[1]||cur.url.split('/').pop(); lp.innerHTML=`<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen style="width:100%;height:100%;"></iframe>`;}
+  else lp.innerHTML=`<iframe src="${cur.url}" allowfullscreen style="width:100%;height:100%;"></iframe>`;
 }
 function openLive(){document.getElementById('liveTV').style.display='block';playLive();}
 function closeLiveTV(){document.getElementById('liveTV').style.display='none';}
@@ -161,12 +163,11 @@ function nextLive(){liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length;playLive();}
 // --- Boutons flottants ---
 document.getElementById('liveBtn').onclick=openLive;
 document.getElementById('listBtn').onclick=openList;
-document.getElementById('subBtn').onclick=function(){alert('Abonnements / Notifications');}
-
+document.getElementById('subBtn').onclick=toggleSubscribe;
 // --- Catégories et médias ---
-const DEFAULT_PROFILE="https://via.placeholder.com/40x40.png?text=LN";
+const DEFAULT_PROFILE="https://via.placeholder.com/40x40.png?text=TV";
 
-	const CATEGORIES = [
+const CATEGORIES = [
   {
     title: " Vente flash",
     profile: 
@@ -358,77 +359,126 @@ const DEFAULT_PROFILE="https://via.placeholder.com/40x40.png?text=LN";
     ]
   }
 ];
-	
-	
-	
-	// Détection automatique du type de média
+
+// --- Helper pour détecter type de média ---
 function detectType(url){
-  if(!url) return "image";
-
-  url=url.toLowerCase();
-
-  if(url.endsWith(".mp4")) return "mp4";
-  if(url.endsWith(".mp3") || url.endsWith(".opus")) return "audio";
-  if(url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".png") || url.endsWith(".webp")) return "image";
-
-  if(url.includes("youtube.com") || url.includes("youtu.be")) return "youtube";
-
-  if(url.includes("facebook.com") || url.includes("reel")) return "iframe";
-
-  return "iframe";
+  if(url.includes("youtube")||url.includes("youtu.be")) return 'youtube';
+  if(url.endsWith(".mp4")) return 'mp4';
+  if(url.endsWith(".mp3")||url.endsWith(".opus")) return 'audio';
+  if(url.endsWith(".jpg")||url.endsWith(".png")||url.endsWith(".jpeg")) return 'image';
+  if(url.includes("facebook.com/reel")) return 'iframe';
+  return 'iframe';
 }
-	
-	
 
-// --- Affichage des catégories ---
-const content=document.getElementById('content');
-CATEGORIES.forEach(cat=>{
-  const catDiv=document.createElement('div');catDiv.className='category';
-  const header=document.createElement('div');header.className='category-header';
-  header.innerHTML=`<img src="${cat.profile}" class="category-profile"><h2>${cat.title}</h2>`;
-  catDiv.appendChild(header);
-
-  const row=document.createElement('div');row.className='media-row';
-  cat.medias.forEach(media=>{
-    const card=document.createElement('div');card.className='media-card';
-    // miniature
-    let thumb='';
-    if(media.type==='image') thumb=media.url;
-    else if(media.type==='mp4') thumb='https://via.placeholder.com/180x150.png?text=Video';
-    else if(media.type==='youtube'){const vid=media.url.split('v=')[1]||media.url.split('/').pop(); thumb=`https://img.youtube.com/vi/${vid}/hqdefault.jpg`;}
-    else thumb='https://via.placeholder.com/180x150.png?text=Media';
-
-    card.innerHTML=`
-      <img src="${thumb}" alt="${media.title}">
-      <div style="padding:4px;font-size:12px;">${media.title}</div>
-      <div class="actions-line"></div>
-      <div class="actions">
-        <a href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent(media.title)}" target="_blank" class="share-btn">💬 WhatsApp</a>
-        <button class="btn" onclick="LIVE_PLAYLIST=${JSON.stringify(cat.medias)};liveIndex=${cat.medias.indexOf(media)};openLive();">▶ Play</button>
-      </div>`;
-    row.appendChild(card);
-  });
-  catDiv.appendChild(row);
-  content.appendChild(catDiv);
-});
-
-// --- Liste popup ---
-function openList(){
-  const container=document.getElementById('listContent');container.innerHTML='';
+// --- Générer le contenu ---
+function renderContent(){
+  const container=document.getElementById('content');
   CATEGORIES.forEach(cat=>{
-    const catDiv=document.createElement('div');catDiv.style.marginBottom='20px';
-    catDiv.innerHTML=`<h3 style="color:#4ea1ff;">${cat.title}</h3>`;
-    cat.medias.forEach(media=>{
-  media.type = detectType(media.url);
-      const line=document.createElement('div');line.style.margin='4px 0';
-      line.innerHTML=`<a href="${media.url}" target="_blank" style="color:#fff;text-decoration:underline;">▶ ${media.title}</a>`;
-      catDiv.appendChild(line);
+    // Ajouter au live playlist
+  cat.medias.forEach(m => LIVE_PLAYLIST.push({url:m.url,type:detectType(m.url), title:m.title, category: cat.title}));
+
+    const catDiv=document.createElement('div');catDiv.className='category';
+    const header=document.createElement('div');header.className='category-header';
+    const img=document.createElement('img');img.src=cat.profile;img.className='category-profile';
+    const h2=document.createElement('h2');h2.innerText=cat.title;
+    header.appendChild(img);header.appendChild(h2);catDiv.appendChild(header);
+
+    const mediaRow=document.createElement('div');mediaRow.className='media-row';
+    cat.medias.forEach(m=>{
+      const card=document.createElement('div');card.className='media-card';
+      const type=detectType(m.url);
+      if(type==='image'){card.innerHTML=`<img src="${m.url}" alt="${m.title}">`;}
+      else if(type==='mp4'){card.innerHTML=`<video controls src="${m.url}" style="width:100%;height:150px;"></video>`;}
+      else if(type==='audio'){card.innerHTML=`<audio controls src="${m.url}" style="width:100%;"></audio>`;}
+      else{card.innerHTML=`<iframe src="${m.url}" style="width:100%;height:150px;" allowfullscreen></iframe>`;}
+      
+      const actions=document.createElement('div');actions.className='actions';
+      const btnPlay=document.createElement('button');btnPlay.className='btn';btnPlay.innerText='▶ Live';
+      btnPlay.onclick=()=>{liveIndex=LIVE_PLAYLIST.findIndex(lp=>lp.url===m.url);openLive();}
+      const btnWA=document.createElement('a');btnWA.className='share-btn';
+      btnWA.href="https://wa.me/"+cat.whatsapp+"?text="+encodeURIComponent("Regarder "+m.title);btnWA.target="_blank";btnWA.innerText='💬 WhatsApp';
+      actions.appendChild(btnPlay);actions.appendChild(btnWA);
+      card.appendChild(actions);
+      mediaRow.appendChild(card);
     });
+    catDiv.appendChild(mediaRow);
     container.appendChild(catDiv);
   });
-  document.getElementById('listPopup').style.display='block';
 }
-function closeList(){document.getElementById('listPopup').style.display='none';}
+renderContent();
+
+// --- Liste Popup ---
+function openList(){
+  const listContent = document.getElementById('listContent');
+  listContent.innerHTML = '';
+
+  // On regroupe par catégorie
+  const categoriesMap = {};
+  LIVE_PLAYLIST.forEach((m, i) => {
+    if(!categoriesMap[m.category]) categoriesMap[m.category] = [];
+    categoriesMap[m.category].push({index: i, title: m.title});
+  });
+
+  // On crée le DOM
+  Object.keys(categoriesMap).forEach(catTitle => {
+    const catHeader = document.createElement('h3');
+    catHeader.innerText = catTitle;
+    catHeader.style.color = '#4ea1ff';
+    listContent.appendChild(catHeader);
+
+    categoriesMap[catTitle].forEach(item => {
+      const btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.innerText = item.title || 'Live ' + (item.index + 1);
+      btn.style.display = 'block';
+      btn.style.margin = '4px 0';
+      btn.onclick = () => { 
+        liveIndex = item.index; 
+        openLive(); 
+      };
+      listContent.appendChild(btn);
+    });
+  });
+
+  document.getElementById('listPopup').style.display = 'block';
+}
+
+function closeList(){
+  document.getElementById('listPopup').style.display = 'none';
+}
+
+function closeList(){
+  document.getElementById('listPopup').style.display = 'none';
+}
+
+// --- Abonnement / Notifications ---
+let subscribed=false;
+function toggleSubscribe(){
+  subscribed=!subscribed;
+  const btn=document.getElementById('subBtn');
+  btn.style.background=subscribed?'green':'#222';
+  if(subscribed) requestDailyNotification();
+}
+
+function requestDailyNotification(){
+  if(!("Notification" in window)) return alert("Notifications non supportées !");
+  Notification.requestPermission().then(permission=>{
+    if(permission==="granted") scheduleDailyNotification();
+  });
+}
+
+function scheduleDailyNotification(){
+  const now=new Date();
+  const next=new Date();
+  next.setHours(10,0,0,0);
+  if(now>next) next.setDate(next.getDate()+1);
+  const delay=next-now;
+  setTimeout(function dailyNotif(){
+    if(subscribed) new Notification("Business TV - Nouveau Live disponible !",{body:"Connectez-vous sur le site pour regarder le live",icon:DEFAULT_PROFILE});
+    setTimeout(dailyNotif,24*60*60*1000);
+  },delay);
+}
+
 </script>
 </body>
 </html>
