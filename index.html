@@ -25,7 +25,7 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
 .category h2{margin:0;color:#4ea1ff;font-size:16px}
 .media-row{display:flex;gap:10px;overflow-x:auto;scroll-behavior: smooth;padding:8px;}
 .media-card{min-width:180px;background:#121b2c;border-radius:12px;overflow:hidden;box-shadow:0 3px 6px rgba(0,0,0,.5);}
-.player iframe,.player video,.player img,.player audio{width:100%;height:150px;border:none;object-fit:cover;}
+.media-card img,.media-card iframe,.media-card video{width:100%;height:150px;object-fit:cover;}
 .actions{display:flex;justify-content:space-around;padding:2px 0;flex-wrap:wrap;}
 .btn{background:#0044cc;color:white;padding:2px 4px;border-radius:6px;font-size:11px;text-decoration:none;cursor:pointer}
 .btn:hover{background:#0066ff}
@@ -49,12 +49,6 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
 #listBtn{bottom:68px;right:18px;background:#222;color:#fff;}
 #subBtn{bottom:118px;right:18px;background:#222;color:#fff;}
 #jobBtn{bottom:168px;right:18px;background:orange;color:#fff;}
-#subBtn.active{background:green;color:#fff;}
-
-/* OUVERT/FERMÉ */
-.open-btn{padding:2px 6px;border-radius:6px;color:#fff;font-weight:bold;font-size:11px;}
-.open-btn.open{background:green;}
-.open-btn.closed{background:red;}
 
 /* Horloge */
 #clock{color:#fff;font-weight:bold;font-size:14px;}
@@ -63,6 +57,11 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
 #annoncePopup{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:100000;}
 #annoncePopup div{background:#121b2c;padding:20px;border-radius:15px;width:90%;max-width:320px;text-align:center;}
 #annoncePopup a{margin:0 5px;}
+
+/* POPUP LISTE */
+#listPopup{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);color:#fff;z-index:100000;overflow:auto;padding:20px;}
+#listPopup div{max-width:600px;margin:0 auto;}
+#listPopup h2{text-align:center;margin-bottom:12px;}
 </style>
 </head>
 <body>
@@ -76,8 +75,7 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
     <div id="clock"></div>
   </div>
 
-  <!-- BOUTONS DES ANNONCES EN HAUT -->
-  <div class="annonce-bar" id="annonceBar">
+  <div class="annonce-bar">
     <button class="annonce-btn" onclick="openAnnonce('📢 Promo Business TV','237656050097','237670035609')">📢 Promo Business TV</button>
     <button class="annonce-btn" onclick="openAnnonce('🎬 Community Manager & site web','237656050097','237670035609')">🎬 Community Manager</button>
     <button class="annonce-btn" onclick="openAnnonce('💼 Publier profil gratuit','237656050097','237670035609')">💼 Publier profil gratuit</button>
@@ -86,7 +84,6 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
 
 <div id="content"></div>
 
-<!-- LIVE PLAYER -->
 <div id="liveTV">
   <div class="live-header">
     <strong>🔴 BUSINESS TV LIVE</strong>
@@ -99,7 +96,6 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
   </div>
 </div>
 
-<!-- POPUP ANNONCE -->
 <div id="annoncePopup">
   <div>
     <p id="annonceText"></p>
@@ -113,116 +109,125 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
   </div>
 </div>
 
-<!-- BOUTONS FLOTTANTS -->
+<div id="listPopup">
+  <div>
+    <h2>📋 Liste des médias</h2>
+    <div id="listContent"></div>
+    <div style="text-align:center;margin-top:12px;">
+      <button onclick="closeList()" style="background:red;color:white;padding:8px 12px;border:none;border-radius:6px;cursor:pointer;">❌ Fermer</button>
+    </div>
+  </div>
+</div>
+
 <div id="liveBtn" class="floating-btn">▶</div>
 <div id="listBtn" class="floating-btn">📋</div>
 <div id="subBtn" class="floating-btn">🔔</div>
 <div id="jobBtn" class="floating-btn" onclick="window.open('https://workshopkmer.vercel.app/','_blank')">💼</div>
 
-<!-- TICKER -->
 <div class="ticker-wrapper">
   <div class="ticker">🔴 BUSINESS TV LIVE • Promotion gratuite • Contact WhatsApp 670035609 •</div>
 </div>
 
 <script>
-// --- HORLOGE LOCALE ---
-function updateClock(){
-  const c=document.getElementById('clock');
-  const d=new Date();
-  c.innerText=d.toLocaleTimeString();
-}
-setInterval(updateClock,1000);
-updateClock();
+// --- Horloge ---
+function updateClock(){document.getElementById('clock').innerText=new Date().toLocaleTimeString();}
+setInterval(updateClock,1000);updateClock();
 
-// --- POPUP ANNONCE ---
+// --- Popup Annonce ---
 function openAnnonce(text,phone,whatsapp){
   document.getElementById('annonceText').innerText=text;
   document.getElementById('annonceCall').href="tel:"+phone;
   document.getElementById('annonceWA').href="https://wa.me/"+whatsapp+"?text="+encodeURIComponent(text);
-  document.getElementById('annoncePopup').style.display="flex";
+  document.getElementById('annoncePopup').style.display='flex';
 }
-function closeAnnonce(){
-  document.getElementById('annoncePopup').style.display="none";
-}
+function closeAnnonce(){document.getElementById('annoncePopup').style.display='none';}
 
 // --- LIVE ---
-let LIVE_PLAYLIST=[];
+let LIVE_PLAYLIST=[{type:'mp4',url:'https://www.w3schools.com/html/mov_bbb.mp4'}];
 let liveIndex=0;
-function prevLive(){ if(LIVE_PLAYLIST.length===0)return; liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length; playLive(); }
-function nextLive(){ if(LIVE_PLAYLIST.length===0)return; liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length; playLive(); }
 function playLive(){
+  const lp=document.getElementById('livePlayer');lp.innerHTML='';
   if(LIVE_PLAYLIST.length===0) return;
-  const lp=document.getElementById('livePlayer');
   const cur=LIVE_PLAYLIST[liveIndex];
-  lp.innerHTML='';
-  if(cur.type==='youtube'){
-    lp.innerHTML=`<iframe src="https://www.youtube.com/embed/${cur.id||cur.url}" allowfullscreen></iframe>`;
-  } else if(cur.type==='facebook'){
-    lp.innerHTML=`<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(cur.url)}&show_text=false" allowfullscreen></iframe>`;
-  } else if(cur.type==='mp4'){
-    lp.innerHTML=`<video controls autoplay><source src="${cur.url}" type="video/mp4"></video>`;
-  } else if(cur.type==='image'){
-    lp.innerHTML=`<img src="${cur.url}" style="max-width:100%;max-height:100%;object-fit:contain;">`;
-  } else if(cur.type==='mp3'){
-    lp.innerHTML=`<audio controls autoplay style="width:100%;"><source src="${cur.url}" type="audio/mpeg"></audio>`;
-  }
+  if(cur.type==='mp4') lp.innerHTML=`<video controls autoplay style="width:100%;height:100%;"><source src="${cur.url}" type="video/mp4"></video>`;
+  else if(cur.type==='image') lp.innerHTML=`<img src="${cur.url}" style="max-width:100%;max-height:100%;object-fit:contain;">`;
+  else if(cur.type==='youtube'){ const videoId=cur.url.split('v=')[1]||cur.url.split('/').pop(); lp.innerHTML=`<iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen style="width:100%;height:100%;"></iframe>`;}
 }
-function openLive(){ document.getElementById('liveTV').style.display='block'; playLive(); }
-function closeLiveTV(){ document.getElementById('liveTV').style.display='none'; }
+function openLive(){document.getElementById('liveTV').style.display='block';playLive();}
+function closeLiveTV(){document.getElementById('liveTV').style.display='none';}
+function prevLive(){liveIndex=(liveIndex-1+LIVE_PLAYLIST.length)%LIVE_PLAYLIST.length;playLive();}
+function nextLive(){liveIndex=(liveIndex+1)%LIVE_PLAYLIST.length;playLive();}
 
-// --- BOUTONS FLOTTANTS ---
+// --- Boutons flottants ---
 document.getElementById('liveBtn').onclick=openLive;
-document.getElementById('listBtn').onclick=function(){ alert('Liste des médias'); }
-document.getElementById('subBtn').onclick=function(){ alert('Abonnements / Notifications'); }
+document.getElementById('listBtn').onclick=openList;
+document.getElementById('subBtn').onclick=function(){alert('Abonnements / Notifications');}
 
-// --- CATEGORIES ---
+// --- Catégories et médias ---
 const DEFAULT_PROFILE="https://via.placeholder.com/40x40.png?text=LN";
-const CATEGORIES = [
+
+	const CATEGORIES = [
   {
-    title: "Vente flash",
-    profile: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20251209-WA0011.jpg",
+    title: " Vente flash",
+    profile: 
+"https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20251209-WA0011.jpg",
     phone: "237656050097",
     whatsapp: "237670035609",
     medias: [
       { title: "Vente rapide le flash du jour Reel 3", url: "https://www.facebook.com/reel/921053893432571/?app=fbl" },
       { title: "Image promo flash", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png" },
-      { title: "Image promo flash", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20251209-WA0011.jpg" },
+{ title: "Image promo flash", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20251209-WA0011.jpg" },
       { title: "Vente Reel", url: "https://www.facebook.com/reel/921053893432571/?app=fbl" },
       { title: "Promo Image", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/Polish_20260223_163236698.png" }
     ]
   },
-  {
-    title: "Solution voyage",
+{
+    title: " solution voyage",
     profile: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260303-WA0011.jpg",
     phone: "237656050097",
     whatsapp: "237670035609",
     medias: [
-      { title: "Solution voyage 1", url: "https://www.facebook.com/share/p/1ChTemfvY6/?mibextid=wwXIfr" },
-      { title: "Solution voyage 2", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260303-WA0006.jpg" },
-      { title: "Solution voyage 3", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260303-WA0007.jpg" },
-      { title: "Solution voyage 4", url: "https://www.facebook.com/reel/3788836957913590/?app=fbl" },
-      { title: "Solution voyage 5", url: "https://www.facebook.com/reel/1417938946693420/?app=fbl" },
+      { title: "solution voyage 1", url: "https://www.facebook.com/share/p/1ChTemfvY6/?mibextid=wwXIfr" },
+      { title: "solution voyage 2", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260303-WA0006.jpg" },
+      { title: "solution voyage 3", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260303-WA0007.jpg" },
+{ title: "solution voyage 4", url: "https://www.facebook.com/reel/3788836957913590/?app=fbl" }
+  ,
+{ title: "solution voyage 5", url: "https://www.facebook.com/reel/1417938946693420/?app=fbl" }
+  ,
       { title: "Promo Image", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260303-WA0011.jpg" }
     ]
   },
+
+
+
   {
     title: "La Kass",
     profile: DEFAULT_PROFILE,
     phone: "237656050097",
     whatsapp: "237670035609",
     medias: [
+
       { title: "Facebook Reel 1", url: "https://www.facebook.com/reel/936858412242126/" },
       { title: "b.tv 1", url: "https://www.facebook.com/reel/659085228484377/" },
+
       { title: "YouTube Vidéo", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+
       { title: "TikTok Vidéo", url: "https://vm.tiktok.com/ZS9enxnJruTuP-4A5mh/" },
+
       { title: "MP4 Vidéo", url: "https://www.w3schools.com/html/mov_bbb.mp4" },
+
       { title: "Groupe du don du sang 237", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260302_184228693.jpg" },
+
       { title: "Image La Kass 1", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/IMG-20260227-WA0001.jpg" },
+
       { title: "Image La Kass 2", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260304_204736574.jpg" },
+
       { title: "Image La Kass 3", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260304_213328179.jpg" },
+
       { title: "Image La Kass 4", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/InShot_20260304_213353146.jpg" }
+
     ]
-  },
+},
 
 {
     title: "Zeus money vitrier",
@@ -352,43 +357,53 @@ const CATEGORIES = [
       { title: "Audio Opus", url: "https://raw.githubusercontent.com/Lfg237/m-dias/main/recherche%20terrain.opus" }
     ]
   }
-
-  
-  
-  
-  
-  
 ];
+	
+	
+	
+	
+	
+	
 
-// --- RENDER CATEGORIES ---
-function renderCategories(){
-  const content=document.getElementById('content');
-  CATEGORIES.forEach(cat=>{
-    const div=document.createElement('div');
-    div.className='category';
-    div.innerHTML=`
-      <div class="category-header">
-        <img src="${cat.profile||DEFAULT_PROFILE}" class="category-profile">
-        <h2>${cat.title}</h2>
-      </div>
-      <div class="media-row">
-        ${cat.medias.map(m=>`
-          <div class="media-card">
-            <div class="player">${m.url.endsWith('.mp4')?`<video controls src="${m.url}"></video>`:
-                                    m.url.endsWith('.mp3')?`<audio controls src="${m.url}"></audio>`:
-                                    `<img src="${m.url}">`}</div>
-            <div class="actions">
-              <a class="btn" href="${m.url}" target="_blank">Voir</a>
-              <a class="share-btn" href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent(m.title)}" target="_blank">WA</a>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-    content.appendChild(div);
+// --- Affichage des catégories ---
+const content=document.getElementById('content');
+CATEGORIES.forEach(cat=>{
+  const catDiv=document.createElement('div');catDiv.className='category';
+  const header=document.createElement('div');header.className='category-header';
+  header.innerHTML=`<img src="${cat.profile}" class="category-profile"><h2>${cat.title}</h2>`;
+  catDiv.appendChild(header);
+
+  const row=document.createElement('div');row.className='media-row';
+  cat.medias.forEach(media=>{
+    const card=document.createElement('div');card.className='media-card';
+    // miniature
+    let thumb='';
+    if(media.type==='image') thumb=media.url;
+    else if(media.type==='mp4') thumb='https://via.placeholder.com/180x150.png?text=Video';
+    else if(media.type==='youtube'){const vid=media.url.split('v=')[1]||media.url.split('/').pop(); thumb=`https://img.youtube.com/vi/${vid}/hqdefault.jpg`;}
+    else thumb='https://via.placeholder.com/180x150.png?text=Media';
+
+    card.innerHTML=`
+      <img src="${thumb}" alt="${media.title}">
+      <div style="padding:4px;font-size:12px;">${media.title}</div>
+      <div class="actions-line"></div>
+      <div class="actions">
+        <a href="https://wa.me/${cat.whatsapp}?text=${encodeURIComponent(media.title)}" target="_blank" class="share-btn">💬 WhatsApp</a>
+        <button class="btn" onclick="LIVE_PLAYLIST=${JSON.stringify(cat.medias)};liveIndex=${cat.medias.indexOf(media)};openLive();">▶ Play</button>
+      </div>`;
+    row.appendChild(card);
   });
-}
-renderCategories();
-</script>
-</body>
-</html>
+  catDiv.appendChild(row);
+  content.appendChild(catDiv);
+});
+
+// --- Liste popup ---
+function openList(){
+  const container=document.getElementById('listContent');container.innerHTML='';
+  CATEGORIES.forEach(cat=>{
+    const catDiv=document.createElement('div');catDiv.style.marginBottom='20px';
+    catDiv.innerHTML=`<h3 style="color:#4ea1ff;">${cat.title}</h3>`;
+    cat.medias.forEach(media=>{
+      const line=document.createElement('div');line.style.margin='4px 0';
+      line.innerHTML=`<a href="${media.url}" target="_blank" style="color:#fff;text-decoration:underline;">▶ ${media.title}</a>`;
+      catDiv.app
