@@ -406,4 +406,13 @@ function openList(){
     cat.medias.forEach(media=>{
       const line=document.createElement('div');line.style.margin='4px 0';
       line.innerHTML=`<a href="${media.url}" target="_blank" style="color:#fff;text-decoration:underline;">▶ ${media.title}</a>`;
-      catDiv.app
+      catDiv.appendChild(line);
+    });
+    container.appendChild(catDiv);
+  });
+  document.getElementById('listPopup').style.display='block';
+}
+function closeList(){document.getElementById('listPopup').style.display='none';}
+</script>
+</body>
+</html>
