@@ -75,11 +75,26 @@ header h1{font-size:22px;font-weight:bold;background:linear-gradient(270deg,#4ea
     <div id="clock"></div>
   </div>
 
-  <div class="annonce-bar">
-    <button class="annonce-btn" onclick="openAnnonce('📢 Promo Business TV','237656050097','237670035609')">📢 Promo Business TV</button>
-    <button class="annonce-btn" onclick="openAnnonce('🎬 Community Manager & site web','237656050097','237670035609')">🎬 Community Manager</button>
-    <button class="annonce-btn" onclick="openAnnonce('💼 Publier profil gratuit','237656050097','237670035609')">💼 Publier profil gratuit</button>
-  </div>
+<div class="annonce-container">
+
+<button class="annonce-btn"
+onclick="openAnnonce('📢 Promo Business TV','237656050097','237670035609',window.location.href)">
+📢 Promo Business TV
+</button>
+
+<button class="annonce-btn"
+onclick="openAnnonce('🎬 Community Manager & site web','237656050097','237670035609',window.location.href)">
+🎬 Community Manager
+</button>
+
+<button class="annonce-btn"
+onclick="openAnnonce('💼 Publier profil gratuit','237656050097','237670035609',window.location.href)">
+💼 Publier profil gratuit
+</button>
+
+</div>
+
+
 </header>
 
 <div id="content"></div>
@@ -134,11 +149,22 @@ function updateClock(){document.getElementById('clock').innerText=new Date().toL
 setInterval(updateClock,1000);updateClock();
 
 // --- Popup Annonce ---
-function openAnnonce(text,phone,whatsapp){
-  document.getElementById('annonceText').innerText=text;
-  document.getElementById('annonceCall').href="tel:"+phone;
-  document.getElementById('annonceWA').href="https://wa.me/"+whatsapp+"?text="+encodeURIComponent(text);
-  document.getElementById('annoncePopup').style.display='flex';
+function openAnnonce(text,phone,whatsapp,link){
+
+  document.getElementById('annonceText').innerText = text;
+
+  document.getElementById('annonceCall').href = "tel:" + phone;
+
+  let message =
+  text +
+  "\n\n📺 Voir le média ici :\n" +
+  link +
+  "\n\n🔴 Business TV";
+
+  document.getElementById('annonceWA').href =
+  "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(message);
+
+  document.getElementById('annoncePopup').style.display = 'flex';
 }
 function closeAnnonce(){document.getElementById('annoncePopup').style.display='none';}
 
@@ -394,7 +420,7 @@ function renderContent(){
       else if(type==='audio'){card.innerHTML=`<audio controls src="${m.url}" style="width:100%;"></audio>`;}
       else{card.innerHTML=`<iframe src="${m.url}" style="width:100%;height:150px;" allowfullscreen></iframe>`;}
       
-      const actions=document.createElement('div');actions.className='actions';
+           const actions=document.createElement('div');actions.className='actions';
       const btnPlay=document.createElement('button');btnPlay.className='btn';btnPlay.innerText='▶ Live';
       btnPlay.onclick=()=>{liveIndex=LIVE_PLAYLIST.findIndex(lp=>lp.url===m.url);openLive();}
       const btnWA=document.createElement('a');btnWA.className='share-btn';
