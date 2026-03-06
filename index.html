@@ -167,9 +167,6 @@ function openAnnonce(text,phone,whatsapp,link){
 
   document.getElementById('annoncePopup').style.display = 'flex';
 }
-
-
-}
 function closeAnnonce(){document.getElementById('annoncePopup').style.display='none';}
 
 // --- LIVE ---
@@ -511,6 +508,22 @@ function scheduleDailyNotification(){
   },delay);
 }
 
+// Vérifier si un média est passé dans l'URL
+const params = new URLSearchParams(window.location.search);
+const mediaParam = params.get("media");
+
+if(mediaParam){
+  setTimeout(()=>{
+    // Ajouter ce média en tête de la playlist et l'ouvrir
+    LIVE_PLAYLIST.unshift({
+      url: decodeURIComponent(mediaParam),
+      type: detectType(mediaParam)
+    });
+    liveIndex = 0;
+    openLive();
+    playLive();
+  }, 500);
+}
 
 </script>
 </body>
