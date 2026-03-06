@@ -171,12 +171,12 @@ function openAnnonce(text, phone, whatsapp, link){
   document.getElementById('annonceCall').href = "tel:" + phone;
 
   // lien vers ton site Business TV
-  let mediaLink = ?media=" + encodeURIComponent(link);
+  let mediaLink = "https://business-tv.vercel.app/?media=" + encodeURIComponent(link);
 
   // message WhatsApp
   let message =
     text +
-    "\n\n📺 Voir le média sur Business TV, "https://business-tv.vercel.app/":\n" +
+    "\n\n📺 Voir le média sur Business TV :\n" +
     mediaLink +
     "\n\n🔴 Business TV";
 
