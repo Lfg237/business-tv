@@ -162,26 +162,36 @@ function updateClock(){document.getElementById('clock').innerText=new Date().toL
 setInterval(updateClock,1000);updateClock();
 
 // --- Popup Annonce ---
-function openAnnonce(text,phone,whatsapp,link){
+function openAnnonce(text, phone, whatsapp, link){
+
+  // texte dans le popup
   document.getElementById('annonceText').innerText = text;
+
+  // bouton appel
   document.getElementById('annonceCall').href = "tel:" + phone;
 
-  // Ici on transforme le lien pour rediriger vers notre site
+  // lien vers ton site Business TV
   let mediaLink = "https://business-tv.vercel.app/?media=" + encodeURIComponent(link);
 
+  // message WhatsApp
   let message =
     text +
     "\n\n📺 Voir le média sur Business TV :\n" +
     mediaLink +
     "\n\n🔴 Business TV";
 
+  // bouton WhatsApp
   document.getElementById('annonceWA').href =
     "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(message);
 
+  // ouvrir popup
   document.getElementById('annoncePopup').style.display = 'flex';
 }
-function closeAnnonce(){document.getElementById('annoncePopup').style.display='none';}
 
+// fermer popup
+function closeAnnonce(){
+  document.getElementById('annoncePopup').style.display='none';
+}
 // --- LIVE ---
 let LIVE_PLAYLIST=[];
 let liveIndex=0;
