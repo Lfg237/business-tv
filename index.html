@@ -150,21 +150,25 @@ setInterval(updateClock,1000);updateClock();
 
 // --- Popup Annonce ---
 function openAnnonce(text,phone,whatsapp,link){
-
   document.getElementById('annonceText').innerText = text;
-
   document.getElementById('annonceCall').href = "tel:" + phone;
 
+  // Ici on transforme le lien pour rediriger vers notre site
+  let mediaLink = "https://business-tv.vercel.app/?media=" + encodeURIComponent(link);
+
   let message =
-  text +
-  "\n\n📺 Voir le média ici :\n" +
-  link +
-  "\n\n🔴 Business TV";
+    text +
+    "\n\n📺 Voir le média sur Business TV :\n" +
+    mediaLink +
+    "\n\n🔴 Business TV";
 
   document.getElementById('annonceWA').href =
-  "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(message);
+    "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(message);
 
   document.getElementById('annoncePopup').style.display = 'flex';
+}
+
+
 }
 function closeAnnonce(){document.getElementById('annoncePopup').style.display='none';}
 
@@ -505,6 +509,24 @@ function scheduleDailyNotification(){
     if(subscribed) new Notification("Business TV - Nouveau Live disponible !",{body:"Connectez-vous sur le site pour regarder le live",icon:DEFAULT_PROFILE});
     setTimeout(dailyNotif,24*60*60*1000);
   },delay);
+},
+
+
+// Vérifier si un média est passé dans l'URL
+const params = new URLSearchParams(window.location.search);
+const mediaParam = params.get("media");
+
+if(mediaParam){
+  setTimeout(()=>{
+    // Ajouter ce média en tête de la playlist et l'ouvrir
+    LIVE_PLAYLIST.unshift({
+      url: decodeURIComponent(mediaParam),
+      type: detectType(mediaParam)
+    });
+    liveIndex = 0;
+    openLive();
+    playLive();
+  }, 500);
 }
 
 </script>
