@@ -177,12 +177,10 @@ function openAnnonce(text, phone, whatsapp, link){
 
   // message WhatsApp
   let message =
-    text +
-    "\n\n📺 Voir le média sur Business TV :\n" +
-    mediaLink +
-    "\n\n🌐 Accéder à Business TV :\nhttps://business-tv.vercel.app/" +
-    "\n\n🔴 Business TV";
-
+  "📢 " + text +
+  "\n\n📺 Voir le média :\n" +
+  mediaLink +
+  "\n\n🌐 Visite Business TV :\nhttps://business-tv.vercel.app/";
   // bouton WhatsApp
   document.getElementById('annonceWA').href =
     "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(message);
