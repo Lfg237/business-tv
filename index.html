@@ -176,12 +176,20 @@ function openAnnonce(text, phone, whatsapp, link){
   let mediaLink = "https://business-tv.vercel.app/?media=" + encodeURIComponent(link);
 
   // message WhatsApp
-  let message =
-  "📢 " + text +
-  "\n\n📺 Voir le média :\n" +
-  mediaLink +
-  "\n\n🌐 Visite Business TV :\nhttps://business-tv.vercel.app/";
-  // bouton WhatsApp
+  // message WhatsApp (format optimisé)
+let message =
+  "📢 " + text + "\n\n" +
+  "🌐 https://business-tv.vercel.app/\n\n" +
+  "📺 Voir le média :\n" +
+  mediaLink;
+
+// IMPORTANT : encodage propre
+let waLink =
+  "https://wa.me/" + whatsapp.replace(/\s+/g, '') +
+  "?text=" + encodeURIComponent(message);
+
+// bouton WhatsApp
+document.getElementById('annonceWA').href = waLink;
   document.getElementById('annonceWA').href =
     "https://wa.me/" + whatsapp + "?text=" + encodeURIComponent(message);
 
